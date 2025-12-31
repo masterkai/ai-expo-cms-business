@@ -62,7 +62,20 @@ export class Exhibitor {
 		}
 	]
 
-	getExhibitors() {
-		return this.exhibitors;
+	async getExhibitors() {
+		return await this.exhibitors;
 	}
+}
+
+
+export interface ExhibitorItem {
+	name: string;
+	description: string;
+	unino: string;
+	agenda_session: string;
+	update_time: string;
+	exhibition_booths: string;
+	media_advertising: string[];
+	add_on_items: string[];
+	dedicated_link: string;
 }
