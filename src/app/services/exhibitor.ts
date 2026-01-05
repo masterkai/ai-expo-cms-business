@@ -4,8 +4,9 @@ import { Injectable } from '@angular/core';
 	providedIn: 'root',
 })
 export class Exhibitor {
-	exhibitors = [
+	exhibitors: ExhibitorItem[] = [
 		{
+			id: '1',
 			name: 'Exhibitor One',
 			description: 'Description for Exhibitor One',
 			unino: '16300799',
@@ -17,6 +18,7 @@ export class Exhibitor {
 			dedicated_link: 'https://example.com/exhibitor-one',
 		},
 		{
+			id: '2',
 			name: 'Exhibitor Two',
 			description: 'Description for Exhibitor Two',
 			unino: '16300800',
@@ -28,6 +30,7 @@ export class Exhibitor {
 			dedicated_link: 'https://example.com/exhibitor-two',
 		},
 		{
+			id: '3',
 			name: 'Exhibitor Three',
 			description: 'Description for Exhibitor Three',
 			unino: '16300801',
@@ -39,6 +42,7 @@ export class Exhibitor {
 			dedicated_link: 'https://example.com/exhibitor-three',
 		},
 		{
+			id: '4',
 			name: 'Exhibitor Four',
 			description: 'Description for Exhibitor Four',
 			unino: '16300802',
@@ -50,6 +54,7 @@ export class Exhibitor {
 			dedicated_link: 'https://example.com/exhibitor-four',
 		},
 		{
+			id: '5',
 			name: 'Exhibitor Five',
 			description: 'Description for Exhibitor Five',
 			unino: '16300803',
@@ -69,6 +74,7 @@ export class Exhibitor {
 
 
 export interface ExhibitorItem {
+	id: string;
 	name: string;
 	description: string;
 	unino: string;

@@ -1,9 +1,9 @@
 <div class="card">
     <p-tabs value="0">
         <p-tablist>
-            <p-tab value="0">Header I</p-tab>
-            <p-tab value="1">Header II</p-tab>
-            <p-tab value="2">Header III</p-tab>
+            <p-tab value="0">參展廠商清單</p-tab>
+            <p-tab value="1">權益異動申請需求清單</p-tab>
+            <p-tab value="2">資料更新待審核清單</p-tab>
         </p-tablist>
         <p-tabpanels>
             <p-tabpanel value="0">
@@ -16,18 +16,39 @@
                 >
                     <ng-template #header>
                         <tr>
-                            <th style="width:25%">Name</th>
-                            <th style="width:25%">Country</th>
-                            <th style="width:25%">Company</th>
-                            <th style="width:25%">Representative</th>
+                            <th style="width:12.5%">建立時間</th>
+                            <th style="width:12.5%">公司名稱</th>
+                            <th style="width:12.5%">統編</th>
+                            <th style="width:12.5%">議程場次</th>
+                            <th style="width:12.5%">展場攤位</th>
+                            <th style="width:12.5%">媒體廣宣</th>
+                            <th style="width:12.5%">加購項目</th>
+                            <th style="width:12.5%">
+                                <div class="w-full flex justify-center">專屬連結</div>
+                            </th>
                         </tr>
                     </ng-template>
-                    <ng-template #body let-customer>
+                    <ng-template #body let-exhibitor>
                         <tr>
-                            <td>{{ customer.name }}</td>
-                            <td>{{ customer.country.name }}</td>
-                            <td>{{ customer.company }}</td>
-                            <td>{{ customer.representative.name }}</td>
+                            <td>{{ exhibitor.update_time }}</td>
+                            <td>{{ exhibitor.name }}</td>
+                            <td>{{ exhibitor.unino }}</td>
+                            <td>{{ exhibitor.agenda_session }}</td>
+                            <td>{{ exhibitor.exhibition_booths }}</td>
+                            <td>{{ exhibitor.media_advertising }}</td>
+                            <td>@for (item of exhibitor.add_on_items; track item.id) {
+                                <div>{{ item }}</div>
+                            }</td>
+                            <td>
+                                <a
+                                        [href]="exhibitor.exclusive_link"
+                                        class="w-full flex justify-center"
+                                        rel="noopener"
+                                        target="_blank"
+                                >
+                                    <i class="pi pi-link" style="font-size: 1rem"></i>
+                                </a>
+                            </td>
                         </tr>
                     </ng-template>
                 </p-table>
