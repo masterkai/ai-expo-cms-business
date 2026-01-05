@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RightsChangeRequirements } from './rights-change-requirements';
+import { RightsChangeRequirementsService } from './rights-change-requirements.service';
 
 describe('RightsChangeRequirements', () => {
-  let service: RightsChangeRequirements;
+  let service: RightsChangeRequirementsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(RightsChangeRequirements);
+    service = TestBed.inject(RightsChangeRequirementsService);
   });
 
   it('should be created', () => {

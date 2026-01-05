@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { Exhibitor } from './exhibitor';
+import { ExhibitorService } from './exhibitor.service';
 
 describe('Exhibitor', () => {
-  let service: Exhibitor;
+  let service: ExhibitorService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(Exhibitor);
+    service = TestBed.inject(ExhibitorService);
   });
 
   it('should be created', () => {

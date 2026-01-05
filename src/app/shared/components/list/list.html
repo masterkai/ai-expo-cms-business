@@ -7,77 +7,13 @@
         </p-tablist>
         <p-tabpanels>
             <p-tabpanel value="0">
-                <p-table
-                        [paginator]="true"
-                        [rowsPerPageOptions]="[5, 10, 20]"
-                        [rows]="5"
-                        [tableStyle]="{ 'min-width': '50rem' }"
-                        [value]="exhibitors()"
-                >
-                    <ng-template #header>
-                        <tr>
-                            <th style="width:12.5%">建立時間</th>
-                            <th style="width:12.5%">公司名稱</th>
-                            <th style="width:12.5%">統編</th>
-                            <th style="width:12.5%">議程場次</th>
-                            <th style="width:12.5%">展場攤位</th>
-                            <th style="width:12.5%">媒體廣宣</th>
-                            <th style="width:12.5%">加購項目</th>
-                            <th style="width:12.5%">
-                                <div class="w-full flex justify-center">專屬連結</div>
-                            </th>
-                        </tr>
-                    </ng-template>
-                    <ng-template #body let-exhibitor>
-                        <tr>
-                            <td>{{ exhibitor.update_time }}</td>
-                            <td>{{ exhibitor.name }}</td>
-                            <td>{{ exhibitor.unino }}</td>
-                            <td>{{ exhibitor.agenda_session }}</td>
-                            <td>{{ exhibitor.exhibition_booths }}</td>
-                            <td>{{ exhibitor.media_advertising }}</td>
-                            <td>@for (item of exhibitor.add_on_items; track item.id) {
-                                <div>{{ item }}</div>
-                            }</td>
-                            <td>
-                                <a
-                                        [href]="exhibitor.exclusive_link"
-                                        class="w-full flex justify-center"
-                                        rel="noopener"
-                                        target="_blank"
-                                >
-                                    <i class="pi pi-link" style="font-size: 1rem"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
+                <app-exhibitors/>
             </p-tabpanel>
             <p-tabpanel value="1">
-                <p class="m-0">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                    totam rem
-                    aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-                    explicabo.
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-                    magni
-                    dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam
-                    eius
-                    modi.
-                </p>
+                <app-rights-change-requirements/>
             </p-tabpanel>
             <p-tabpanel value="2">
-                <p class="m-0">
-                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                    deleniti
-                    atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,
-                    similique
-                    sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem
-                    rerum
-                    facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque
-                    nihil
-                    impedit quo minus.
-                </p>
+                <app-document-updates-pending-review/>
             </p-tabpanel>
         </p-tabpanels>
     </p-tabs>

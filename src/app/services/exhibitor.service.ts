@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
 	providedIn: 'root',
 })
-export class Exhibitor {
+export class ExhibitorService {
 	exhibitors: ExhibitorItem[] = [
 		{
 			id: '1',

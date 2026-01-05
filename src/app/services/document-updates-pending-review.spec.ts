@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DocumentUpdatesPendingReview } from './document-updates-pending-review';
+import { DocumentUpdatesPendingReviewService } from './document-updates-pending-review.service';
 
 describe('DocumentUpdatesPendingReview', () => {
-  let service: DocumentUpdatesPendingReview;
+  let service: DocumentUpdatesPendingReviewService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DocumentUpdatesPendingReview);
+    service = TestBed.inject(DocumentUpdatesPendingReviewService);
   });
 
   it('should be created', () => {
