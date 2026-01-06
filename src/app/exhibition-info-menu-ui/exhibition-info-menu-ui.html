@@ -1,0 +1,77 @@
+<div class="w-[880px] flex gap-[16px]">
+    <div class="w-full flex flex-col justify-start items-start gap-3 p-4 rounded-md bg-white shadow-sm">
+        <div class="w-full flex flex-col gap-1">
+            <label for="unsureLectureAgenda">不知講座議程</label>
+            <p-select
+                    [(ngModel)]="selected_Unsure_of_the_lecture_agenda"
+                    [options]="Unsure_of_the_lecture_agenda_drop_down_menu"
+                    class="w-full md:w-56"
+                    fluid
+                    id="unsureLectureAgenda"
+                    optionLabel="value"
+                    placeholder="請選擇"/>
+        </div>
+        <div class="w-full flex flex-col gap-1">
+            <label for="Future_Stage_Agenda">未來講座議程</label>
+
+            <p-select
+                    [(ngModel)]="selected_Future_Stage_Agenda"
+                    [options]="Future_Stage_Agenda_Drop_down_Menu"
+                    class="w-full md:w-56"
+                    fluid
+                    id="Future_Stage_Agenda"
+                    optionLabel="value"
+                    placeholder="請選擇"/>
+        </div>
+        <div class="w-full flex flex-col gap-1">
+            <label for="Future_Stage_Agenda">贊助權益</label>
+
+            <p-select
+                    [(ngModel)]="selected_Sponsorship_benefit"
+                    [options]="Sponsorship_benefits_drop_down_menu"
+                    class="w-full md:w-56"
+                    fluid
+                    id="Future_Stage_Agenda"
+                    optionLabel="value"
+                    placeholder="請選擇"/>
+        </div>
+    </div>
+    <div class="w-full flex flex-col justify-start items-start gap-3 p-4 rounded-md bg-white shadow-sm">
+
+        <div class="w-full flex flex-col gap-1">
+            <label for="Media_promotion_dropdown_menu">媒體廣宣</label>
+
+            <p-multiselect
+                    [(ngModel)]="selected_Media_promotions"
+                    [maxSelectedLabels]="3"
+                    [options]="Media_promotion_dropdown_menu"
+                    fluid
+                    id="Media_promotion_dropdown_menu"
+                    optionLabel="value"
+                    placeholder="請選擇"></p-multiselect>
+        </div>
+        <div class="w-full flex flex-col gap-1">
+            <label for="Add_to_cart_dropdown_menu">加購項目</label>
+
+            <p-multiselect
+                    [(ngModel)]="selected_Add_to_carts"
+                    [maxSelectedLabels]="3"
+                    [options]="Add_to_cart_dropdown_menu"
+                    fluid
+                    id="Add_to_cart_dropdown_menu"
+                    optionLabel="value"
+                    placeholder="請選擇"></p-multiselect>
+        </div>
+        <div class="w-full flex flex-col gap-1">
+            <label for="selected_Exhibition_booth">展場攤位</label>
+            <p-select
+                    [(ngModel)]="selected_Exhibition_booth"
+                    [options]="Exhibition_booth_drop_down_menu"
+                    class="w-full md:w-56"
+                    fluid
+                    id="selected_Exhibition_booth"
+                    optionLabel="value"
+                    placeholder="請選擇"/>
+        </div>
+    </div>
+</div>
