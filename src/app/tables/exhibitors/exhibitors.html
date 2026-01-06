@@ -1,3 +1,15 @@
+<div class="w-full flex items-center flex-start mb-4 gap-[16px]">
+    <p-button
+            (click)="openDialog()"
+            icon="pi pi-plus"
+            label="新增參展廠商"
+    ></p-button>
+
+    <p-button
+            (click)="exportExcel()"
+            label="匯出審核歷程CSV"
+    ></p-button>
+</div>
 <p-table
         [paginator]="true"
         [rowsPerPageOptions]="[5, 10, 20]"
