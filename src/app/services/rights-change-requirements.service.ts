@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
 	providedIn: 'root',
 })
-export class RightsChangeRequirements {
+export class RightsChangeRequirementsService {
 	rightsChangeRequirements: RightsChangeRequirementItem[] = [
 		{
 			id: '1',

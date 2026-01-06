@@ -1,10 +1,21 @@
 import { Injectable } from '@angular/core';
 
+// Type for documentUpdatesPendingReview items
+export interface DocumentUpdatePendingReview {
+	id: string;
+	application_time: string;
+	company_name: string;
+	unino: string;
+	column_name: string;
+	old_value: string;
+	new_value: string;
+}
+
 @Injectable({
 	providedIn: 'root',
 })
-export class DocumentUpdatesPendingReview {
-	documentUpdatesPendingReview = [
+export class DocumentUpdatesPendingReviewService {
+	documentUpdatesPendingReview: DocumentUpdatePendingReview[] = [
 		{
 			id: '1',
 			application_time: '2024-06-01T10:00:00Z',
