@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Button } from "primeng/button";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
 import { Step, StepList, StepPanel, StepPanels, Stepper } from "primeng/stepper";
+import { ExhibitionInfoMenuUi } from "../exhibition-info-menu-ui/exhibition-info-menu-ui";
 
 @Component({
 	selector: 'app-exhibition-rights-setting-process',
@@ -11,7 +12,8 @@ import { Step, StepList, StepPanel, StepPanels, Stepper } from "primeng/stepper"
 		StepList,
 		Step,
 		StepPanels,
-		StepPanel
+		StepPanel,
+		ExhibitionInfoMenuUi
 	],
 	templateUrl: './exhibition-rights-setting-process.html',
 	styleUrl: './exhibition-rights-setting-process.css',

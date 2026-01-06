@@ -6,30 +6,32 @@
     <p-step-panels>
         <p-step-panel [value]="1">
             <ng-template #content let-activateCallback="activateCallback">
-                <div class="flex flex-col h-48">
+                <div class="flex flex-col h-full">
                     <div
-                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium p-4 h-[50vh]"
                     >
-                        Content I
+                        <app-exhibition-info-menu-ui/>
                     </div>
                 </div>
                 <div class="flex pt-6 justify-end">
-                    <p-button (onClick)="activateCallback(2)" icon="pi pi-arrow-right" iconPos="right" label="Next"/>
+                    <p-button (onClick)="activateCallback(2)" icon="pi pi-arrow-right" iconPos="right"
+                              label="前往下一步(專屬連結預覽列表)"/>
                 </div>
             </ng-template>
         </p-step-panel>
 
         <p-step-panel [value]="2">
             <ng-template #content let-activateCallback="activateCallback">
-                <div class="flex flex-col h-48">
+                <div class="flex flex-col h-full">
                     <div
-                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium p-4 h-[50vh]"
                     >
                         Content II
                     </div>
                 </div>
                 <div class="flex pt-6 justify-between">
-                    <p-button (onClick)="activateCallback(1)" icon="pi pi-arrow-left" iconPos="right" label="Back"/>
+                    <p-button (onClick)="activateCallback(1)" icon="pi pi-arrow-left" iconPos="right"
+                              label="回參展權益"/>
                     <p-button
 
                             (onClick)="confirm()"

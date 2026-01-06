@@ -35,23 +35,26 @@
     </ng-template>
     <ng-template #body let-exhibitor>
         <tr>
-            <td>{{ exhibitor.update_time | date: 'yyyy/MM/dd HH:mm:ss' }}</td>
+            <td>
+                <div class="text-xs">{{ exhibitor.update_time | date: 'yyyy/MM/dd HH:mm:ss' }}</div>
+            </td>
             <td>{{ exhibitor.name }}</td>
             <td>{{ exhibitor.unino }}</td>
             <td>{{ exhibitor.agenda_session }}</td>
             <td>{{ exhibitor.exhibition_booths }}</td>
             <td>
-                <div
-                        [pTooltip]="exhibitor.media_advertising"
-                        class="truncate whitespace-nowrap overflow-hidden text-ellipsis max-w-[160px]"
-                >{{ exhibitor.media_advertising }}
-                </div>
-            </td>
-            <td>
-                <ul style="list-style-type: circle !important;">@for (item of exhibitor.add_on_items; track item) {
+                <ul>@for (item of exhibitor.media_advertising; track item) {
                     <li class="flex items-center gap-2">
                         <i class="pi pi-circle" style="font-size: 0.5rem;"></i>
-                        {{ item }}
+                        <div class="text-xs">{{ item }}</div>
+                    </li>
+                }</ul>
+            </td>
+            <td>
+                <ul>@for (item of exhibitor.add_on_items; track item) {
+                    <li class="flex items-center gap-2">
+                        <i class="pi pi-circle" style="font-size: 0.5rem;"></i>
+                        <div class="text-xs">{{ item }}</div>
                     </li>
                 }</ul>
             </td>
