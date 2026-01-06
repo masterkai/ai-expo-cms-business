@@ -7,7 +7,6 @@ import {
 	ExhibitionRightsSettingProcess
 } from "../../exhibition-rights-setting-process/exhibition-rights-setting-process";
 import { Button } from "primeng/button";
-import { Tooltip } from "primeng/tooltip";
 
 @Component({
 	selector: 'app-exhibitors',
@@ -15,7 +14,6 @@ import { Tooltip } from "primeng/tooltip";
 		TableModule,
 		DatePipe,
 		Button,
-		Tooltip
 	],
 	templateUrl: './exhibitors.html',
 	styleUrl: './exhibitors.css',
