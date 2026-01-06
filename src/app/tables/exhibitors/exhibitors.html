@@ -1,13 +1,15 @@
-<div class="w-full flex items-center flex-start mb-4 gap-[16px]">
+<div class="w-full flex items-center flex-start mb-1 gap-[16px]">
     <p-button
             (click)="openDialog()"
             icon="pi pi-plus"
             label="新增參展廠商"
+            size="small"
     ></p-button>
 
     <p-button
             (click)="exportExcel()"
             label="匯出審核歷程CSV"
+            size="small"
     ></p-button>
 </div>
 <p-table
@@ -38,10 +40,21 @@
             <td>{{ exhibitor.unino }}</td>
             <td>{{ exhibitor.agenda_session }}</td>
             <td>{{ exhibitor.exhibition_booths }}</td>
-            <td>{{ exhibitor.media_advertising }}</td>
-            <td>@for (item of exhibitor.add_on_items; track item) {
-                <div>{{ item }}</div>
-            }</td>
+            <td>
+                <div
+                        [pTooltip]="exhibitor.media_advertising"
+                        class="truncate whitespace-nowrap overflow-hidden text-ellipsis max-w-[160px]"
+                >{{ exhibitor.media_advertising }}
+                </div>
+            </td>
+            <td>
+                <ul style="list-style-type: circle !important;">@for (item of exhibitor.add_on_items; track item) {
+                    <li class="flex items-center gap-2">
+                        <i class="pi pi-circle" style="font-size: 0.5rem;"></i>
+                        {{ item }}
+                    </li>
+                }</ul>
+            </td>
             <td>
                 <a
                         [href]="exhibitor.exclusive_link"

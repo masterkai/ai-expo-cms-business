@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
 import { Button } from "primeng/button";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
-import { JsonPipe } from "@angular/common";
+import { Step, StepList, StepPanel, StepPanels, Stepper } from "primeng/stepper";
 
 @Component({
 	selector: 'app-exhibition-rights-setting-process',
 	imports: [
 		Button,
-		JsonPipe
+		Stepper,
+		StepList,
+		Step,
+		StepPanels,
+		StepPanel
 	],
 	templateUrl: './exhibition-rights-setting-process.html',
 	styleUrl: './exhibition-rights-setting-process.css',

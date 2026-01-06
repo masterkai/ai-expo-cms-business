@@ -7,13 +7,15 @@ import {
 	ExhibitionRightsSettingProcess
 } from "../../exhibition-rights-setting-process/exhibition-rights-setting-process";
 import { Button } from "primeng/button";
+import { Tooltip } from "primeng/tooltip";
 
 @Component({
 	selector: 'app-exhibitors',
 	imports: [
 		TableModule,
 		DatePipe,
-		Button
+		Button,
+		Tooltip
 	],
 	templateUrl: './exhibitors.html',
 	styleUrl: './exhibitors.css',
@@ -32,7 +34,7 @@ export class Exhibitors {
 	openDialog() {
 		const ref = this.dialog.open(ExhibitionRightsSettingProcess, {
 			header: '建立專屬連結',
-			width: '90%',
+			width: '98%',
 			data: {
 				userId: 1,
 				name: 'Max'

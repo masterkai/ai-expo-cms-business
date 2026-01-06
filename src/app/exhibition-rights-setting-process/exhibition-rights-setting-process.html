@@ -1,11 +1,48 @@
-<p>exhibition-rights-setting-process works!</p>
-<h3>Dialog 內容</h3>
+<p-stepper [value]="1" class="basis-[50rem]">
+    <p-step-list>
+        <p-step [value]="1">參展權益</p-step>
+        <p-step [value]="2">專屬連結預覽列表</p-step>
+    </p-step-list>
+    <p-step-panels>
+        <p-step-panel [value]="1">
+            <ng-template #content let-activateCallback="activateCallback">
+                <div class="flex flex-col h-48">
+                    <div
+                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                    >
+                        Content I
+                    </div>
+                </div>
+                <div class="flex pt-6 justify-end">
+                    <p-button (onClick)="activateCallback(2)" icon="pi pi-arrow-right" iconPos="right" label="Next"/>
+                </div>
+            </ng-template>
+        </p-step-panel>
 
-<p>接收到的資料：</p>
-<pre>{{ config.data | json }}</pre>
+        <p-step-panel [value]="2">
+            <ng-template #content let-activateCallback="activateCallback">
+                <div class="flex flex-col h-48">
+                    <div
+                            class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
+                    >
+                        Content II
+                    </div>
+                </div>
+                <div class="flex pt-6 justify-between">
+                    <p-button (onClick)="activateCallback(1)" icon="pi pi-arrow-left" iconPos="right" label="Back"/>
+                    <p-button
 
-<p-button
+                            (onClick)="confirm()"
+                            fluid
+                            label="確認"
+                    >
+                    </p-button>
+                </div>
+            </ng-template>
+        </p-step-panel>
+    </p-step-panels>
+</p-stepper>
 
-        (click)="confirm()"
-        label="確認">
-</p-button>
+<!--<p>接收到的資料：</p>-->
+<!--<pre>{{ config.data | json }}</pre>-->
+
