@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
 	Add_to_cart_dropdown_menu,
 	Exhibition_booth_drop_down_menu,
@@ -11,6 +11,7 @@ import {
 import { FormsModule } from "@angular/forms";
 import { Select } from "primeng/select";
 import { MultiSelectModule } from 'primeng/multiselect';
+import { MainStore } from "../store/main.store";
 
 @Component({
 	selector: 'app-exhibition-info-menu-ui',
@@ -23,6 +24,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 	styleUrl: './exhibition-info-menu-ui.css',
 })
 export class ExhibitionInfoMenuUi {
+	MainStore = inject(MainStore)
 	Unsure_of_the_lecture_agenda_drop_down_menu = Unsure_of_the_lecture_agenda_drop_down_menu;
 	Future_Stage_Agenda_Drop_down_Menu = Future_Stage_Agenda_Drop_down_Menu;
 	Sponsorship_benefits_drop_down_menu = Sponsorship_benefits_drop_down_menu;
