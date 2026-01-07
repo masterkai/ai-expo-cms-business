@@ -1,5 +1,11 @@
 @let selected_exhibition_right = mainStore.selected_exhibition_right();
-<div class="review-container">
+
+@if (!hasExhibitionRights()) {
+    <div class="no-data-message">
+        尚未選擇任何參展權益設定項目
+    </div>
+}
+<div class="preview-container">
     @if (selected_exhibition_right.unsure_of_the_lecture_agenda) {
         <div class="item">
             <strong>不知講座議程:</strong>
@@ -21,21 +27,24 @@
     @if (selected_exhibition_right.media_promotion && selected_exhibition_right.media_promotion.length > 0) {
         <div class="item">
             <strong>媒體廣宣:</strong>
-            <ul>
-                @for (item of selected_exhibition_right.media_promotion; track item.value) {
-                    <li>{{ item.value }}</li>
-                }
-            </ul>
+
+            <div>{{ renderArrayContent(selected_exhibition_right.media_promotion) }}</div>
+            <!--            <ul>-->
+            <!--                @for (item of selected_exhibition_right.media_promotion; track item.value) {-->
+            <!--                    <li>{{ item.value }}</li>-->
+            <!--                }-->
+            <!--            </ul>-->
         </div>
     }
     @if (selected_exhibition_right.add_to_cart && selected_exhibition_right.add_to_cart.length > 0) {
         <div class="item">
             <strong>加購項目:</strong>
-            <ul>
-                @for (item of selected_exhibition_right.add_to_cart; track item.value) {
-                    <li>{{ item.value }}</li>
-                }
-            </ul>
+            <div>{{ renderArrayContent(selected_exhibition_right.add_to_cart) }}</div>
+            <!--            <ul>-->
+            <!--                @for (item of selected_exhibition_right.add_to_cart; track item.value) {-->
+            <!--                    <li>{{ item.value }}</li>-->
+            <!--                }-->
+            <!--            </ul>-->
         </div>
     }
     @if (selected_exhibition_right.exhibition_booth) {
