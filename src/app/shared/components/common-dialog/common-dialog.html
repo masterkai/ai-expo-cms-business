@@ -3,7 +3,7 @@
         [closable]="closable"
         [header]="header()"
         [modal]="true"
-        [style]="{ width: 'auto' }">
+        [style]="{ width: width() }">
     @if (!closable) {
         <div class="flex justify-end w-full absolute top-[12px] right-[8px]">
             <p-button

@@ -13,12 +13,13 @@ import { toObservable } from "@angular/core/rxjs-interop";
 	standalone: true,
 })
 export class CommonDialog implements OnInit, OnDestroy {
+	width = input('auto');
 	mainStore = inject(MainStore)
 	@ViewChild('header') headerElement!: HTMLHeadingElement;
 	@Input() closable!: boolean;
 	needTopSpace = input(false);
 	visible$ = new BehaviorSubject<boolean>(false);
-	visible = false;
+	@Input() visible = false;
 	header = input.required<string>();
 	private subscription!: Subscription;
 

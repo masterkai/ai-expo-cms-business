@@ -59,14 +59,14 @@
                 }</ul>
             </td>
             <td>
-                <a
-                        [href]="exhibitor.exclusive_link"
-                        class="w-full flex justify-center"
-                        rel="noopener"
-                        target="_blank"
-                >
-                    <i class="pi pi-link" style="font-size: 1rem"></i>
-                </a>
+                <p-button
+                        (onClick)="copyLinkToClipboard(exhibitor.dedicated_link)"
+                        fluid
+                        icon="pi pi-link"
+                        label="複製聯結"
+                        size="small"
+                        variant="outlined"
+                ></p-button>
             </td>
         </tr>
     </ng-template>
@@ -74,7 +74,9 @@
 
 <app-common-dialog
         [header]="''"
-        [needTopSpace]="true">
+        [needTopSpace]="true"
+        [visible]="mainStore.isDialogVisible()"
+        [width]="'90%'">
 
     <app-exhibition-rights-setting-process/>
 </app-common-dialog>
