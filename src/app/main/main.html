@@ -1,2 +1,10 @@
 <app-header/>
 <app-list/>
+<app-common-dialog
+        [closable]="false"
+        [header]="''"
+        [needTopSpace]="true"
+        [visible]="mainStore.isDialogVisible()"
+>
+    <app-exhibition-rights-setting-process/>
+</app-common-dialog>

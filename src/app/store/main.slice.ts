@@ -1,6 +1,7 @@
 import { Select_item } from "../../mock-data/data";
 
 export interface MainSlice {
+	isDialogVisible: boolean;
 	exhibition_rights: Exhibition_rights;
 	selected_exhibition_right: Selected_Exhibition_rights;
 }
@@ -24,6 +25,7 @@ export interface Selected_Exhibition_rights {
 }
 
 export const initialMainSlice: MainSlice = {
+	isDialogVisible: false,
 	exhibition_rights: {
 		unsure_of_the_lecture_agenda_drop_down_menu: [],
 		sponsorship_benefits_drop_down_menu: [],
