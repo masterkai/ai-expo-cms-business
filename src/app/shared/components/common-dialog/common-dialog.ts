@@ -1,8 +1,7 @@
-import { Component, Input, input, OnDestroy, OnInit, output, ViewChild } from '@angular/core';
+import { Component, input, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Dialog } from 'primeng/dialog';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { Button } from 'primeng/button';
-
 
 @Component({
 	selector: 'app-common-dialog',
@@ -13,40 +12,35 @@ import { Button } from 'primeng/button';
 })
 export class CommonDialog implements OnInit, OnDestroy {
 	@ViewChild('header') headerElement!: HTMLHeadingElement;
-	// @Input() closable!: boolean;
-	closable = input.required<boolean>();
+	@Input() closable!: boolean;
 	needTopSpace = input(false);
-	// visible$ = new BehaviorSubject<boolean>(false);
-	@Input() visible = false;
-	visibleChange = output<boolean>()
+	visible$ = new BehaviorSubject<boolean>(false);
+	visible = false;
 	header = input.required<string>();
 	private subscription!: Subscription;
 
 	ngOnDestroy(): void {
 		// console.log('CommonDialog destroyed');
-		// this.visible$.next(false);
-		// this.visible$.complete();
+		this.visible$.next(false);
+		this.visible$.complete();
 		this.subscription.unsubscribe();
 	}
 
 	ngOnInit(): void {
-		// if (this.visible$) {
-		// 	this.subscription = this.visible$.subscribe((value) => {
-		// 		this.visible = value;
-		// 	});
-		// } else {
-		// 	console.error('visible$ is not defined.');
-		// }
+		if (this.visible$) {
+			this.subscription = this.visible$.subscribe((value) => {
+				this.visible = value;
+			});
+		} else {
+			console.error('visible$ is not defined.');
+		}
 	}
 
 	onClose(): void {
-		// this.visible$.next(false);
-
-		this.visibleChange.emit(false);
+		this.visible$.next(false);
 	}
 
 	onOpen() {
-		// this.visible$.next(true);
-		this.visibleChange.emit(true);
+		this.visible$.next(true);
 	}
 }

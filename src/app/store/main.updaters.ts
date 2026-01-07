@@ -13,3 +13,7 @@ export function setSelectedExhibitionRights(partialSelectedRights: Partial<Selec
 		}
 	});
 }
+
+export function setIsDialogVisible(visible: boolean): PartialStateUpdater<MainSlice> {
+	return _ => ({ isDialogVisible: visible });
+}

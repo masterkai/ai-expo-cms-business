@@ -20,10 +20,14 @@ export const MainStore = signalStore(
 			store._exhibitionRightsService.getExhibitionRights().then(res => setExhibitionRights(res))
 		}
 		const setSelectedExhibitionRights = (partialSelectedRights: Partial<Selected_Exhibition_rights>) => patchState(store, updaters.setSelectedExhibitionRights(partialSelectedRights));
+
+		const setIsDialogVisible = (visible: boolean) => patchState(store, updaters.setIsDialogVisible(visible));
+
 		return {
 			setExhibitionRights,
 			setSelectedExhibitionRights,
-			getExhibitionRights
+			getExhibitionRights,
+			setIsDialogVisible
 		}
 	}),
 	withHooks(store => ({

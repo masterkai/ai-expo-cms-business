@@ -1,12 +1,13 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, viewChild } from '@angular/core';
 import { TableModule } from "primeng/table";
 import { ExhibitorItem, ExhibitorService } from "../../services/exhibitor.service";
 import { DatePipe } from "@angular/common";
-import { AppDialogService } from "../../services/app-dialog.service";
 import {
 	ExhibitionRightsSettingProcess
 } from "../../exhibition-rights-setting-process/exhibition-rights-setting-process";
 import { Button } from "primeng/button";
+import { MainStore } from "../../store/main.store";
+import { CommonDialog } from "../../shared/components/common-dialog/common-dialog";
 
 @Component({
 	selector: 'app-exhibitors',
@@ -14,12 +15,15 @@ import { Button } from "primeng/button";
 		TableModule,
 		DatePipe,
 		Button,
+		CommonDialog,
+		ExhibitionRightsSettingProcess,
 	],
 	templateUrl: './exhibitors.html',
 	styleUrl: './exhibitors.css',
 })
 export class Exhibitors {
-	dialog = inject(AppDialogService)
+	mainStore = inject(MainStore);
+	dialog = viewChild(CommonDialog)
 	exhibitorsService = inject(ExhibitorService)
 	exhibitors = signal<ExhibitorItem[]>([])
 
@@ -30,18 +34,7 @@ export class Exhibitors {
 	}
 
 	openDialog() {
-		const ref = this.dialog.open(ExhibitionRightsSettingProcess, {
-			header: '建立專屬連結',
-			width: '98%',
-			data: {
-				userId: 1,
-				name: 'Max'
-			}
-		});
-
-		ref.onClose.subscribe(result => {
-			console.log('Dialog 回傳：', result);
-		});
+		this.dialog()?.onOpen()
 	}
 
 	protected exportExcel() {

@@ -1,6 +1,6 @@
 <div class="w-full flex items-center flex-start mb-1 gap-[16px]">
     <p-button
-            (click)="openDialog()"
+            (onClick)="openDialog()"
             icon="pi pi-plus"
             label="新增參展廠商"
             size="small"
@@ -71,3 +71,10 @@
         </tr>
     </ng-template>
 </p-table>
+
+<app-common-dialog
+        [header]="''"
+        [needTopSpace]="true">
+
+    <app-exhibition-rights-setting-process/>
+</app-common-dialog>
