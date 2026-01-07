@@ -1,7 +1,9 @@
-import { Component, input, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, input, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Button } from 'primeng/button';
+import { MainStore } from "../../../store/main.store";
+import { toObservable } from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: 'app-common-dialog',
@@ -11,6 +13,7 @@ import { Button } from 'primeng/button';
 	standalone: true,
 })
 export class CommonDialog implements OnInit, OnDestroy {
+	mainStore = inject(MainStore)
 	@ViewChild('header') headerElement!: HTMLHeadingElement;
 	@Input() closable!: boolean;
 	needTopSpace = input(false);
@@ -18,6 +21,14 @@ export class CommonDialog implements OnInit, OnDestroy {
 	visible = false;
 	header = input.required<string>();
 	private subscription!: Subscription;
+
+	constructor() {
+		toObservable(this.mainStore.isDialogVisible).subscribe({
+			next: (value) => {
+				this.visible$.next(value);
+			}
+		});
+	}
 
 	ngOnDestroy(): void {
 		// console.log('CommonDialog destroyed');

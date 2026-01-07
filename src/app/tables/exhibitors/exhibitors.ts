@@ -27,6 +27,15 @@ export class Exhibitors {
 	exhibitorsService = inject(ExhibitorService)
 	exhibitors = signal<ExhibitorItem[]>([])
 
+	ngAfterViewInit() {
+		this.dialog()?.visible$.subscribe({
+			next: (value) => {
+				console.log('Dialog visible changed:', value);
+				this.mainStore.setIsDialogVisible(value);
+			}
+		})
+	}
+
 	ngOnInit() {
 		this.exhibitorsService.getExhibitors().then(data => {
 			this.exhibitors.set(data)
