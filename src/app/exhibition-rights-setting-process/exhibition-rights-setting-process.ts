@@ -5,6 +5,7 @@ import { Step, StepList, StepPanel, StepPanels, Stepper } from "primeng/stepper"
 import { ExhibitionInfoMenuUi } from "../exhibition-info-menu-ui/exhibition-info-menu-ui";
 import { MainStore } from "../store/main.store";
 import { MessageService } from "primeng/api";
+import { ExhibitionInfoPreviewUi } from "../exhibition-info-preview-ui/exhibition-info-preview-ui";
 
 @Component({
 	selector: 'app-exhibition-rights-setting-process',
@@ -15,11 +16,12 @@ import { MessageService } from "primeng/api";
 		Step,
 		StepPanels,
 		StepPanel,
-		ExhibitionInfoMenuUi
+		ExhibitionInfoMenuUi,
+		ExhibitionInfoPreviewUi
 	],
 	templateUrl: './exhibition-rights-setting-process.html',
 	styleUrl: './exhibition-rights-setting-process.css',
-	providers: [ MainStore, MessageService ]
+	providers: [MainStore, MessageService]
 })
 export class ExhibitionRightsSettingProcess {
 	constructor(
