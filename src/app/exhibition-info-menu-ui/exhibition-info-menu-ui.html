@@ -3,7 +3,10 @@
         <div class="w-full flex flex-col gap-1">
             <label for="unsureLectureAgenda">不知講座議程</label>
             <p-select
-                    [(ngModel)]="MainStore.selected_exhibition_right().unsure_of_the_lecture_agenda"
+                    (ngModelChange)="MainStore.setSelectedExhibitionRights({
+                    unsure_of_the_lecture_agenda: $event
+                    })"
+                    [ngModel]="MainStore.selected_exhibition_right().unsure_of_the_lecture_agenda"
                     [options]="MainStore.exhibition_rights().unsure_of_the_lecture_agenda_drop_down_menu"
                     class="w-full md:w-56"
                     fluid
@@ -15,7 +18,10 @@
             <label for="Future_Stage_Agenda">未來講座議程</label>
 
             <p-select
-                    [(ngModel)]="MainStore.selected_exhibition_right().future_Stage_Agenda"
+                    (ngModelChange)="MainStore.setSelectedExhibitionRights({
+                    future_Stage_Agenda: $event
+                    })"
+                    [ngModel]="MainStore.selected_exhibition_right().future_Stage_Agenda"
                     [options]="MainStore.exhibition_rights().future_Stage_Agenda_Drop_down_Menu"
                     class="w-full md:w-56"
                     fluid
@@ -27,7 +33,10 @@
             <label for="Future_Stage_Agenda">贊助權益</label>
 
             <p-select
-                    [(ngModel)]="MainStore.selected_exhibition_right().sponsorship_benefits"
+                    (ngModelChange)="MainStore.setSelectedExhibitionRights({
+                    sponsorship_benefits: $event
+                    })"
+                    [ngModel]="MainStore.selected_exhibition_right().sponsorship_benefits"
                     [options]="MainStore.exhibition_rights().sponsorship_benefits_drop_down_menu"
                     class="w-full md:w-56"
                     fluid
@@ -42,8 +51,11 @@
             <label for="Media_promotion_dropdown_menu">媒體廣宣</label>
 
             <p-multiselect
-                    [(ngModel)]="MainStore.selected_exhibition_right().media_promotion"
+                    (ngModelChange)="MainStore.setSelectedExhibitionRights({
+                    media_promotion: $event
+                    })"
                     [maxSelectedLabels]="3"
+                    [ngModel]="MainStore.selected_exhibition_right().media_promotion"
                     [options]="MainStore.exhibition_rights().media_promotion_dropdown_menu"
                     fluid
                     id="Media_promotion_dropdown_menu"
@@ -54,8 +66,11 @@
             <label for="Add_to_cart_dropdown_menu">加購項目</label>
 
             <p-multiselect
-                    [(ngModel)]="MainStore.selected_exhibition_right().add_to_cart"
+                    (ngModelChange)="MainStore.setSelectedExhibitionRights({
+                    add_to_cart: $event
+                    })"
                     [maxSelectedLabels]="3"
+                    [ngModel]="MainStore.selected_exhibition_right().add_to_cart"
                     [options]="MainStore.exhibition_rights().add_to_cart_dropdown_menu"
                     fluid
                     id="Add_to_cart_dropdown_menu"
@@ -65,7 +80,10 @@
         <div class="w-full flex flex-col gap-1">
             <label for="selected_Exhibition_booth">展場攤位</label>
             <p-select
-                    [(ngModel)]="MainStore.selected_exhibition_right().exhibition_booth"
+                    (ngModelChange)="MainStore.setSelectedExhibitionRights({
+                    exhibition_booth: $event
+                    })"
+                    [ngModel]="MainStore.selected_exhibition_right().exhibition_booth"
                     [options]="MainStore.exhibition_rights().exhibition_booth_drop_down_menu"
                     class="w-full md:w-56"
                     fluid

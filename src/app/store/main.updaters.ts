@@ -1,6 +1,15 @@
 import { PartialStateUpdater } from "@ngrx/signals";
-import { Exhibition_rights, MainSlice } from "./main.slice";
+import { Exhibition_rights, MainSlice, Selected_Exhibition_rights } from "./main.slice";
 
 export function setExhibitionRights(rights: Exhibition_rights): PartialStateUpdater<MainSlice> {
 	return _ => ({ exhibition_rights: rights });
+}
+
+export function setSelectedExhibitionRights(partialSelectedRights: Partial<Selected_Exhibition_rights>): PartialStateUpdater<MainSlice> {
+	return state => ({
+		selected_exhibition_right: {
+			...state.selected_exhibition_right,
+			...partialSelectedRights
+		}
+	});
 }

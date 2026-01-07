@@ -1,5 +1,5 @@
 import { patchState, signalStore, withHooks, withMethods, withProps, withState } from "@ngrx/signals";
-import { Exhibition_rights, initialMainSlice } from "./main.slice";
+import { Exhibition_rights, initialMainSlice, Selected_Exhibition_rights } from "./main.slice";
 import { inject } from "@angular/core";
 import { MessageService } from "primeng/api";
 import { ExhibitorService } from "../services/exhibitor.service";
@@ -19,8 +19,10 @@ export const MainStore = signalStore(
 		const getExhibitionRights = () => {
 			store._exhibitionRightsService.getExhibitionRights().then(res => setExhibitionRights(res))
 		}
+		const setSelectedExhibitionRights = (partialSelectedRights: Partial<Selected_Exhibition_rights>) => patchState(store, updaters.setSelectedExhibitionRights(partialSelectedRights));
 		return {
 			setExhibitionRights,
+			setSelectedExhibitionRights,
 			getExhibitionRights
 		}
 	}),

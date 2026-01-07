@@ -15,12 +15,12 @@ export interface Exhibition_rights {
 }
 
 export interface Selected_Exhibition_rights {
-	unsure_of_the_lecture_agenda: Select_item[];
-	sponsorship_benefits: Select_item[];
+	unsure_of_the_lecture_agenda: Select_item | undefined;
+	sponsorship_benefits: Select_item | undefined;
 	add_to_cart: Select_item[];
 	media_promotion: Select_item[];
-	exhibition_booth: Select_item[];
-	future_Stage_Agenda: Select_item[];
+	exhibition_booth: Select_item | undefined;
+	future_Stage_Agenda: Select_item | undefined;
 }
 
 export const initialMainSlice: MainSlice = {
@@ -33,11 +33,11 @@ export const initialMainSlice: MainSlice = {
 		future_Stage_Agenda_Drop_down_Menu: [],
 	},
 	selected_exhibition_right: {
-		unsure_of_the_lecture_agenda: [],
-		sponsorship_benefits: [],
+		unsure_of_the_lecture_agenda: undefined,
+		sponsorship_benefits: undefined,
 		add_to_cart: [],
 		media_promotion: [],
-		exhibition_booth: [],
-		future_Stage_Agenda: [],
+		exhibition_booth: undefined,
+		future_Stage_Agenda: undefined,
 	},
 };
