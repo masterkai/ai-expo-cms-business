@@ -8,7 +8,6 @@ import {
 import { Button } from "primeng/button";
 import { MainStore } from "../../store/main.store";
 import { CommonDialog } from "../../shared/components/common-dialog/common-dialog";
-import { RouterLink } from "@angular/router";
 import { MessageService } from "primeng/api";
 
 @Component({
@@ -19,7 +18,6 @@ import { MessageService } from "primeng/api";
 		Button,
 		CommonDialog,
 		ExhibitionRightsSettingProcess,
-		RouterLink,
 	],
 	templateUrl: './exhibitors.html',
 	styleUrl: './exhibitors.css',

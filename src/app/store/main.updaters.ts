@@ -15,5 +15,5 @@ export function setSelectedExhibitionRights(partialSelectedRights: Partial<Selec
 }
 
 export function setIsDialogVisible(visible: boolean): PartialStateUpdater<MainSlice> {
-	return _ => ({ isDialogVisible: visible });
+	return _ => ({ isDialog_createLink_Visible: visible });
 }

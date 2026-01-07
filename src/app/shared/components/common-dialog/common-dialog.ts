@@ -24,7 +24,7 @@ export class CommonDialog implements OnInit, OnDestroy {
 	private subscription!: Subscription;
 
 	constructor() {
-		toObservable(this.mainStore.isDialogVisible).subscribe({
+		toObservable(this.mainStore.isDialog_createLink_Visible).subscribe({
 			next: (value) => {
 				this.visible$.next(value);
 			}
