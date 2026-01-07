@@ -1,0 +1,21 @@
+<p-dialog
+        [(visible)]="visible"
+        [closable]="closable"
+        [header]="header()"
+        [modal]="true"
+        [style]="{ width: 'auto' }">
+    @if (!closable) {
+        <div class="flex justify-end w-full absolute top-[12px] right-[8px]">
+            <p-button
+                    (click)="onClose()"
+                    [outlined]="true"
+                    [rounded]="true"
+                    icon="pi pi-times"
+            />
+        </div>
+        @if (needTopSpace()) {
+            <div class="w-full h-[28px]"></div>
+        }
+    }
+    <ng-content></ng-content>
+</p-dialog>
