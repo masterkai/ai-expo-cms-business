@@ -8,10 +8,10 @@
             <label for="unsureLectureAgenda">不知講座議程</label>
             <p-multiselect
                     (ngModelChange)="MainStore.setSelectedExhibitionRights({
-                    unsure_of_the_lecture_agenda: $event
+                    lecture: $event
                     })"
-                    [ngModel]="MainStore.selected_exhibition_right().unsure_of_the_lecture_agenda"
-                    [options]="MainStore.exhibition_rights().unsure_of_the_lecture_agenda_drop_down_menu"
+                    [ngModel]="MainStore.selected_exhibition_right().lecture"
+                    [options]="MainStore.exhibition_rights().lecture"
                     fluid
                     id="unsureLectureAgenda"
                     optionLabel="value"
@@ -22,10 +22,10 @@
 
             <p-multiselect
                     (ngModelChange)="MainStore.setSelectedExhibitionRights({
-                    future_Stage_Agenda: $event
+                    stage: $event
                     })"
-                    [ngModel]="MainStore.selected_exhibition_right().future_Stage_Agenda"
-                    [options]="MainStore.exhibition_rights().future_Stage_Agenda_Drop_down_Menu"
+                    [ngModel]="MainStore.selected_exhibition_right().stage"
+                    [options]="MainStore.exhibition_rights().stage"
                     fluid
                     id="Future_Stage_Agenda"
                     optionLabel="value"
@@ -40,11 +40,11 @@
 
             <p-multiselect
                     (ngModelChange)="MainStore.setSelectedExhibitionRights({
-                    media_promotion: $event
+                    promotion: $event
                     })"
                     [maxSelectedLabels]="3"
-                    [ngModel]="MainStore.selected_exhibition_right().media_promotion"
-                    [options]="MainStore.exhibition_rights().media_promotion_dropdown_menu"
+                    [ngModel]="MainStore.selected_exhibition_right().promotion"
+                    [options]="MainStore.exhibition_rights().promotion"
                     fluid
                     id="Media_promotion_dropdown_menu"
                     optionLabel="value"
@@ -55,11 +55,11 @@
 
             <p-multiselect
                     (ngModelChange)="MainStore.setSelectedExhibitionRights({
-                    add_to_cart: $event
+                    optional: $event
                     })"
                     [maxSelectedLabels]="3"
-                    [ngModel]="MainStore.selected_exhibition_right().add_to_cart"
-                    [options]="MainStore.exhibition_rights().add_to_cart_dropdown_menu"
+                    [ngModel]="MainStore.selected_exhibition_right().optional"
+                    [options]="MainStore.exhibition_rights().optional"
                     fluid
                     id="Add_to_cart_dropdown_menu"
                     optionLabel="value"
@@ -69,10 +69,10 @@
             <label for="selected_Exhibition_booth">展場攤位</label>
             <p-multiselect
                     (ngModelChange)="MainStore.setSelectedExhibitionRights({
-                    exhibition_booth: $event
+                    booth: $event
                     })"
-                    [ngModel]="MainStore.selected_exhibition_right().exhibition_booth"
-                    [options]="MainStore.exhibition_rights().exhibition_booth_drop_down_menu"
+                    [ngModel]="MainStore.selected_exhibition_right().booth"
+                    [options]="MainStore.exhibition_rights().booth"
                     fluid
                     id="selected_Exhibition_booth"
                     optionLabel="value"

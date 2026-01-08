@@ -6,45 +6,45 @@
     </div>
 }
 <div class="preview-container">
-    @if (selected_exhibition_right.unsure_of_the_lecture_agenda) {
+    @if (selected_exhibition_right.lecture) {
         <div class="item">
             <strong>不知講座議程:</strong>
-            <span class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.unsure_of_the_lecture_agenda) }}</span>
+            <span class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.lecture) }}</span>
         </div>
     }
-    @if (selected_exhibition_right.future_Stage_Agenda) {
+    @if (selected_exhibition_right.stage) {
         <div class="item">
             <strong>未來講座議程:</strong>
-            <span class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.future_Stage_Agenda) }}</span>
+            <span class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.stage) }}</span>
         </div>
     }
-    @if (selected_exhibition_right.media_promotion && selected_exhibition_right.media_promotion.length > 0) {
+    @if (selected_exhibition_right.promotion && selected_exhibition_right.promotion.length > 0) {
         <div class="item">
             <strong>媒體廣宣:</strong>
 
-            <div class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.media_promotion) }}</div>
+            <div class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.promotion) }}</div>
             <!--            <ul>-->
-            <!--                @for (item of selected_exhibition_right.media_promotion; track item.value) {-->
+            <!--                @for (item of selected_exhibition_right.promotion; track item.value) {-->
             <!--                    <li>{{ item.value }}</li>-->
             <!--                }-->
             <!--            </ul>-->
         </div>
     }
-    @if (selected_exhibition_right.add_to_cart && selected_exhibition_right.add_to_cart.length > 0) {
+    @if (selected_exhibition_right.optional && selected_exhibition_right.optional.length > 0) {
         <div class="item">
             <strong>加購項目:</strong>
-            <div class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.add_to_cart) }}</div>
+            <div class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.optional) }}</div>
             <!--            <ul>-->
-            <!--                @for (item of selected_exhibition_right.add_to_cart; track item.value) {-->
+            <!--                @for (item of selected_exhibition_right.optional; track item.value) {-->
             <!--                    <li>{{ item.value }}</li>-->
             <!--                }-->
             <!--            </ul>-->
         </div>
     }
-    @if (selected_exhibition_right.exhibition_booth) {
+    @if (selected_exhibition_right.booth) {
         <div class="item">
             <strong>展場攤位:</strong>
-            <span class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.exhibition_booth) }}</span>
+            <span class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.booth) }}</span>
         </div>
     }
 </div>

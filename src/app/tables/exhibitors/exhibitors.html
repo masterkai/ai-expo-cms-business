@@ -14,10 +14,10 @@
 </div>
 <p-table
         [paginator]="true"
-        [rowsPerPageOptions]="[5, 10, 20]"
+        [rowsPerPageOptions]="[3, 5, 10, 20]"
         [rows]="5"
         [tableStyle]="{ 'min-width': '50rem' }"
-        [value]="exhibitors()"
+        [value]="mainStore.visibleCompanies()"
 >
     <ng-template #header>
         <tr>
@@ -36,14 +36,14 @@
     <ng-template #body let-exhibitor>
         <tr class="cursor-pointer">
             <td>
-                <div class="text-xs">{{ exhibitor.update_time | date: 'yyyy/MM/dd HH:mm:ss' }}</div>
+                <div class="text-xs">{{ exhibitor.createdate | date: 'yyyy/MM/dd HH:mm:ss' }}</div>
             </td>
-            <td>{{ exhibitor.name }}</td>
-            <td>{{ exhibitor.unino }}</td>
-            <td>{{ exhibitor.agenda_session }}</td>
-            <td>{{ exhibitor.exhibition_booths }}</td>
+            <td>{{ exhibitor.company_name }}</td>
+            <td>{{ exhibitor.unified_business_no }}</td>
+            <td>{{ exhibitor.lecture }}</td>
+            <td>{{ exhibitor.booth }}</td>
             <td>
-                <ul>@for (item of exhibitor.media_advertising; track item) {
+                <ul>@for (item of exhibitor.promotion; track item) {
                     <li class="flex items-center gap-2">
                         <i class="pi pi-circle" style="font-size: 0.5rem;"></i>
                         <div class="text-xs">{{ item }}</div>
@@ -51,7 +51,7 @@
                 }</ul>
             </td>
             <td>
-                <ul>@for (item of exhibitor.add_on_items; track item) {
+                <ul>@for (item of exhibitor.optional; track item) {
                     <li class="flex items-center gap-2">
                         <i class="pi pi-circle" style="font-size: 0.5rem;"></i>
                         <div class="text-xs">{{ item }}</div>
@@ -60,7 +60,7 @@
             </td>
             <td>
                 <p-button
-                        (onClick)="copyLinkToClipboard(exhibitor.dedicated_link)"
+                        (onClick)="copyLinkToClipboard(exhibitor.link)"
                         fluid
                         icon="pi pi-link"
                         label="複製聯結"

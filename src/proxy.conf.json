@@ -1,0 +1,7 @@
+{
+  "/aiexpo": {
+    "target": "https://eip.digitimes.com.tw",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

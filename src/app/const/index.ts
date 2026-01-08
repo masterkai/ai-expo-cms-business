@@ -1,0 +1,1 @@
+export const CACHE_KEY_COMPANY_LIST = ['company_list'];

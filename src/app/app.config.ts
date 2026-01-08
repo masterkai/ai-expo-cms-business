@@ -5,6 +5,9 @@ import { routes } from './app.routes';
 import { providePrimeNG } from "primeng/config";
 import { definePreset } from "@primeuix/themes";
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { provideTanStackQuery, QueryClient } from "@tanstack/angular-query-experimental";
+import { provideHttpClient } from "@angular/common/http";
+import { withDevtools } from '@tanstack/angular-query-experimental/devtools'
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -36,6 +39,8 @@ export const appConfig: ApplicationConfig = {
 			}
 		}),
 		importProvidersFrom(DynamicDialogModule),
-		DialogService
+		DialogService,
+		provideHttpClient(),
+		provideTanStackQuery(new QueryClient(), withDevtools())
 	]
 };

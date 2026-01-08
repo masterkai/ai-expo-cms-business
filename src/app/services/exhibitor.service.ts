@@ -1,6 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Company } from "../store/main.slice";
+import { environment } from "../../environments/environment";
+import { lastValueFrom } from "rxjs";
 
 @Injectable({
 	providedIn: 'root',
@@ -73,7 +75,12 @@ export class ExhibitorService {
 	async getExhibitors() {
 		return await this.exhibitors;
 	}
-	
+
+	getCompany() {
+		const url = `${environment.apiUrl}/getCompany`;
+		const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+		return lastValueFrom(this.http.post<GetCompanyResponse>(url, '', { headers }));
+	}
 
 }
 
