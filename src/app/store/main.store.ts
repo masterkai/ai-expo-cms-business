@@ -73,7 +73,7 @@ export const MainStore = signalStore(
 		}
 
 		const getExhibitionRights = (id: string) => {
-			store._exhibitionRightsService.getRights(id).subscribe({
+			store._exhibitionRightsService.getRights('16300799').subscribe({
 				next: (response) => {
 					if (response.status === 'success' && response.data) {
 						const data = {

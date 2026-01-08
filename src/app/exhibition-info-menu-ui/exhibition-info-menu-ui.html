@@ -1,8 +1,8 @@
 <div class="w-[880px] flex gap-[16px]">
-    <div class="w-full flex flex-col gap-1">
-        <label for="Future_Stage_Agenda">贊助權益</label>
+    <!--    <div class="w-full flex flex-col gap-1">-->
+    <!--       <label for="Future_Stage_Agenda">贊助權益</label> -->
 
-    </div>
+    <!--    </div>-->
     <div class="w-full flex flex-col justify-start items-start gap-3 p-4 rounded-md bg-white shadow-sm">
         <div class="w-full flex flex-col gap-1">
             <label for="unsureLectureAgenda">不知講座議程</label>
@@ -14,7 +14,7 @@
                     [options]="MainStore.exhibition_rights().lecture"
                     fluid
                     id="unsureLectureAgenda"
-                    optionLabel="value"
+                    optionLabel="option"
                     placeholder="請選擇"></p-multiselect>
         </div>
         <div class="w-full flex flex-col gap-1">
@@ -28,7 +28,7 @@
                     [options]="MainStore.exhibition_rights().stage"
                     fluid
                     id="Future_Stage_Agenda"
-                    optionLabel="value"
+                    optionLabel="option"
                     placeholder="請選擇"></p-multiselect>
         </div>
 
@@ -47,7 +47,7 @@
                     [options]="MainStore.exhibition_rights().promotion"
                     fluid
                     id="Media_promotion_dropdown_menu"
-                    optionLabel="value"
+                    optionLabel="option"
                     placeholder="請選擇"></p-multiselect>
         </div>
         <div class="w-full flex flex-col gap-1">
@@ -62,7 +62,7 @@
                     [options]="MainStore.exhibition_rights().optional"
                     fluid
                     id="Add_to_cart_dropdown_menu"
-                    optionLabel="value"
+                    optionLabel="option"
                     placeholder="請選擇"></p-multiselect>
         </div>
         <div class="w-full flex flex-col gap-1">
@@ -75,7 +75,7 @@
                     [options]="MainStore.exhibition_rights().booth"
                     fluid
                     id="selected_Exhibition_booth"
-                    optionLabel="value"
+                    optionLabel="option"
                     placeholder="請選擇"></p-multiselect>
         </div>
     </div>

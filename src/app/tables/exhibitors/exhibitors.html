@@ -1,12 +1,5 @@
 <div class="w-full flex items-center flex-start mb-1 gap-[16px]">
     <p-button
-            (onClick)="mainStore.setIsDialogVisible(true)"
-            icon="pi pi-plus"
-            label="新增參展廠商"
-            size="small"
-    ></p-button>
-
-    <p-button
             (click)="exportExcel()"
             label="匯出審核歷程CSV"
             size="small"
@@ -34,7 +27,10 @@
         </tr>
     </ng-template>
     <ng-template #body let-exhibitor>
-        <tr class="cursor-pointer">
+        <tr
+                (click)="mainStore.getExhibitionRights(exhibitor.unified_business_no);mainStore.setIsDialogVisible(true)"
+                class="cursor-pointer"
+        >
             <td>
                 <div class="text-xs">{{ exhibitor.createdate | date: 'yyyy/MM/dd HH:mm:ss' }}</div>
             </td>
