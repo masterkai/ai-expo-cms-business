@@ -9,26 +9,20 @@
     @if (selected_exhibition_right.unsure_of_the_lecture_agenda) {
         <div class="item">
             <strong>不知講座議程:</strong>
-            <span>{{ selected_exhibition_right.unsure_of_the_lecture_agenda.value }}</span>
+            <span class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.unsure_of_the_lecture_agenda) }}</span>
         </div>
     }
     @if (selected_exhibition_right.future_Stage_Agenda) {
         <div class="item">
             <strong>未來講座議程:</strong>
-            <span>{{ selected_exhibition_right.future_Stage_Agenda.value }}</span>
-        </div>
-    }
-    @if (selected_exhibition_right.sponsorship_benefits) {
-        <div class="item">
-            <strong>贊助權益:</strong>
-            <span>{{ selected_exhibition_right.sponsorship_benefits.value }}</span>
+            <span class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.future_Stage_Agenda) }}</span>
         </div>
     }
     @if (selected_exhibition_right.media_promotion && selected_exhibition_right.media_promotion.length > 0) {
         <div class="item">
             <strong>媒體廣宣:</strong>
 
-            <div class="text-xs">{{ renderArrayContent(selected_exhibition_right.media_promotion) }}</div>
+            <div class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.media_promotion) }}</div>
             <!--            <ul>-->
             <!--                @for (item of selected_exhibition_right.media_promotion; track item.value) {-->
             <!--                    <li>{{ item.value }}</li>-->
@@ -39,7 +33,7 @@
     @if (selected_exhibition_right.add_to_cart && selected_exhibition_right.add_to_cart.length > 0) {
         <div class="item">
             <strong>加購項目:</strong>
-            <div>{{ renderArrayContent(selected_exhibition_right.add_to_cart) }}</div>
+            <div class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.add_to_cart) }}</div>
             <!--            <ul>-->
             <!--                @for (item of selected_exhibition_right.add_to_cart; track item.value) {-->
             <!--                    <li>{{ item.value }}</li>-->
@@ -50,7 +44,7 @@
     @if (selected_exhibition_right.exhibition_booth) {
         <div class="item">
             <strong>展場攤位:</strong>
-            <span>{{ selected_exhibition_right.exhibition_booth.value }}</span>
+            <span class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.exhibition_booth) }}</span>
         </div>
     }
 </div>

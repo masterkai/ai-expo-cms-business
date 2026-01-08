@@ -1,49 +1,37 @@
 <div class="w-[880px] flex gap-[16px]">
+    <div class="w-full flex flex-col gap-1">
+        <label for="Future_Stage_Agenda">贊助權益</label>
+
+    </div>
     <div class="w-full flex flex-col justify-start items-start gap-3 p-4 rounded-md bg-white shadow-sm">
         <div class="w-full flex flex-col gap-1">
             <label for="unsureLectureAgenda">不知講座議程</label>
-            <p-select
+            <p-multiselect
                     (ngModelChange)="MainStore.setSelectedExhibitionRights({
                     unsure_of_the_lecture_agenda: $event
                     })"
                     [ngModel]="MainStore.selected_exhibition_right().unsure_of_the_lecture_agenda"
                     [options]="MainStore.exhibition_rights().unsure_of_the_lecture_agenda_drop_down_menu"
-                    class="w-full md:w-56"
                     fluid
                     id="unsureLectureAgenda"
                     optionLabel="value"
-                    placeholder="請選擇"/>
+                    placeholder="請選擇"></p-multiselect>
         </div>
         <div class="w-full flex flex-col gap-1">
             <label for="Future_Stage_Agenda">未來講座議程</label>
 
-            <p-select
+            <p-multiselect
                     (ngModelChange)="MainStore.setSelectedExhibitionRights({
                     future_Stage_Agenda: $event
                     })"
                     [ngModel]="MainStore.selected_exhibition_right().future_Stage_Agenda"
                     [options]="MainStore.exhibition_rights().future_Stage_Agenda_Drop_down_Menu"
-                    class="w-full md:w-56"
                     fluid
                     id="Future_Stage_Agenda"
                     optionLabel="value"
-                    placeholder="請選擇"/>
+                    placeholder="請選擇"></p-multiselect>
         </div>
-        <div class="w-full flex flex-col gap-1">
-            <label for="Future_Stage_Agenda">贊助權益</label>
 
-            <p-select
-                    (ngModelChange)="MainStore.setSelectedExhibitionRights({
-                    sponsorship_benefits: $event
-                    })"
-                    [ngModel]="MainStore.selected_exhibition_right().sponsorship_benefits"
-                    [options]="MainStore.exhibition_rights().sponsorship_benefits_drop_down_menu"
-                    class="w-full md:w-56"
-                    fluid
-                    id="Future_Stage_Agenda"
-                    optionLabel="value"
-                    placeholder="請選擇"/>
-        </div>
     </div>
     <div class="w-full flex flex-col justify-start items-start gap-3 p-4 rounded-md bg-white shadow-sm">
 
@@ -79,17 +67,16 @@
         </div>
         <div class="w-full flex flex-col gap-1">
             <label for="selected_Exhibition_booth">展場攤位</label>
-            <p-select
+            <p-multiselect
                     (ngModelChange)="MainStore.setSelectedExhibitionRights({
                     exhibition_booth: $event
                     })"
                     [ngModel]="MainStore.selected_exhibition_right().exhibition_booth"
                     [options]="MainStore.exhibition_rights().exhibition_booth_drop_down_menu"
-                    class="w-full md:w-56"
                     fluid
                     id="selected_Exhibition_booth"
                     optionLabel="value"
-                    placeholder="請選擇"/>
+                    placeholder="請選擇"></p-multiselect>
         </div>
     </div>
 </div>

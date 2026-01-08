@@ -9,21 +9,31 @@ export interface MainSlice {
 }
 
 export interface Exhibition_rights {
-	unsure_of_the_lecture_agenda_drop_down_menu: Select_item[];
-	sponsorship_benefits_drop_down_menu: Select_item[];
-	add_to_cart_dropdown_menu: Select_item[];
-	media_promotion_dropdown_menu: Select_item[];
-	exhibition_booth_drop_down_menu: Select_item[];
-	future_Stage_Agenda_Drop_down_Menu: Select_item[];
+	sponsorship_benefits?: string
+	lecture: Select_item[];
+	optional: Select_item[];
+	promotion: Select_item[];
+	booth: Select_item[];
+	stage: Select_item[];
 }
 
 export interface Selected_Exhibition_rights {
-	unsure_of_the_lecture_agenda: Select_item | undefined;
-	sponsorship_benefits: Select_item | undefined;
-	add_to_cart: Select_item[];
-	media_promotion: Select_item[];
-	exhibition_booth: Select_item | undefined;
-	future_Stage_Agenda: Select_item | undefined;
+	lecture: Select_item [];
+	optional: Select_item[];
+	promotion: Select_item[];
+	booth: Select_item[];
+	stage: Select_item [];
+}
+
+// export interface Company extends Exhibitor, Selected_Exhibition_rights {
+// }
+export type Company = Exhibitor & Selected_Exhibition_rights;
+
+export interface Exhibitor {
+	createdate: string;
+	company_name: string;
+	unified_business_no: string;
+	link: string;
 }
 
 export const initialMainSlice: MainSlice = {
@@ -31,19 +41,18 @@ export const initialMainSlice: MainSlice = {
 	isDialog_rightChange_Visible: false,
 	isDialog_dataReview_Visible: false,
 	exhibition_rights: {
-		unsure_of_the_lecture_agenda_drop_down_menu: [],
-		sponsorship_benefits_drop_down_menu: [],
-		add_to_cart_dropdown_menu: [],
-		media_promotion_dropdown_menu: [],
-		exhibition_booth_drop_down_menu: [],
-		future_Stage_Agenda_Drop_down_Menu: [],
+		sponsorship_benefits: '',
+		lecture: [],
+		optional: [],
+		promotion: [],
+		booth: [],
+		stage: [],
 	},
 	selected_exhibition_right: {
-		unsure_of_the_lecture_agenda: undefined,
-		sponsorship_benefits: undefined,
-		add_to_cart: [],
-		media_promotion: [],
-		exhibition_booth: undefined,
-		future_Stage_Agenda: undefined,
+		lecture: [],
+		optional: [],
+		promotion: [],
+		booth: [],
+		stage: [],
 	},
 };

@@ -140,24 +140,6 @@ export const Add_to_cart_dropdown_menu: Select_item[] = [
 	},
 ]
 
-export const Sponsorship_benefits_drop_down_menu: Select_item[] = [
-	{
-		value: 'Diamond (不知講堂/標準攤位)'
-	},
-	{
-		value: 'Gold (不知講堂/標準攤位)'
-	},
-	{
-		value: 'Silver (不知講堂/標準攤位)'
-	},
-	{
-		value: 'Bronze (標準攤位)'
-	},
-	{
-		value: 'General (標準攤位)'
-	},
-]
-
 export interface Select_item {
 	value: string;
 }
