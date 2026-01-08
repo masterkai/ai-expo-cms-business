@@ -1,4 +1,4 @@
-import { Select_item } from "../../mock-data/data";
+import { Option, Right } from '../services/exhibition-rights-service'
 
 export interface MainSlice {
 	isDialog_createLink_Visible: boolean;
@@ -9,20 +9,20 @@ export interface MainSlice {
 }
 
 export interface Exhibition_rights {
-	sponsorship_benefits?: string
-	lecture: Select_item[];
-	optional: Select_item[];
-	promotion: Select_item[];
-	booth: Select_item[];
-	stage: Select_item[];
+	sponsorship_benefits?: Right[];
+	lecture: Option[];
+	optional: Option[];
+	promotion: Option[];
+	booth: Option[];
+	stage: Option[];
 }
 
 export interface Selected_Exhibition_rights {
-	lecture: Select_item [];
-	optional: Select_item[];
-	promotion: Select_item[];
-	booth: Select_item[];
-	stage: Select_item [];
+	lecture: Option [];
+	optional: Option[];
+	promotion: Option[];
+	booth: Option[];
+	stage: Option [];
 }
 
 // export interface Company extends Exhibitor, Selected_Exhibition_rights {
@@ -41,7 +41,7 @@ export const initialMainSlice: MainSlice = {
 	isDialog_rightChange_Visible: false,
 	isDialog_dataReview_Visible: false,
 	exhibition_rights: {
-		sponsorship_benefits: '',
+		sponsorship_benefits: [],
 		lecture: [],
 		optional: [],
 		promotion: [],

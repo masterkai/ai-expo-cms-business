@@ -1,30 +1,49 @@
-import { Injectable } from '@angular/core';
-import {
-	Add_to_cart_dropdown_menu,
-	Exhibition_booth_drop_down_menu,
-	Future_Stage_Agenda_Drop_down_Menu,
-	Media_promotion_dropdown_menu,
-	Unsure_of_the_lecture_agenda_drop_down_menu
-} from "../../mock-data/data";
-import { Exhibition_rights } from "../store/main.slice";
+import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { environment } from "../../environments/environment";
 
 @Injectable({
 	providedIn: 'root',
 })
 export class ExhibitionRightsService {
-	Unsure_of_the_lecture_agenda_drop_down_menu = Unsure_of_the_lecture_agenda_drop_down_menu;
-	Future_Stage_Agenda_Drop_down_Menu = Future_Stage_Agenda_Drop_down_Menu;
-	Exhibition_booth_drop_down_menu = Exhibition_booth_drop_down_menu
-	Media_promotion_dropdown_menu = Media_promotion_dropdown_menu
-	Add_to_cart_dropdown_menu = Add_to_cart_dropdown_menu;
+	private http = inject(HttpClient);
 
-	async getExhibitionRights(): Promise<Exhibition_rights> {
-		return Promise.resolve({
-			lecture: this.Unsure_of_the_lecture_agenda_drop_down_menu,
-			stage: this.Future_Stage_Agenda_Drop_down_Menu,
-			booth: this.Exhibition_booth_drop_down_menu,
-			promotion: this.Media_promotion_dropdown_menu,
-			optional: this.Add_to_cart_dropdown_menu
-		});
-	};
+	getRights(id: string) {
+		const url = `${environment.apiUrl}/getRights`;
+		const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+		const body = new URLSearchParams();
+		body.set('id', id);
+		return this.http.post<GetRightsResponse>(url, body.toString(), { headers });
+	}
+}
+
+export interface GetRightsResponse {
+	status: 'success' | 'error';
+	message: string;
+	data: RightsDATA;
+}
+
+export interface RightsDATA {
+	id: string;
+	company_name: string;
+	unified_business_no: string;
+	rights: Right[];
+	lecture: Option[];
+	booth: Option[];
+	stage: Option[];
+	promotion: Option[];
+	optional: Option[];
+}
+
+export interface Option {
+	id: string;
+	option: string;
+	selected: boolean;
+}
+
+export interface Right {
+	id: string;
+	cate: string;
+	title: string;
+	comment: string;
 }

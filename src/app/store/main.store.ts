@@ -72,8 +72,31 @@ export const MainStore = signalStore(
 			})
 		}
 
-		const getExhibitionRights = () => {
-			store._exhibitionRightsService.getExhibitionRights().then(res => setExhibitionRights(res))
+		const getExhibitionRights = (id: string) => {
+			store._exhibitionRightsService.getRights(id).subscribe({
+				next: (response) => {
+					if (response.status === 'success' && response.data) {
+						const data = {
+							sponsor_benefits: response.data.rights,
+							lecture: response.data.lecture,
+							optional: response.data.optional,
+							promotion: response.data.promotion,
+							booth: response.data.booth,
+							stage: response.data.stage,
+						}
+						patchState(store, updaters.setExhibitionRights(data));
+					}
+				},
+				error: (error) => {
+					console.error('Error fetching exhibition rights:', error);
+					store._messageService.add({
+						severity: 'error',
+						summary: '錯誤',
+						detail: '取得展覽權益資料時發生錯誤，請稍後再試。',
+						life: 3000
+					})
+				}
+			})
 		}
 		const setSelectedExhibitionRights = (partialSelectedRights: Partial<Selected_Exhibition_rights>) => patchState(store, updaters.setSelectedExhibitionRights(partialSelectedRights));
 
@@ -90,7 +113,6 @@ export const MainStore = signalStore(
 	withHooks(store => ({
 		onInit() {
 			store.loadCompanies()
-			store.getExhibitionRights()
 		}
 	})),
 	withDevtools('main-store')
