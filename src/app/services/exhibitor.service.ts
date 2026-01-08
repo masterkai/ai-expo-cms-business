@@ -1,4 +1,6 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { Company } from "../store/main.slice";
 
 @Injectable({
 	providedIn: 'root',
@@ -66,10 +68,13 @@ export class ExhibitorService {
 			dedicated_link: 'https://example.com/exhibitor-five',
 		}
 	]
+	private http = inject(HttpClient);
 
 	async getExhibitors() {
 		return await this.exhibitors;
 	}
+	
+
 }
 
 
@@ -84,4 +89,12 @@ export interface ExhibitorItem {
 	media_advertising: string[];
 	add_on_items: string[];
 	dedicated_link: string;
+}
+
+export interface GetCompanyResponse {
+	status: 'success' | 'error';
+	message: string;
+	page: string;
+	total: string;
+	data: Company[];
 }
