@@ -38,10 +38,13 @@ export class List implements AfterViewInit {
 		this.dialog()?.visible$.subscribe({
 			next: (value) => {
 				console.log('Dialog visible changed:', value);
-				// if dialog is closed, clear current company
+				// if dialog is closed, clear current company selection
+				// and reset selected exhibition rights
+				// and current company ID in the store
 				if (!value) {
 					this.mainStore.setCurrentCompany(null)
 					this.mainStore.resetSelectedExhibitionRights()
+					this.mainStore.setCurrentCompID(null)
 				}
 				this.mainStore.setIsDialogVisible(value);
 			}

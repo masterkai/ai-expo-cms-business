@@ -33,3 +33,7 @@ export function resetSelectedExhibitionRights(): PartialStateUpdater<MainSlice> 
 		}
 	});
 }
+
+export function setCurrentCompID(compID: string | null): PartialStateUpdater<MainSlice> {
+	return _ => ({ current_compID: compID });
+}

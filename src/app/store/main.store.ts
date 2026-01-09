@@ -84,6 +84,8 @@ export const MainStore = signalStore(
 			})
 		}
 
+		const setCurrentCompID = (compID: string | null) => patchState(store, updaters.setCurrentCompID(compID))
+
 		const getExhibitionRights = (data: RightsDATAParam) => {
 			store._exhibitionRightsService.getRights({ id: data.id, type: data.type }).subscribe({
 				next: (response) => {
@@ -97,6 +99,7 @@ export const MainStore = signalStore(
 							stage: response.data.stage,
 						}
 						patchState(store, updaters.setExhibitionRights(data));
+						setCurrentCompID(response.data.compID)
 					}
 				},
 				error: (error) => {
@@ -124,6 +127,7 @@ export const MainStore = signalStore(
 			loadCompanies,
 			setCurrentCompany,
 			updateCompanyData,
+			setCurrentCompID,
 			resetSelectedExhibitionRights: () => patchState(store, updaters.resetSelectedExhibitionRights())
 		}
 	}),
