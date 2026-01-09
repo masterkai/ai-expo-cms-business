@@ -40,27 +40,43 @@
             >
                 <span
                         [pTooltip]="exhibitor.company_name"
-                        class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5 block"
+                        class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5"
                 >{{ exhibitor.company_name }}</span>
             </td>
             <td>{{ exhibitor.unified_business_no }}</td>
-            <td>{{ exhibitor.lecture }}</td>
-            <td>{{ exhibitor.booth }}</td>
-            <td>
-                <ul>@for (item of exhibitor.promotion; track item) {
-                    <li class="flex items-center gap-2">
-                        <i class="pi pi-circle" style="font-size: 0.5rem;"></i>
-                        <div class="text-xs">{{ item }}</div>
-                    </li>
-                }</ul>
+            <td
+                    [pTooltip]="renderArrayContent(exhibitor.lecture)"
+                    class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5"
+            >{{ renderArrayContent(exhibitor.lecture) }}
             </td>
-            <td>
-                <ul>@for (item of exhibitor.optional; track item) {
-                    <li class="flex items-center gap-2">
-                        <i class="pi pi-circle" style="font-size: 0.5rem;"></i>
-                        <div class="text-xs">{{ item }}</div>
-                    </li>
-                }</ul>
+            <td
+                    [pTooltip]="renderArrayContent(exhibitor.booth)"
+                    class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5"
+            >{{ renderArrayContent(exhibitor.booth) }}
+            </td>
+            <td
+                    [pTooltip]="renderArrayContent(exhibitor.promotion)"
+                    class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5"
+            >
+                <!--                <ul>@for (item of exhibitor.promotion; track item) {-->
+                <!--                    <li class="flex items-center gap-2">-->
+                <!--                        <i class="pi pi-circle" style="font-size: 0.5rem;"></i>-->
+                <!--                        <div class="text-xs">{{ item.option }}</div>-->
+                <!--                    </li>-->
+                <!--                }</ul>-->
+                {{ renderArrayContent(exhibitor.promotion) }}
+            </td>
+            <td
+                    [pTooltip]="renderArrayContent(exhibitor.optional)"
+                    class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5 "
+            >
+                <!--                <ul>@for (item of exhibitor.optional; track item) {-->
+                <!--                    <li class="flex items-center gap-2">-->
+                <!--                        <i class="pi pi-circle" style="font-size: 0.5rem;"></i>-->
+                <!--                        <div class="text-xs">{{ item.option }}</div>-->
+                <!--                    </li>-->
+                <!--                }</ul>-->
+                {{ renderArrayContent(exhibitor.optional) }}
             </td>
             <td>
                 <p-button

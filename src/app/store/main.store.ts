@@ -16,7 +16,7 @@ import { ExhibitionRightsService } from "../services/exhibition-rights-service";
 import * as updaters from "./main.updaters";
 import { withDevtools } from "@angular-architects/ngrx-toolkit";
 import { injectQuery, QueryClient } from "@tanstack/angular-query-experimental";
-import { entityConfig, setAllEntities, withEntities } from "@ngrx/signals/entities";
+import { entityConfig, setAllEntities, updateEntity, withEntities } from "@ngrx/signals/entities";
 import { CACHE_KEY_COMPANY_LIST } from "../const";
 import { toObservable } from "@angular/core/rxjs-interop";
 
@@ -51,6 +51,18 @@ export const MainStore = signalStore(
 			refetchOnWindowFocus: false,
 			refetchOnReconnect: false
 		}))
+
+		const updateCompanyData = () => {
+			const compID = store.current_company()?.unified_business_no
+			const selected_exhibition_right = store.selected_exhibition_right()
+			patchState(store, updateEntity({
+					id: compID ?? '',
+					changes: {
+						...selected_exhibition_right
+					}
+				}, companyConfig
+			))
+		};
 
 		const loadCompanies = () => {
 			toObservable(_companyDATAQuery.data).subscribe({
@@ -111,6 +123,7 @@ export const MainStore = signalStore(
 			setIsDialogVisible,
 			loadCompanies,
 			setCurrentCompany,
+			updateCompanyData,
 			resetSelectedExhibitionRights: () => patchState(store, updaters.resetSelectedExhibitionRights())
 		}
 	}),

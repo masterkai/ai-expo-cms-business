@@ -5,6 +5,7 @@ import { Button } from "primeng/button";
 import { MainStore } from "../../store/main.store";
 import { MessageService } from "primeng/api";
 import { Tooltip } from "primeng/tooltip";
+import { Option } from "../../services/exhibition-rights-service";
 
 @Component({
 	selector: 'app-exhibitors',
@@ -32,6 +33,10 @@ export class Exhibitors {
 				console.error("複製失敗：", err);
 				this.messageService.add({ severity: 'error', summary: '失敗', detail: '連結複製失敗' });
 			});
+	}
+
+	renderArrayContent(items: Option[]) {
+		return items.map(i => i.option).join(', ')
 	}
 
 	protected exportExcel() {

@@ -24,7 +24,7 @@ export class ExhibitionRightsSettingProcess {
 	mainStore = inject(MainStore)
 
 	confirm() {
-		console.log('confirm', this.mainStore.selected_exhibition_right());
+		this.mainStore.updateCompanyData()
 		this.mainStore.setIsDialogVisible(false);
 	}
 }
