@@ -9,6 +9,7 @@ import { Button } from "primeng/button";
 import { MainStore } from "../../store/main.store";
 import { CommonDialog } from "../../shared/components/common-dialog/common-dialog";
 import { MessageService } from "primeng/api";
+import { Tooltip } from "primeng/tooltip";
 
 @Component({
 	selector: 'app-exhibitors',
@@ -18,6 +19,7 @@ import { MessageService } from "primeng/api";
 		Button,
 		CommonDialog,
 		ExhibitionRightsSettingProcess,
+		Tooltip,
 	],
 	templateUrl: './exhibitors.html',
 	styleUrl: './exhibitors.css',

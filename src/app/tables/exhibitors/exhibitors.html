@@ -35,7 +35,10 @@
                     (click)="mainStore.getExhibitionRights(exhibitor.unified_business_no);mainStore.setIsDialogVisible(true)"
                     class="hover:text-blue-600 cursor-pointer"
             >
-                {{ exhibitor.company_name }}
+                <span
+                        [pTooltip]="exhibitor.company_name"
+                        class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5 block"
+                >{{ exhibitor.company_name }}</span>
             </td>
             <td>{{ exhibitor.unified_business_no }}</td>
             <td>{{ exhibitor.lecture }}</td>
