@@ -26,7 +26,7 @@ export class ExhibitionRightsService {
 	promotion: 宣傳選項陣列
 	optional: 其他選項陣列
 	 */
-	getRights(data: RightsDATAParam) {
+	getRights(data: GetRightsParam) {
 		const url = `${environment.apiUrl}/getRights`;
 		const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
 		const body = new URLSearchParams();
@@ -34,11 +34,32 @@ export class ExhibitionRightsService {
 		body.set('type', data.type);
 		return this.http.post<GetRightsResponse>(url, body.toString(), { headers });
 	}
+
+	setRights(data: SetRightsParam) {
+		const url = `${environment.apiUrl}/setRights`;
+		const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+		return this.http.post<SetRightsResponse>(url, data, { headers });
+	}
 }
 
-export interface RightsDATAParam {
+export interface SetRightsResponse {
+	status: 'success' | 'error';
+	message: string;
+}
+
+export interface GetRightsParam {
 	id: string;
 	type: '' | 'modify'
+}
+
+export interface SetRightsParam {
+	compID: string;
+	type: '' | 'modify';
+	items: {
+		id: number;
+		itemCate: string;
+	} [];
 }
 
 export interface GetRightsResponse {

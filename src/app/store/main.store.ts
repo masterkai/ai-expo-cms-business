@@ -12,7 +12,7 @@ import { Company, Exhibition_rights, initialMainSlice, Selected_Exhibition_right
 import { computed, inject } from "@angular/core";
 import { MessageService } from "primeng/api";
 import { ExhibitorService } from "../services/exhibitor.service";
-import { ExhibitionRightsService, RightsDATAParam } from "../services/exhibition-rights-service";
+import { ExhibitionRightsService, GetRightsParam } from "../services/exhibition-rights-service";
 import * as updaters from "./main.updaters";
 import { withDevtools } from "@angular-architects/ngrx-toolkit";
 import { injectQuery, QueryClient } from "@tanstack/angular-query-experimental";
@@ -86,7 +86,7 @@ export const MainStore = signalStore(
 
 		const setCurrentCompID = (compID: string | null) => patchState(store, updaters.setCurrentCompID(compID))
 
-		const getExhibitionRights = (data: RightsDATAParam) => {
+		const getExhibitionRights = (data: GetRightsParam) => {
 			store._exhibitionRightsService.getRights({ id: data.id, type: data.type }).subscribe({
 				next: (response) => {
 					if (response.status === 'success' && response.data) {
@@ -113,6 +113,40 @@ export const MainStore = signalStore(
 				}
 			})
 		}
+
+		const onSaveExhibitorRights = () => {
+			const compID = store.current_compID();
+			const items = Object.entries(store.selected_exhibition_right()).flatMap(([itemCate, arr]) =>
+				arr.map(({ id }: { id: string }) => ({
+					id: Number(id),
+					itemCate
+				}))
+			)
+			store._exhibitionRightsService.setRights({
+				compID: compID ?? '',
+				type: '',
+				items
+			}).subscribe({
+				next: (response) => {
+					if (response.status === 'success') {
+						store._messageService.add({
+							severity: 'success',
+							summary: '成功',
+							detail: '展覽權益資料已更新。',
+							life: 3000
+						})
+					} else {
+						store._messageService.add({
+							severity: 'error',
+							summary: '錯誤',
+							detail: '更新展覽權益資料失敗，請稍後再試。',
+							life: 3000
+						})
+					}
+				}
+			})
+		}
+
 		const setSelectedExhibitionRights = (partialSelectedRights: Partial<Selected_Exhibition_rights>) => patchState(store, updaters.setSelectedExhibitionRights(partialSelectedRights));
 
 		const setIsDialogVisible = (visible: boolean) => patchState(store, updaters.setIsDialogVisible(visible));
@@ -128,6 +162,7 @@ export const MainStore = signalStore(
 			setCurrentCompany,
 			updateCompanyData,
 			setCurrentCompID,
+			onSaveExhibitorRights,
 			resetSelectedExhibitionRights: () => patchState(store, updaters.resetSelectedExhibitionRights())
 		}
 	}),
