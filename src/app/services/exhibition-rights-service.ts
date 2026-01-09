@@ -8,6 +8,24 @@ import { environment } from "../../environments/environment";
 export class ExhibitionRightsService {
 	private http = inject(HttpClient);
 
+	/*
+	參展權益API
+	getRights
+	參數：
+	id: 參展ID
+	type: ''(預設:空值是參展權益填寫頁) or 'modify' (修改權益使用)
+
+	回傳資料：
+	compID: 公司ID
+	company_name: 公司名稱
+	unified_business_no: 統一編號
+	rights: 權益清單陣列
+	lecture: 講座選項陣列
+	booth: 攤位選項陣列
+	stage: 舞台選項陣列
+	promotion: 宣傳選項陣列
+	optional: 其他選項陣列
+	 */
 	getRights(data: RightsDATAParam) {
 		const url = `${environment.apiUrl}/getRights`;
 		const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
