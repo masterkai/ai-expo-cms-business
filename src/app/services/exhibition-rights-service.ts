@@ -30,7 +30,7 @@ export interface GetRightsResponse {
 }
 
 export interface RightsDATA {
-	id: string;
+	compID: string;
 	company_name: string;
 	unified_business_no: string;
 	rights: Right[];
