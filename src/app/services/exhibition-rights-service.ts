@@ -8,13 +8,19 @@ import { environment } from "../../environments/environment";
 export class ExhibitionRightsService {
 	private http = inject(HttpClient);
 
-	getRights(id: string) {
+	getRights(data: RightsDATAParam) {
 		const url = `${environment.apiUrl}/getRights`;
 		const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
 		const body = new URLSearchParams();
-		body.set('id', id);
+		body.set('id', data.id);
+		body.set('type', data.type);
 		return this.http.post<GetRightsResponse>(url, body.toString(), { headers });
 	}
+}
+
+export interface RightsDATAParam {
+	id: string;
+	type: '' | 'modify'
 }
 
 export interface GetRightsResponse {

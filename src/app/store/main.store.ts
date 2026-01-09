@@ -12,7 +12,7 @@ import { Company, Exhibition_rights, initialMainSlice, Selected_Exhibition_right
 import { computed, inject } from "@angular/core";
 import { MessageService } from "primeng/api";
 import { ExhibitorService } from "../services/exhibitor.service";
-import { ExhibitionRightsService } from "../services/exhibition-rights-service";
+import { ExhibitionRightsService, RightsDATAParam } from "../services/exhibition-rights-service";
 import * as updaters from "./main.updaters";
 import { withDevtools } from "@angular-architects/ngrx-toolkit";
 import { injectQuery, QueryClient } from "@tanstack/angular-query-experimental";
@@ -84,8 +84,8 @@ export const MainStore = signalStore(
 			})
 		}
 
-		const getExhibitionRights = (id: string) => {
-			store._exhibitionRightsService.getRights('16300799').subscribe({
+		const getExhibitionRights = (data: RightsDATAParam) => {
+			store._exhibitionRightsService.getRights({ id: data.id, type: data.type }).subscribe({
 				next: (response) => {
 					if (response.status === 'success' && response.data) {
 						const data = {

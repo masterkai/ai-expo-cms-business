@@ -33,21 +33,21 @@
             </td>
             <td
                     (click)="
-                    mainStore.getExhibitionRights(exhibitor.unified_business_no);
+                    mainStore.getExhibitionRights({id:exhibitor.unified_business_no, type:''});
                     mainStore.setIsDialogVisible(true);
                     mainStore.setCurrentCompany(exhibitor)"
                     class="hover:text-blue-600 cursor-pointer"
             >
                 <span
                         [pTooltip]="exhibitor.company_name"
-                        class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5"
+                        class="line-clamp-1"
                 >{{ exhibitor.company_name }}</span>
             </td>
             <td>{{ exhibitor.unified_business_no }}</td>
             <td
-                    [pTooltip]="renderArrayContent(exhibitor.lecture)"
+                    [pTooltip]="renderArrayContent(exhibitor.lecture) && renderArrayContent(exhibitor.stage) ? renderArrayContent(exhibitor.lecture) + '; ' + renderArrayContent(exhibitor.stage) : (renderArrayContent(exhibitor.lecture) || renderArrayContent(exhibitor.stage))"
                     class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5"
-            >{{ renderArrayContent(exhibitor.lecture) }}
+            >{{ renderArrayContent(exhibitor.lecture) && renderArrayContent(exhibitor.stage) ? renderArrayContent(exhibitor.lecture) + '; ' + renderArrayContent(exhibitor.stage) : (renderArrayContent(exhibitor.lecture) || renderArrayContent(exhibitor.stage)) }}
             </td>
             <td
                     [pTooltip]="renderArrayContent(exhibitor.booth)"
