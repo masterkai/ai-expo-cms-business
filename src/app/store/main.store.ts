@@ -102,12 +102,16 @@ export const MainStore = signalStore(
 
 		const setIsDialogVisible = (visible: boolean) => patchState(store, updaters.setIsDialogVisible(visible));
 
+		const setCurrentCompany = (company: Company | null) => patchState(store, updaters.setCurrentCompany(company));
+
 		return {
 			setExhibitionRights,
 			setSelectedExhibitionRights,
 			getExhibitionRights,
 			setIsDialogVisible,
-			loadCompanies
+			loadCompanies,
+			setCurrentCompany,
+			resetSelectedExhibitionRights: () => patchState(store, updaters.resetSelectedExhibitionRights())
 		}
 	}),
 	withHooks(store => ({

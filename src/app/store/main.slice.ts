@@ -1,6 +1,7 @@
 import { Option, Right } from '../services/exhibition-rights-service'
 
 export interface MainSlice {
+	current_company: Company | null;
 	isDialog_createLink_Visible: boolean;
 	isDialog_rightChange_Visible: boolean;
 	isDialog_dataReview_Visible: boolean;
@@ -37,6 +38,7 @@ export interface Exhibitor {
 }
 
 export const initialMainSlice: MainSlice = {
+	current_company: null,
 	isDialog_createLink_Visible: false,
 	isDialog_rightChange_Visible: false,
 	isDialog_dataReview_Visible: false,

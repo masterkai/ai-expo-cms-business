@@ -17,3 +17,19 @@ export function setSelectedExhibitionRights(partialSelectedRights: Partial<Selec
 export function setIsDialogVisible(visible: boolean): PartialStateUpdater<MainSlice> {
 	return _ => ({ isDialog_createLink_Visible: visible });
 }
+
+export function setCurrentCompany(company: MainSlice["current_company"]): PartialStateUpdater<MainSlice> {
+	return _ => ({ current_company: company });
+}
+
+export function resetSelectedExhibitionRights(): PartialStateUpdater<MainSlice> {
+	return _ => ({
+		selected_exhibition_right: {
+			lecture: [],
+			optional: [],
+			promotion: [],
+			booth: [],
+			stage: [],
+		}
+	});
+}

@@ -32,7 +32,10 @@
                 <div class="text-xs">{{ exhibitor.createdate | date: 'yyyy/MM/dd HH:mm:ss' }}</div>
             </td>
             <td
-                    (click)="mainStore.getExhibitionRights(exhibitor.unified_business_no);mainStore.setIsDialogVisible(true)"
+                    (click)="
+                    mainStore.getExhibitionRights(exhibitor.unified_business_no);
+                    mainStore.setIsDialogVisible(true);
+                    mainStore.setCurrentCompany(exhibitor)"
                     class="hover:text-blue-600 cursor-pointer"
             >
                 <span
@@ -73,11 +76,3 @@
     </ng-template>
 </p-table>
 
-<app-common-dialog
-        [header]="''"
-        [needTopSpace]="true"
-        [visible]="mainStore.isDialog_createLink_Visible()"
-        [width]="'90%'">
-
-    <app-exhibition-rights-setting-process/>
-</app-common-dialog>
