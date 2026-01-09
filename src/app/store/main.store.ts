@@ -129,12 +129,17 @@ export const MainStore = signalStore(
 			}).subscribe({
 				next: (response) => {
 					if (response.status === 'success') {
-						store._messageService.add({
-							severity: 'success',
-							summary: '成功',
-							detail: '展覽權益資料已更新。',
-							life: 3000
+						store._queryClient.invalidateQueries({
+							queryKey: [CACHE_KEY_COMPANY_LIST]
+						}).then(() => {
+							store._messageService.add({
+								severity: 'success',
+								summary: '成功',
+								detail: '展覽權益資料已更新。',
+								life: 3000
+							})
 						})
+
 					} else {
 						store._messageService.add({
 							severity: 'error',
