@@ -64,6 +64,54 @@ export const MainStore = signalStore(
 			))
 		};
 
+		const onSetExhibitionLink = () => {
+			const compID = store.current_compID()
+			if (!compID) {
+				store._messageService.add({
+					severity: 'error',
+					summary: '錯誤',
+					detail: '無效的公司ID，無法重新產生展覽連結。',
+					life: 3000
+				})
+				return
+			}
+			store._exhibitionRightsService.setLink(compID).subscribe({
+				next: (response) => {
+					if (response.status === 'success') {
+
+						store._queryClient.invalidateQueries(
+							{ queryKey: [ CACHE_KEY_COMPANY_LIST ] }
+						).then(
+							() => {
+								store._messageService.add({
+									severity: 'success',
+									summary: '成功',
+									detail: '展覽連結已重新產生。',
+									life: 3000
+								})
+							}
+						)
+					} else {
+						store._messageService.add({
+							severity: 'error',
+							summary: '錯誤',
+							detail: '重新產生展覽連結失敗，請稍後再試。',
+							life: 3000
+						})
+					}
+				},
+				error: (error) => {
+					console.error('Error setting exhibition link:', error);
+					store._messageService.add({
+						severity: 'error',
+						summary: '錯誤',
+						detail: '重新產生展覽連結時發生錯誤，請稍後再試。',
+						life: 3000
+					})
+				}
+			})
+		}
+
 		const loadCompanies = () => {
 			toObservable(_companyDATAQuery.data).subscribe({
 				next: (data) => {
@@ -116,7 +164,7 @@ export const MainStore = signalStore(
 
 		const onSaveExhibitorRights = () => {
 			const compID = store.current_compID();
-			const items = Object.entries(store.selected_exhibition_right()).flatMap(([itemCate, arr]) =>
+			const items = Object.entries(store.selected_exhibition_right()).flatMap(([ itemCate, arr ]) =>
 				arr.map(({ id }: { id: string }) => ({
 					id: Number(id),
 					itemCate
@@ -130,7 +178,7 @@ export const MainStore = signalStore(
 				next: (response) => {
 					if (response.status === 'success') {
 						store._queryClient.invalidateQueries({
-							queryKey: [CACHE_KEY_COMPANY_LIST]
+							queryKey: [ CACHE_KEY_COMPANY_LIST ]
 						}).then(() => {
 							store._messageService.add({
 								severity: 'success',
@@ -168,6 +216,7 @@ export const MainStore = signalStore(
 			updateCompanyData,
 			setCurrentCompID,
 			onSaveExhibitorRights,
+			onSetExhibitionLink,
 			resetSelectedExhibitionRights: () => patchState(store, updaters.resetSelectedExhibitionRights())
 		}
 	}),

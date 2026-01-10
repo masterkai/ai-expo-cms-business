@@ -26,6 +26,7 @@ export class ExhibitionRightsSettingProcess {
 	confirm() {
 		this.mainStore.updateCompanyData()
 		this.mainStore.onSaveExhibitorRights()
+		this.mainStore.onSetExhibitionLink()
 		this.mainStore.setIsDialogVisible(false);
 	}
 }

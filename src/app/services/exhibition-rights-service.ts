@@ -8,6 +8,14 @@ import { environment } from "../../environments/environment";
 export class ExhibitionRightsService {
 	private http = inject(HttpClient);
 
+	setLink(compID: string) {
+		const url = `${environment.apiUrl}/getRights`;
+		const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+		const body = new URLSearchParams();
+		body.set('compID', compID);
+		return this.http.post<SetLinkResponse>(url, body.toString(), { headers });
+	}
+
 	/*
 	參展權益API
 	getRights
@@ -66,6 +74,11 @@ export interface GetRightsResponse {
 	status: 'success' | 'error';
 	message: string;
 	data: RightsDATA;
+}
+
+export interface SetLinkResponse {
+	status: 'success' | 'error';
+	message: string;
 }
 
 export interface RightsDATA {
