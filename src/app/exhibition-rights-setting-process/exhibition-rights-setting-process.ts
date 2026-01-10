@@ -3,7 +3,7 @@ import { Button } from "primeng/button";
 import { Step, StepList, StepPanel, StepPanels, Stepper } from "primeng/stepper";
 import { ExhibitionInfoMenuUi } from "../exhibition-info-menu-ui/exhibition-info-menu-ui";
 import { ExhibitionInfoPreviewUi } from "../exhibition-info-preview-ui/exhibition-info-preview-ui";
-import { MainStore } from "../store/main.store";
+import { MainStore } from "../tables/exhibitors/store/main.store";
 
 @Component({
 	selector: 'app-exhibition-rights-setting-process',

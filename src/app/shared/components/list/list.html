@@ -13,17 +13,9 @@
                 <app-rights-change-requirements/>
             </p-tabpanel>
             <p-tabpanel value="2">
-                <app-document-updates-pending-review/>
+                <app-company-data-review/>
             </p-tabpanel>
         </p-tabpanels>
     </p-tabs>
 </div>
 
-<app-common-dialog
-        [header]="''"
-        [needTopSpace]="true"
-        [visible]="mainStore.isDialog_createLink_Visible()"
-        [width]="'90%'">
-
-    <app-exhibition-rights-setting-process/>
-</app-common-dialog>

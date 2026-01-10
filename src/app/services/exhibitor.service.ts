@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Company } from "../store/main.slice";
+import { Company } from "../tables/exhibitors/store/main.slice";
 import { environment } from "../../environments/environment";
 import { lastValueFrom } from "rxjs";
 

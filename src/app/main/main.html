@@ -1,3 +1,12 @@
 <app-header/>
 <app-list/>
 
+<app-common-dialog
+        [header]="''"
+        [needTopSpace]="true"
+        [visible]="mainStore.isDialog_createLink_Visible()"
+        [width]="'90%'">
+
+    <app-exhibition-rights-setting-process/>
+</app-common-dialog>
+

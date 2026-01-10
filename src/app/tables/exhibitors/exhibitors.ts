@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { TableModule } from "primeng/table";
 import { DatePipe } from "@angular/common";
 import { Button } from "primeng/button";
-import { MainStore } from "../../store/main.store";
+import { MainStore } from "./store/main.store";
 import { MessageService } from "primeng/api";
 import { Tooltip } from "primeng/tooltip";
 import { Option } from "../../services/exhibition-rights-service";

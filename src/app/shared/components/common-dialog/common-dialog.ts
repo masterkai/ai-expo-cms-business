@@ -2,12 +2,12 @@ import { Component, inject, input, Input, OnDestroy, OnInit, ViewChild } from '@
 import { Dialog } from 'primeng/dialog';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Button } from 'primeng/button';
-import { MainStore } from "../../../store/main.store";
+import { MainStore } from "../../../tables/exhibitors/store/main.store";
 import { toObservable } from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: 'app-common-dialog',
-	imports: [Dialog, Button],
+	imports: [ Dialog, Button ],
 	templateUrl: './common-dialog.html',
 	styleUrl: './common-dialog.css',
 	standalone: true,

@@ -1,11 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
-import {
-	RightsChangeRequirementItem,
-	RightsChangeRequirementsService
-} from "../../services/rights-change-requirements.service";
+import { RightsChangeRequirementItem } from "../../services/rights-change-requirements.service";
 import { TableModule } from "primeng/table";
 import { Button } from "primeng/button";
 import { DatePipe } from "@angular/common";
+import { MainStore } from "../exhibitors/store/main.store";
 
 @Component({
 	selector: 'app-rights-change-requirements',
@@ -18,14 +16,9 @@ import { DatePipe } from "@angular/common";
 	styleUrl: './rights-change-requirements.css',
 })
 export class RightsChangeRequirements {
-	rightsChangeRequirementsService = inject(RightsChangeRequirementsService)
+	mainStore = inject(MainStore)
 	rightsChangeRequirements = signal<RightsChangeRequirementItem[]>([])
 
-	ngOnInit() {
-		this.rightsChangeRequirementsService.getRightsChangeRequirementsItems().then(data => {
-			this.rightsChangeRequirements.set(data)
-		})
-	}
 
 	protected handleViewDetails(item: any) {
 		console.log('View details for item:', item);

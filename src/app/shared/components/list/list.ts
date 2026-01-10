@@ -1,16 +1,10 @@
-import { AfterViewInit, Component, inject, viewChild } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "primeng/tabs";
 import { TableModule } from "primeng/table";
 import { Exhibitors } from "../../../tables/exhibitors/exhibitors";
 import { RightsChangeRequirements } from "../../../tables/rights-change-requirements/rights-change-requirements";
-import {
-	DocumentUpdatesPendingReview
-} from "../../../tables/document-updates-pending-review/document-updates-pending-review";
-import { CommonDialog } from "../common-dialog/common-dialog";
-import {
-	ExhibitionRightsSettingProcess
-} from "../../../exhibition-rights-setting-process/exhibition-rights-setting-process";
-import { MainStore } from "../../../store/main.store";
+import { MainStore } from "../../../tables/exhibitors/store/main.store";
+import { CompanyDataReview } from "../../../tables/company-data-review/company-data-review";
 
 @Component({
 	selector: 'app-list',
@@ -23,31 +17,11 @@ import { MainStore } from "../../../store/main.store";
 		TableModule,
 		Exhibitors,
 		RightsChangeRequirements,
-		DocumentUpdatesPendingReview,
-		CommonDialog,
-		ExhibitionRightsSettingProcess
+		CompanyDataReview
 	],
 	templateUrl: './list.html',
 	styleUrl: './list.css',
 })
-export class List implements AfterViewInit {
+export class List {
 	mainStore = inject(MainStore)
-	dialog = viewChild(CommonDialog)
-
-	ngAfterViewInit() {
-		this.dialog()?.visible$.subscribe({
-			next: (value) => {
-				console.log('Dialog visible changed:', value);
-				// if dialog is closed, clear current company selection
-				// and reset selected exhibition rights
-				// and current company ID in the store
-				if (!value) {
-					this.mainStore.setCurrentCompany(null)
-					this.mainStore.resetSelectedExhibitionRights()
-					this.mainStore.setCurrentCompID(null)
-				}
-				this.mainStore.setIsDialogVisible(value);
-			}
-		})
-	}
 }

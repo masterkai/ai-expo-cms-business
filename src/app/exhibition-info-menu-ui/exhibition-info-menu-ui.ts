@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { MultiSelectModule } from 'primeng/multiselect';
-import { MainStore } from "../store/main.store";
+import { MainStore } from "../tables/exhibitors/store/main.store";
 
 @Component({
 	selector: 'app-exhibition-info-menu-ui',

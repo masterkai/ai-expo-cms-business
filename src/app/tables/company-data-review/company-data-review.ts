@@ -8,16 +8,16 @@ import { TableModule } from "primeng/table";
 import { DatePipe } from "@angular/common";
 
 @Component({
-	selector: 'app-document-updates-pending-review',
+	selector: 'app-company-data-review',
 	imports: [
 		Button,
 		TableModule,
 		DatePipe
 	],
-	templateUrl: './document-updates-pending-review.html',
-	styleUrl: './document-updates-pending-review.css',
+	templateUrl: './company-data-review.html',
+	styleUrl: './company-data-review.css',
 })
-export class DocumentUpdatesPendingReview {
+export class CompanyDataReview {
 	documentUpdatesPendingReviewService = inject(DocumentUpdatesPendingReviewService)
 	documentUpdatesPendingReview = signal<DocumentUpdatePendingReview[]>([])
 

@@ -1,5 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
-import { MainStore } from "../store/main.store";
+import { MainStore } from "../tables/exhibitors/store/main.store";
 import { Option } from "../services/exhibition-rights-service";
 
 @Component({

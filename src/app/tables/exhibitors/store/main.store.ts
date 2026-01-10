@@ -11,13 +11,13 @@ import {
 import { Company, Exhibition_rights, initialMainSlice, Selected_Exhibition_rights } from "./main.slice";
 import { computed, inject } from "@angular/core";
 import { MessageService } from "primeng/api";
-import { ExhibitorService } from "../services/exhibitor.service";
-import { ExhibitionRightsService, GetRightsParam, Option } from "../services/exhibition-rights-service";
+import { ExhibitorService } from "../../../services/exhibitor.service";
+import { ExhibitionRightsService, GetRightsParam, Option } from "../../../services/exhibition-rights-service";
 import * as updaters from "./main.updaters";
 import { withDevtools } from "@angular-architects/ngrx-toolkit";
 import { injectQuery, QueryClient } from "@tanstack/angular-query-experimental";
 import { entityConfig, setAllEntities, updateEntity, withEntities } from "@ngrx/signals/entities";
-import { CACHE_KEY_COMPANY_LIST } from "../const";
+import { CACHE_KEY_COMPANY_LIST } from "../../../const";
 import { toObservable } from "@angular/core/rxjs-interop";
 
 const companyConfig = entityConfig({
@@ -251,19 +251,27 @@ export const MainStore = signalStore(
 						if (!rights) return;
 						const selected = store.selected_exhibition_right()
 						// helper to map selected items to the actual option objects from rights by id
-						const mapSelected = (items: { id: string }[] | undefined, options: Option[] | undefined) => {
-							if (!items || !options || options.length === 0) return []
-							return items.map(i => options.find(o => o.id === i.id)).filter(Boolean)
+						const mapSelected = (items: Option[] | undefined, options: Option[] | undefined) => {
+							if (!items || items.length === 0) return undefined
+							if (!options || options.length === 0) return undefined
+							const mapped = items.map(i => options.find(o => String(o.id) === String((i as any).id) || String(o.option).trim() === String((i as any).option).trim())).filter(Boolean) as Option[]
+							return (mapped.length > 0) ? mapped : undefined
 						}
-						const reconciled: Partial<Selected_Exhibition_rights> = {
-							lecture: mapSelected(selected.lecture, rights.lecture as Option[]) as any[],
-							optional: mapSelected(selected.optional, rights.optional as Option[]) as any[],
-							promotion: mapSelected(selected.promotion, rights.promotion as Option[]) as any[],
-							booth: mapSelected(selected.booth, rights.booth as Option[]) as any[],
-							stage: mapSelected(selected.stage, rights.stage as Option[]) as any[],
+						const reconciledPartial: Partial<Selected_Exhibition_rights> = {}
+						const lectureMapped = mapSelected(selected.lecture, rights.lecture as Option[])
+						if (lectureMapped) reconciledPartial.lecture = lectureMapped
+						const optionalMapped = mapSelected(selected.optional, rights.optional as Option[])
+						if (optionalMapped) reconciledPartial.optional = optionalMapped
+						const promotionMapped = mapSelected(selected.promotion, rights.promotion as Option[])
+						if (promotionMapped) reconciledPartial.promotion = promotionMapped
+						const boothMapped = mapSelected(selected.booth, rights.booth as Option[])
+						if (boothMapped) reconciledPartial.booth = boothMapped
+						const stageMapped = mapSelected(selected.stage, rights.stage as Option[])
+						if (stageMapped) reconciledPartial.stage = stageMapped
+
+						if (Object.keys(reconciledPartial).length > 0) {
+							store.setSelectedExhibitionRights(reconciledPartial)
 						}
-						// only update if reconciliation produced non-empty arrays or changed references
-						store.setSelectedExhibitionRights(reconciled)
 					} catch (err) {
 						console.error('Error reconciling exhibition rights vs selected:', err)
 					}
