@@ -1,8 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import {
-	DocumentUpdatePendingReview,
-	DocumentUpdatesPendingReviewService
-} from "../../services/document-updates-pending-review.service";
+import { CompanyUpdateReviewService, DocumentUpdatePendingReview } from "../../services/company-update-review.service";
 import { Button } from "primeng/button";
 import { TableModule } from "primeng/table";
 import { DatePipe } from "@angular/common";
@@ -18,7 +15,7 @@ import { DatePipe } from "@angular/common";
 	styleUrl: './company-data-review.css',
 })
 export class CompanyDataReview {
-	documentUpdatesPendingReviewService = inject(DocumentUpdatesPendingReviewService)
+	documentUpdatesPendingReviewService = inject(CompanyUpdateReviewService)
 	documentUpdatesPendingReview = signal<DocumentUpdatePendingReview[]>([])
 
 	ngOnInit() {

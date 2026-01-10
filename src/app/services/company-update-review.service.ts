@@ -14,7 +14,7 @@ export interface DocumentUpdatePendingReview {
 @Injectable({
 	providedIn: 'root',
 })
-export class DocumentUpdatesPendingReviewService {
+export class CompanyUpdateReviewService {
 	documentUpdatesPendingReview: DocumentUpdatePendingReview[] = [
 		{
 			id: '1',
