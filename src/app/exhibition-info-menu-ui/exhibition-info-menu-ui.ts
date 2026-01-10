@@ -13,5 +13,5 @@ import { MainStore } from "../store/main.store";
 	styleUrl: './exhibition-info-menu-ui.css',
 })
 export class ExhibitionInfoMenuUi {
-	MainStore = inject(MainStore)
+	mainStore = inject(MainStore)
 }

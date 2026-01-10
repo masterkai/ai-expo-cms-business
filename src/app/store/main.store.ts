@@ -12,7 +12,7 @@ import { Company, Exhibition_rights, initialMainSlice, Selected_Exhibition_right
 import { computed, inject } from "@angular/core";
 import { MessageService } from "primeng/api";
 import { ExhibitorService } from "../services/exhibitor.service";
-import { ExhibitionRightsService, GetRightsParam } from "../services/exhibition-rights-service";
+import { ExhibitionRightsService, GetRightsParam, Option } from "../services/exhibition-rights-service";
 import * as updaters from "./main.updaters";
 import { withDevtools } from "@angular-architects/ngrx-toolkit";
 import { injectQuery, QueryClient } from "@tanstack/angular-query-experimental";
@@ -223,6 +223,53 @@ export const MainStore = signalStore(
 	withHooks(store => ({
 		onInit() {
 			store.loadCompanies()
+
+			// when current_company changes, update selected exhibition rights from the company fields
+			toObservable(store.current_company).subscribe({
+				next: (company) => {
+					if (company) {
+						const selected: Partial<Selected_Exhibition_rights> = {
+							lecture: company.lecture ?? [],
+							optional: company.optional ?? [],
+							promotion: company.promotion ?? [],
+							booth: company.booth ?? [],
+							stage: company.stage ?? []
+						}
+						store.setSelectedExhibitionRights(selected)
+					} else {
+						// reset when there's no current company selected
+						store.resetSelectedExhibitionRights()
+					}
+				},
+				error: (err) => console.error('Error observing current_company:', err)
+			})
+
+			// when exhibition_rights (options) are loaded/updated, reconcile selected values so they reference the same option objects
+			toObservable(store.exhibition_rights).subscribe({
+				next: (rights) => {
+					try {
+						if (!rights) return;
+						const selected = store.selected_exhibition_right()
+						// helper to map selected items to the actual option objects from rights by id
+						const mapSelected = (items: { id: string }[] | undefined, options: Option[] | undefined) => {
+							if (!items || !options || options.length === 0) return []
+							return items.map(i => options.find(o => o.id === i.id)).filter(Boolean)
+						}
+						const reconciled: Partial<Selected_Exhibition_rights> = {
+							lecture: mapSelected(selected.lecture, rights.lecture as Option[]) as any[],
+							optional: mapSelected(selected.optional, rights.optional as Option[]) as any[],
+							promotion: mapSelected(selected.promotion, rights.promotion as Option[]) as any[],
+							booth: mapSelected(selected.booth, rights.booth as Option[]) as any[],
+							stage: mapSelected(selected.stage, rights.stage as Option[]) as any[],
+						}
+						// only update if reconciliation produced non-empty arrays or changed references
+						store.setSelectedExhibitionRights(reconciled)
+					} catch (err) {
+						console.error('Error reconciling exhibition rights vs selected:', err)
+					}
+				},
+				error: (err) => console.error('Error observing exhibition_rights:', err)
+			})
 		}
 	})),
 	withDevtools('main-store')

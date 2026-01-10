@@ -9,7 +9,7 @@ export class ExhibitionRightsService {
 	private http = inject(HttpClient);
 
 	setLink(compID: string) {
-		const url = `${environment.apiUrl}/getRights`;
+		const url = `${environment.apiUrl}/setLink`;
 		const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
 		const body = new URLSearchParams();
 		body.set('compID', compID);
