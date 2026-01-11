@@ -17,6 +17,7 @@ import { MessageService } from "primeng/api";
 import { COMPANY_UPDATE_REVIEW_LIST, } from "../../../const";
 import { toObservable } from "@angular/core/rxjs-interop";
 import { withDevtools } from "@angular-architects/ngrx-toolkit";
+import * as updaters from "./company-data-review.updaters";
 
 const companyReviewDATAConfig = entityConfig(
 	{
@@ -68,8 +69,14 @@ export const CompanyDataReviewStore = signalStore(
 			})
 		}
 
+		const setIsDialogVisible = (visible: boolean) => patchState(store, updaters.setIsDialogVisible(visible))
+
+		const setCurrentReview = (review: any | null) => patchState(store, { current_review: review })
+
 		return {
-			loadCompanyUpdateList
+			loadCompanyUpdateList,
+			setIsDialogVisible,
+			setCurrentReview
 		}
 	}),
 	withHooks(store => ({

@@ -15,8 +15,8 @@
     <ng-template #header>
         <tr>
             <th style="width:12.5%">建立時間</th>
-            <th style="width:12.5%">公司名稱</th>
-            <th style="width:12.5%">統編</th>
+            <th style="width:16.5%">公司名稱</th>
+            <th style="width:8.5%">統編</th>
             <th style="width:12.5%">議程場次</th>
             <th style="width:12.5%">展場攤位</th>
             <th style="width:12.5%">媒體廣宣</th>
@@ -92,3 +92,11 @@
     </ng-template>
 </p-table>
 
+<app-common-dialog
+        [header]="''"
+        [needTopSpace]="true"
+        [visible]="mainStore.isDialog_createLink_Visible()"
+        [width]="'90%'">
+
+    <app-exhibition-rights-setting-process/>
+</app-common-dialog>

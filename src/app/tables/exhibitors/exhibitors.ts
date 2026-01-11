@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { AfterViewInit, Component, inject, viewChild } from '@angular/core';
 import { TableModule } from "primeng/table";
 import { DatePipe } from "@angular/common";
 import { Button } from "primeng/button";
@@ -6,6 +6,10 @@ import { MainStore } from "./store/main.store";
 import { MessageService } from "primeng/api";
 import { Tooltip } from "primeng/tooltip";
 import { Option } from "../../services/exhibition-rights-service";
+import { CommonDialog } from "../../shared/components/common-dialog/common-dialog";
+import {
+	ExhibitionRightsSettingProcess
+} from "../../exhibition-rights-setting-process/exhibition-rights-setting-process";
 
 @Component({
 	selector: 'app-exhibitors',
@@ -14,13 +18,33 @@ import { Option } from "../../services/exhibition-rights-service";
 		DatePipe,
 		Button,
 		Tooltip,
+		CommonDialog,
+		ExhibitionRightsSettingProcess,
 	],
 	templateUrl: './exhibitors.html',
 	styleUrl: './exhibitors.css',
 })
-export class Exhibitors {
+export class Exhibitors implements AfterViewInit {
 	messageService = inject(MessageService)
 	mainStore = inject(MainStore);
+	dialog = viewChild(CommonDialog)
+
+	ngAfterViewInit() {
+		this.dialog()?.visible$.subscribe({
+			next: (value) => {
+				console.log('Dialog visible changed:', value);
+				// if dialog is closed, clear current company selection
+				// and reset selected exhibition rights
+				// and current company ID in the store
+				if (!value) {
+					this.mainStore.setCurrentCompany(null)
+					this.mainStore.resetSelectedExhibitionRights()
+					this.mainStore.setCurrentCompID(null)
+				}
+				this.mainStore.setIsDialogVisible(value);
+			}
+		})
+	}
 
 	copyLinkToClipboard(url: string) {
 		console.log('copyLinkToClipboard', url);
