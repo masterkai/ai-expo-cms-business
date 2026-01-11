@@ -1,13 +1,11 @@
 import { Component, input } from '@angular/core';
 import { Tooltip } from "primeng/tooltip";
 import { environment } from "../../../../environments/environment";
-import { Select } from "primeng/select";
 
 @Component({
 	selector: 'app-speaker-attached-file',
 	imports: [
 		Tooltip,
-		Select
 	],
 	templateUrl: './speaker-attached-file.html',
 	styleUrl: './speaker-attached-file.scss'
