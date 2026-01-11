@@ -2,21 +2,19 @@ import { Component, inject, signal } from '@angular/core';
 import { RightsChangeRequirementItem } from "../../services/rights-change-requirements.service";
 import { TableModule } from "primeng/table";
 import { Button } from "primeng/button";
-import { DatePipe } from "@angular/common";
-import { MainStore } from "../exhibitors/store/main.store";
+import { RightChangeStore } from "./store/right-change.store";
 
 @Component({
 	selector: 'app-rights-change-requirements',
 	imports: [
 		TableModule,
 		Button,
-		DatePipe
 	],
 	templateUrl: './rights-change-requirements.html',
 	styleUrl: './rights-change-requirements.css',
 })
 export class RightsChangeRequirements {
-	mainStore = inject(MainStore)
+	rightChangeStore = inject(RightChangeStore)
 	rightsChangeRequirements = signal<RightsChangeRequirementItem[]>([])
 
 

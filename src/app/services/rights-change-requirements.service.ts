@@ -13,7 +13,7 @@ export class RightsChangeRequirementsService {
 	private http = inject(HttpClient);
 
 	getRightsRequest(page = '') {
-		const url = `${environment.apiUrl}/getCompany`;
+		const url = `${environment.apiUrl}/getRightsRequest`;
 		const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
 		const body = new URLSearchParams();
 		body.set('page', page);
