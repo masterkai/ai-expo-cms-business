@@ -10,7 +10,7 @@
             <th style="width:20%">申請時間</th>
             <th style="width:20%">公司名稱</th>
             <th style="width:20%">統編</th>
-            
+
             <th style="width:20%">
                 <div class="w-full flex justify-center">異動</div>
             </th>
@@ -32,3 +32,12 @@
         </tr>
     </ng-template>
 </p-table>
+
+<app-common-dialog
+        [header]="''"
+        [needTopSpace]="true"
+        [visible]="rightChangeStore.isDialog_rightChange_Visible()"
+        [width]="'90%'">
+
+    <h1>rightChangeStore</h1>
+</app-common-dialog>

@@ -20,6 +20,7 @@ import { MessageService } from "primeng/api";
 import { RIGHTS_CHANGE_REQUEST_DEMAND_LIST } from "../../../const";
 import { toObservable } from "@angular/core/rxjs-interop";
 import { withDevtools } from "@angular-architects/ngrx-toolkit";
+import * as updaters from "./right-change.updaters";
 
 // RightsChangeRequirementItem
 const rightChangeConfig = entityConfig({
@@ -71,8 +72,13 @@ export const RightChangeStore = signalStore(
 			})
 		}
 
+		const setIsDialogVisible = (isVisible: boolean) => {
+			patchState(store, updaters.setIsDialogVisible(isVisible));
+		}
+
 		return {
-			loadRightChang
+			loadRightChang,
+			setIsDialogVisible
 		}
 	}),
 	withHooks(store => ({
