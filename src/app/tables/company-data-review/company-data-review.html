@@ -3,7 +3,7 @@
         [rowsPerPageOptions]="[5, 10, 20]"
         [rows]="5"
         [tableStyle]="{ 'min-width': '50rem' }"
-        [value]="documentUpdatesPendingReview()"
+        [value]="companyDataReviewStore.visibleItems()"
 >
     <!--    id: string;-->
     <!--    application_time: string;-->
@@ -17,9 +17,6 @@
             <th style="width:15%">申請時間</th>
             <th style="width:15%">公司名稱</th>
             <th style="width:15%">統編</th>
-            <th style="width:15%">欄位</th>
-            <th style="width:15%">舊值</th>
-            <th style="width:15%">新值</th>
             <th style="width:10%">
                 <div class="w-full flex justify-center">審核</div>
             </th>
@@ -28,12 +25,9 @@
     </ng-template>
     <ng-template #body let-item>
         <tr>
-            <td>{{ item.application_time | date: 'yyyy/MM/dd HH:mm:ss' }}</td>
+            <td>{{ item.createdate }}</td>
             <td>{{ item.company_name }}</td>
-            <td>{{ item.unino }}</td>
-            <td>{{ item.column_name }}</td>
-            <td>{{ item.old_value }}</td>
-            <td>{{ item.new_value }}</td>
+            <td>{{ item.unified_business_no }}</td>
             <td>
                 <div
                         class="w-full flex justify-center"
