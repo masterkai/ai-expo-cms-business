@@ -4,6 +4,7 @@ import { Tag } from "primeng/tag";
 import { Tooltip } from "primeng/tooltip";
 import { Divider } from "primeng/divider";
 import { Card } from "../../../shared/components/card/card";
+import { ProgressSpinner } from "primeng/progressspinner";
 
 @Component({
 	selector: 'app-review-ui',
@@ -11,7 +12,8 @@ import { Card } from "../../../shared/components/card/card";
 		Tag,
 		Tooltip,
 		Divider,
-		Card
+		Card,
+		ProgressSpinner
 	],
 	templateUrl: './review-ui.html',
 	styleUrl: './review-ui.scss',

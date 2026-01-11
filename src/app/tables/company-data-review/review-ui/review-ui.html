@@ -1,5 +1,9 @@
 @let data = companyDataReviewStore.current_review_data();
-
+@if (data === null) {
+    <div class="no-data-message">
+        <p-progress-spinner ariaLabel="loading"/>
+    </div>
+}
 @if (data !== null) {
     <div class="container">
         <p-tag [rounded]="true"

@@ -246,3 +246,12 @@
 	align-items: center;
 	gap: 12px;
 }
+
+.no-data-message {
+	display: grid;
+	place-items: center;
+	font-size: 1.25rem;
+	font-weight: 600;
+	color: #888;
+	height: 80vh;
+}
