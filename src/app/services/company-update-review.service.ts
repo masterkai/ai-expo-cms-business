@@ -34,7 +34,46 @@ export class CompanyUpdateReviewService {
 		body.set('id', id);
 		return this.http.post<GetReviewResponse>(url, body, { headers });
 	}
+
+	setReview(reviewDATA: CompanyReviewAction) {
+		const url = `${environment.apiUrl}/setReview`;
+		const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+		return this.http.post<SetReviewResponse>(url, reviewDATA, { headers });
+	}
 }
+
+export interface SetReviewResponse {
+	status: 'success' | 'error';
+	message: string;
+}
+
+/** 允許的審核結果 */
+export type ReviewResult = 'Reject' | 'Approve';
+
+/** 單一審核項目 */
+export interface ReviewItem {
+	/**
+	 * path 格式示例: "basic_info.company_name"
+	 * (通常為 getReview 回傳物件的屬性路徑)
+	 */
+	path: string;
+
+	/** 審核結果 */
+	result: ReviewResult;
+
+	/** 可選的審核備註 / 建議理由 */
+	comment?: string;
+}
+
+/** 要送出的整體審核 payload */
+export interface CompanyReviewAction {
+	/** 公司編號（如 API 使用 string id） */
+	compID: string;
+
+	/** 多筆審核項目 */
+	reviews: ReviewItem[];
+}
+
 
 export interface GetReviewRequestResponse {
 	status: 'success' | 'error';
