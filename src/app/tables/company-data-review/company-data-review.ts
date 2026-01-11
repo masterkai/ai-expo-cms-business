@@ -3,6 +3,8 @@ import { Button } from "primeng/button";
 import { TableModule } from "primeng/table";
 import { CompanyDataReviewStore } from "./store/company-data-review.store";
 import { CommonDialog } from "../../shared/components/common-dialog/common-dialog";
+import { ReviewUi } from "./review-ui/review-ui";
+import { CompanyUpdateReviewItem } from "../../services/company-update-review.service";
 
 @Component({
 	selector: 'app-company-data-review',
@@ -10,6 +12,7 @@ import { CommonDialog } from "../../shared/components/common-dialog/common-dialo
 		Button,
 		TableModule,
 		CommonDialog,
+		ReviewUi,
 	],
 	templateUrl: './company-data-review.html',
 	styleUrl: './company-data-review.css',
@@ -28,6 +31,8 @@ export class CompanyDataReview implements AfterViewInit {
 				// and current company ID in the store
 				if (!value) {
 					console.log('Dialog closed, resetting current company selection.');
+					this.companyDataReviewStore.resetCurrentReview();
+					this.companyDataReviewStore.resetCurrentReviewDATA();
 				}
 
 				this.companyDataReviewStore.setIsDialogVisible(value);
@@ -35,8 +40,13 @@ export class CompanyDataReview implements AfterViewInit {
 		})
 	}
 
-	protected handleChange(item: any) {
+	protected handleChange(item: CompanyUpdateReviewItem) {
 		this.companyDataReviewStore.setIsDialogVisible(true);
+		this.companyDataReviewStore.setCurrentReview(item);
+		const id = item?.unified_business_no;
+		if (id) {
+			this.companyDataReviewStore.fetchReviewDATAById(id);
+		}
 		console.log('Change clicked for item:', item);
 		// Implement change logic here
 	}

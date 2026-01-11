@@ -10,7 +10,11 @@ import {
 } from "@ngrx/signals";
 import { initialCompanyDataReviewSlice } from "./company-data-review.slice";
 import { entityConfig, setAllEntities, withEntities } from "@ngrx/signals/entities";
-import { CompanyUpdateReviewItem, CompanyUpdateReviewService } from "../../../services/company-update-review.service";
+import {
+	CompanyUpdatePayload,
+	CompanyUpdateReviewItem,
+	CompanyUpdateReviewService
+} from "../../../services/company-update-review.service";
 import { computed, inject } from "@angular/core";
 import { injectQuery, QueryClient } from "@tanstack/angular-query-experimental";
 import { MessageService } from "primeng/api";
@@ -71,12 +75,42 @@ export const CompanyDataReviewStore = signalStore(
 
 		const setIsDialogVisible = (visible: boolean) => patchState(store, updaters.setIsDialogVisible(visible))
 
-		const setCurrentReview = (review: any | null) => patchState(store, { current_review: review })
+		const setCurrentReview = (review: CompanyUpdateReviewItem | null) => patchState(store, updaters.setCurrentReview(review))
+
+		const resetCurrentReview = () => patchState(store, updaters.resetCurrentReview())
+
+		const setCurrentReviewDATA = (data: CompanyUpdatePayload[]) => patchState(store, updaters.setCurrentReviewDATA(data))
+
+		const resetCurrentReviewDATA = () => patchState(store, updaters.resetCurrentReviewDATA())
+
+		const fetchReviewDATAById = (id: string) => {
+			store._companyUpdateReviewService.getReview(id).subscribe({
+				next: (response) => {
+					if (response.status === 'success' && response.data) {
+						patchState(store, updaters.setCurrentReviewDATA(response.data))
+					}
+				},
+				error: (error) => {
+					console.error('Error fetching review data by ID:', error)
+					store._messageService.add({
+						severity: 'error',
+						summary: '錯誤',
+						detail: '載入審核資料失敗，請稍後再試。',
+						life: 3000
+					})
+				}
+			})
+
+		}
 
 		return {
 			loadCompanyUpdateList,
 			setIsDialogVisible,
-			setCurrentReview
+			setCurrentReview,
+			resetCurrentReview,
+			setCurrentReviewDATA,
+			resetCurrentReviewDATA,
+			fetchReviewDATAById
 		}
 	}),
 	withHooks(store => ({

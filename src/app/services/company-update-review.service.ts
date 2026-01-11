@@ -3,13 +3,6 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../environments/environment";
 import { lastValueFrom } from "rxjs";
 
-// Type for documentUpdatesPendingReview items
-export interface CompanyUpdateReviewItem {
-	compID: string;
-	createdate: string;
-	company_name: string;
-	unified_business_no: string
-}
 
 /*
 * 業務審核廠商資料確認頁
@@ -39,7 +32,7 @@ export class CompanyUpdateReviewService {
 		const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
 		const body = new URLSearchParams();
 		body.set('id', id);
-		return lastValueFrom(this.http.post<GetReviewResponse>(url, body, { headers }));
+		return this.http.post<GetReviewResponse>(url, body, { headers });
 	}
 }
 
@@ -132,3 +125,10 @@ export interface CompanyUpdatePayload {
 	speaker_information: SpeakerInformation[];
 }
 
+// Type for documentUpdatesPendingReview items
+export interface CompanyUpdateReviewItem {
+	compID: string;
+	createdate: string;
+	company_name: string;
+	unified_business_no: string
+}
