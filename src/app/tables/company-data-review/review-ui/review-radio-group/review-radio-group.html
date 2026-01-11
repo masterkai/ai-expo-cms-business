@@ -1,0 +1,21 @@
+<div class="flex flex-wrap gap-4">
+    <div class="flex items-center">
+        <p-radiobutton
+                (ngModelChange)="setReview($event)"
+                [ngModel]="review()"
+                inputId="Reject"
+                name="review"
+                value="Reject"></p-radiobutton>
+        <label class="ml-2" for="Reject">不通過</label>
+    </div>
+
+    <div class="flex items-center">
+        <p-radiobutton
+                (ngModelChange)="setReview($event)"
+                [ngModel]="review()"
+                inputId="Approve"
+                name="review"
+                value="Approve"></p-radiobutton>
+        <label class="ml-2" for="Approve">通過</label>
+    </div>
+</div>
