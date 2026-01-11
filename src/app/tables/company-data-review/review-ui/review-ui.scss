@@ -168,6 +168,12 @@
 	grid-column-gap: 16px;
 	grid-row-gap: 16px;
 	
+	.title {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+	}
+	
 	.div1 {
 		grid-area: 1 / 1 / 2 / 3;
 	}

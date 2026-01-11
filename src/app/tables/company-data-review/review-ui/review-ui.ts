@@ -5,6 +5,8 @@ import { Tooltip } from "primeng/tooltip";
 import { Divider } from "primeng/divider";
 import { Card } from "../../../shared/components/card/card";
 import { ProgressSpinner } from "primeng/progressspinner";
+import { FormsModule } from '@angular/forms';
+import { ReviewRadioGroup } from "./review-radio-group/review-radio-group";
 
 @Component({
 	selector: 'app-review-ui',
@@ -13,7 +15,9 @@ import { ProgressSpinner } from "primeng/progressspinner";
 		Tooltip,
 		Divider,
 		Card,
-		ProgressSpinner
+		ProgressSpinner,
+		FormsModule,
+		ReviewRadioGroup,
 	],
 	templateUrl: './review-ui.html',
 	styleUrl: './review-ui.scss',
