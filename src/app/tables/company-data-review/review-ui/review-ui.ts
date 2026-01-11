@@ -1,11 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CompanyDataReviewStore } from "../store/company-data-review.store";
+import { Tag } from "primeng/tag";
+import { Tooltip } from "primeng/tooltip";
+import { Divider } from "primeng/divider";
+import { Card } from "../../../shared/components/card/card";
 
 @Component({
 	selector: 'app-review-ui',
-	imports: [],
+	imports: [
+		Tag,
+		Tooltip,
+		Divider,
+		Card
+	],
 	templateUrl: './review-ui.html',
 	styleUrl: './review-ui.css',
 })
 export class ReviewUi {
+	companyDataReviewStore = inject(CompanyDataReviewStore)
+
+	renderObjectValues(obj: any): string {
+		return Object.values(obj).join('-');
+	}
+
+	renderValue(obj: any, key: string, defaultText: string = '無資料'): string {
+		return obj && obj[key] ? obj[key] : defaultText;
+	}
 
 }

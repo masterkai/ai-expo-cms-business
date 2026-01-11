@@ -1,1 +1,161 @@
-<p>review-ui works!</p>
+@let data = companyDataReviewStore.current_review_data();
+
+@if (data !== null) {
+    <div class="container">
+        <p-tag [rounded]="true"
+               class="mb-3"
+               severity="info"
+               value="基本資料"/>
+        <!--    <div class="title">基本資料</div>-->
+        <div class="basic-info-section-grid">
+            <div class="div1 basic-info-div-box">
+                <div class="title">公司名稱(中文)</div>
+                <div
+                        [pTooltip]="data[0].basic_info.company_name"
+                        class="value">{{ renderValue(data[0].basic_info, 'company_name') }}
+                </div>
+            </div>
+            <div class="div2 basic-info-div-box">
+                <div class="title">公司名稱(英文)</div>
+                <div
+                        [pTooltip]="data[0].basic_info.company_name_en"
+                        class="value">{{ renderValue(data[0].basic_info, 'company_name_en') }}
+                </div>
+            </div>
+            <div class="div3 basic-info-div-box">
+                <div class="title">公司網站 URL</div>
+                <div
+                        [pTooltip]="data[0].basic_info.company_website_url"
+                        class="value">{{ renderValue(data[0].basic_info, 'company_website_url') }}
+                </div>
+            </div>
+            <div class="div4 basic-info-div-box">
+                <div class="title">統一編號</div>
+                <div class="value">{{ renderValue(data[0].basic_info, 'unified_business_no') }}</div>
+            </div>
+            <div class="div5 basic-info-div-box">
+                <div class="title">公司簡介(選填)</div>
+                <div
+                        [pTooltip]="data[0].basic_info.company_profile"
+                        class="value"
+                >{{ renderValue(data[0].basic_info, 'company_profile') }}
+                </div>
+            </div>
+            <div class="div6 basic-info-div-box">
+                <div class="title">公司地址</div>
+                <div
+                        [pTooltip]="data[0].basic_info.company_address"
+                        class="value"
+                >{{ renderValue(data[0].basic_info, 'company_address') }}
+                </div>
+            </div>
+        </div>
+
+        <p-divider/>
+
+        <!--    <div class="title">聯絡人</div>-->
+        <p-tag [rounded]="true"
+               class="mb-3"
+               severity="info"
+               value="聯絡人"/>
+        <div class="contact-person-section-grid">
+            <div class="div1">
+                <div class="title">聯絡人姓名</div>
+                <div class="value">{{ data[0].contact_person.name }}</div>
+            </div>
+            <div class="div2">
+                <div class="title">職稱</div>
+                <div class="value">{{ data[0].contact_person.title }}</div>
+            </div>
+            <div class="div3">
+                <div class="title">email</div>
+                <div class="value">{{ data[0].contact_person.email }}</div>
+            </div>
+            <div class="div4">
+                <div class="title">公司市話</div>
+                <div class="value">{{ renderObjectValues(data[0].contact_person.office_phone) }}</div>
+            </div>
+            <div class="div5">
+                <div class="title">手機</div>
+                <div class="value">{{ renderObjectValues(data[0].contact_person.mobile_phone) }}</div>
+            </div>
+        </div>
+        <p-divider/>
+        <!--    <div class="title">參展權益確認</div>-->
+        <p-tag [rounded]="true"
+               class="mb-3"
+               severity="info"
+               value="參展權益確認"/>
+        <div class="exhibitor-rights-confirmation-section-grid">
+            @if (data[0].confirmation_of_exhibitor_rights.length > 0) {
+                @for (item of data[0].confirmation_of_exhibitor_rights; track $index) {
+                    <div class="div{{ $index + 1 }}">
+                        <div class="title">{{ item.Cate }}</div>
+                        <div class="value">
+                            {{ item.title }}
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <p-divider/>
+        <!--    <div class="title">參展資料</div>-->
+        <p-tag [rounded]="true"
+               class="mb-3"
+               severity="info"
+               value="參展資料"/>
+        <div class="exhibitor-info-section-grid">
+            <div class="div1">
+                <div class="title">LOGO</div>
+                <div class="value">
+                    @if (data[0].exhibition_Information_Update.logo_image) {
+                        <img
+                                [src]="data[0].exhibition_Information_Update.logo_image"
+                                alt="Company Logo"
+                                class="company-logo-image"
+                        />
+                    } @else {
+                        <span>尚未上傳LOGO</span>
+                    }
+                </div>
+            </div>
+
+            <div class="div2">
+                <div class="title">展出主題</div>
+                <div class="value">
+                    {{ data[0].exhibition_Information_Update.exhibition_theme }}
+                </div>
+            </div>
+            <div class="div3">
+                <div class="title">展出亮點/Demo需求</div>
+                <div class="value">
+                    @if (data[0].exhibition_Information_Update.highlights.length > 0) {
+                        <ul class="exhibition-highlights-list">
+                            @for (item of data[0].exhibition_Information_Update.highlights; track item.highlight) {
+                                <li>
+                                    <span class="highlight-title">{{ item.highlight }}</span><br/>
+                                    <span class="highlight-detail">{{ item.detail }}</span>
+                                </li>
+                            }
+                        </ul>
+                    } @else {
+                        <span>尚未填寫展出亮點/Demo需求</span>
+                    }
+                </div>
+            </div>
+        </div>
+        <p-divider/>
+        <div class="speaker-info-section">
+            <!--        <div class="title">講者資訊</div>-->
+            <p-tag [rounded]="true"
+                   class="mb-3"
+                   severity="info"
+                   value="講者資訊"/>
+            <div class="speaker-info-wrapper">
+                @for (speaker of data[0].speaker_information; track speaker.id) {
+                    <app-card [speaker_information]="speaker"/>
+                }
+            </div>
+        </div>
+    </div>
+}
