@@ -14,7 +14,7 @@ import { Card } from "../../../shared/components/card/card";
 		Card
 	],
 	templateUrl: './review-ui.html',
-	styleUrl: './review-ui.css',
+	styleUrl: './review-ui.scss',
 })
 export class ReviewUi {
 	companyDataReviewStore = inject(CompanyDataReviewStore)

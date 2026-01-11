@@ -1,8 +1,8 @@
 import { Component, input } from '@angular/core';
-import { Speaker_information } from "../../store/home.slice";
-import { environment } from "../../../environments/environment";
 import { SpeakerAttachedFile } from "../speaker-attached-file/speaker-attached-file";
 import { Tooltip } from "primeng/tooltip";
+import { environment } from "../../../../environments/environment";
+import { SpeakerInformation } from "../../../services/company-update-review.service";
 
 @Component({
 	selector: 'app-card',
@@ -15,7 +15,7 @@ import { Tooltip } from "primeng/tooltip";
 })
 export class Card {
 	basePath = environment.basePath
-	speaker_information = input.required<Speaker_information>();
+	speaker_information = input.required<SpeakerInformation>();
 
 	getSpeakerPhotoFileName(url: string): string {
 		const parts = url.split('/');

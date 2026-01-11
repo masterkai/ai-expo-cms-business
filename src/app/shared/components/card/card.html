@@ -1,36 +1,36 @@
 <div class="card">
     <div class="speaker-block">
         <div class="speaker-image-wrapper">
-            <div [style.background-image]="'url(' + speaker_information().speaker_photo + ')'"
+            <div [style.background-image]="'url(' + (speaker_information()?.speaker_photo || '') + ')'"
                  class="speaker-image"
             ></div>
             <div
                     class="speaker-photo-file-name"
-            >{{ getSpeakerPhotoFileName(speaker_information().speaker_photo) }}
+            >{{ getSpeakerPhotoFileName(speaker_information()?.speaker_photo || '') }}
             </div>
         </div>
         <div class="speaker-profile">
-            <h3>{{ speaker_information().name }}</h3>
-            <h4>{{ speaker_information().title }}</h4>
+            <h3>{{ speaker_information()?.name }}</h3>
+            <h4>{{ speaker_information()?.title }}</h4>
         </div>
     </div>
     <p
-            [pTooltip]="speaker_information().biography"
+            [pTooltip]="speaker_information()?.biography || ''"
             class="speaker-bio"
-    >{{ speaker_information().biography }}</p>
+    >{{ speaker_information()?.biography }}</p>
     <div class="speaker-files-block">
-        @if (speaker_information().speech_manuscript) {
+        @if (speaker_information()?.speech_manuscript) {
             <app-speaker-attached-file
-                    [data]="speaker_information().speech_manuscript"
+                    [data]="speaker_information()?.speech_manuscript || ''"
                     alt="pdf icon"
-                    icon="file-pdf-solid.svg"
+                    icon="pdf"
                     title="講稿"></app-speaker-attached-file>
         }
-        @if (speaker_information().briefing) {
+        @if (speaker_information()?.briefing) {
             <app-speaker-attached-file
-                    [data]="speaker_information().briefing"
+                    [data]="speaker_information()?.briefing || ''"
                     alt="ppt icon"
-                    icon="ppt.svg"
+                    icon="ppt"
                     title="簡報"></app-speaker-attached-file>
         }
 
