@@ -46,7 +46,7 @@ export const RightChangeStore = signalStore(
 		// loadRightChang now supports an optional page parameter; it creates a per-page query and subscribes once
 		const loadRightChang = (page = '') => {
 			const _rightsQuery = injectQuery(() => ({
-				queryKey: [ ...RIGHTS_CHANGE_REQUEST_DEMAND_LIST, page ],
+				queryKey: [...RIGHTS_CHANGE_REQUEST_DEMAND_LIST, page],
 				queryFn: () => store._rightsChangeRequirementsService.getRightsRequest(page),
 				staleTime: 1000 * 60 * 5,
 				refetchOnWindowFocus: false,
@@ -72,13 +72,14 @@ export const RightChangeStore = signalStore(
 			})
 		}
 
-		const setIsDialogVisible = (isVisible: boolean) => {
-			patchState(store, updaters.setIsDialogVisible(isVisible));
-		}
+		const setIsDialogVisible = (isVisible: boolean) => patchState(store, updaters.setIsDialogVisible(isVisible));
+
+		const setRightChangeMode = (mode: boolean) => patchState(store, updaters.setRightChangeMode(mode));
 
 		return {
 			loadRightChang,
-			setIsDialogVisible
+			setIsDialogVisible,
+			setRightChangeMode
 		}
 	}),
 	withHooks(store => ({

@@ -19,6 +19,7 @@ import { injectQuery, QueryClient } from "@tanstack/angular-query-experimental";
 import { entityConfig, setAllEntities, updateEntity, withEntities } from "@ngrx/signals/entities";
 import { CACHE_KEY_COMPANY_LIST } from "../../../const";
 import { toObservable } from "@angular/core/rxjs-interop";
+import { RightChangeStore } from "../../rights-change-requirements/store/right-change.store";
 
 const companyConfig = entityConfig({
 	entity: type<Company>(),
@@ -40,6 +41,7 @@ export const MainStore = signalStore(
 		_messageService: inject(MessageService),
 		_exhibitorService: inject(ExhibitorService),
 		_exhibitionRightsService: inject(ExhibitionRightsService),
+		_rightChangeStore: inject(RightChangeStore)
 	})),
 	withMethods(store => {
 		const setExhibitionRights = (rights: Exhibition_rights) => patchState(store, updaters.setExhibitionRights(rights));
@@ -80,7 +82,7 @@ export const MainStore = signalStore(
 					if (response.status === 'success') {
 
 						store._queryClient.invalidateQueries(
-							{ queryKey: [ CACHE_KEY_COMPANY_LIST ] }
+							{ queryKey: [CACHE_KEY_COMPANY_LIST] }
 						).then(
 							() => {
 								store._messageService.add({
@@ -164,7 +166,7 @@ export const MainStore = signalStore(
 
 		const onSaveExhibitorRights = () => {
 			const compID = store.current_compID();
-			const items = Object.entries(store.selected_exhibition_right()).flatMap(([ itemCate, arr ]) =>
+			const items = Object.entries(store.selected_exhibition_right()).flatMap(([itemCate, arr]) =>
 				arr.map(({ id }: { id: string }) => ({
 					id: Number(id),
 					itemCate
@@ -178,7 +180,7 @@ export const MainStore = signalStore(
 				next: (response) => {
 					if (response.status === 'success') {
 						store._queryClient.invalidateQueries({
-							queryKey: [ CACHE_KEY_COMPANY_LIST ]
+							queryKey: [CACHE_KEY_COMPANY_LIST]
 						}).then(() => {
 							store._messageService.add({
 								severity: 'success',

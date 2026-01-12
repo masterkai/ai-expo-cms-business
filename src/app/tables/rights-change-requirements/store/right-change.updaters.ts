@@ -4,3 +4,7 @@ import { PartialStateUpdater } from "@ngrx/signals";
 export function setIsDialogVisible(visible: boolean): PartialStateUpdater<RightChangeSlice> {
 	return _ => ({ isDialog_rightChange_Visible: visible });
 }
+
+export function setRightChangeMode(mode: boolean): PartialStateUpdater<RightChangeSlice> {
+	return _ => ({ right_change_mode: mode })
+}

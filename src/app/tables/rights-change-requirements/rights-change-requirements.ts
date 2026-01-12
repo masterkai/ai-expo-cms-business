@@ -27,7 +27,8 @@ export class RightsChangeRequirements implements AfterViewInit {
 				// and reset selected exhibition rights
 				// and current company ID in the store
 				if (!value) {
-					console.log('Dialog closed, resetting selections.');
+					// console.log('Dialog closed, resetting selections.');
+					this.rightChangeStore.setRightChangeMode(false)
 				}
 				this.rightChangeStore.setIsDialogVisible(value);
 			}
@@ -39,5 +40,6 @@ export class RightsChangeRequirements implements AfterViewInit {
 		console.log('View details for item:', item);
 		// 在這裡添加查看詳細信息的邏輯
 		this.rightChangeStore.setIsDialogVisible(true);
+		this.rightChangeStore.setRightChangeMode(true)
 	}
 }
