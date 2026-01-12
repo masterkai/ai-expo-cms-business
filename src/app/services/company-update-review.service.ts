@@ -11,6 +11,7 @@ import { lastValueFrom } from "rxjs";
 	providedIn: 'root',
 })
 export class CompanyUpdateReviewService {
+
 	private http = inject(HttpClient);
 
 	/*
@@ -47,6 +48,17 @@ export class CompanyUpdateReviewService {
 		const body = new URLSearchParams();
 		body.set('compID', compID);
 		return lastValueFrom(this.http.post<GetHistoryResponse>(url, body, { headers }));
+	}
+
+	setSend(compID: string) {
+		const url = `${environment.apiUrl}/setSend`;
+		const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+		const body = new URLSearchParams();
+		body.set('compID', compID);
+		return this.http.post<{
+			status: 'success' | 'error';
+			message: string;
+		}>(url, body, { headers });
 	}
 }
 

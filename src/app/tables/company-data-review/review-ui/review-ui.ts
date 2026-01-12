@@ -43,6 +43,8 @@ export class ReviewUi {
 	}
 
 	protected submitReview() {
-		
+		const compID = this.companyDataReviewStore.current_review()!.compID;
+		this.companyDataReviewStore.onSentReview(compID);
+		this.companyDataReviewStore.setIsDialogVisible(false);
 	}
 }

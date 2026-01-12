@@ -102,6 +102,41 @@ export const CompanyDataReviewStore = signalStore(
 			})
 		}
 
+		const onSentReview = (compID: string) => {
+			store._companyUpdateReviewService.setSend(compID).subscribe({
+				next: (response) => {
+					if (response.status === 'success') {
+						store._queryClient.invalidateQueries({
+							queryKey: CACHE_KEY_COMPANY_UPDATE_REVIEW_LIST
+						}).then(() => {
+							store._messageService.add({
+								severity: 'success',
+								summary: '成功',
+								detail: '送出審核成功。',
+								life: 3000
+							})
+						})
+					} else {
+						store._messageService.add({
+							severity: 'error',
+							summary: '錯誤',
+							detail: '送出審核失敗，請稍後再試。',
+							life: 3000
+						})
+					}
+				},
+				error: (error) => {
+					console.error('Error sending review:', error)
+					store._messageService.add({
+						severity: 'error',
+						summary: '錯誤',
+						detail: '送出審核失敗，請稍後再試。',
+						life: 3000
+					})
+				}
+			})
+		}
+
 		const setIsDialogVisible = (visible: boolean) => patchState(store, updaters.setIsDialogVisible(visible))
 
 		const setCurrentReview = (review: CompanyUpdateReviewItem | null) => patchState(store, updaters.setCurrentReview(review))
@@ -144,7 +179,8 @@ export const CompanyDataReviewStore = signalStore(
 			resetCurrentReviewDATA,
 			fetchReviewDATAById,
 			setHistoryReviewDATA,
-			loadHistoryReviewList
+			loadHistoryReviewList,
+			onSentReview
 		}
 	}),
 	withHooks(store => ({
