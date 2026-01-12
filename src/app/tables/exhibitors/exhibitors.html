@@ -58,35 +58,28 @@
                     [pTooltip]="renderArrayContent(exhibitor.promotion)"
                     class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5"
             >
-                <!--                <ul>@for (item of exhibitor.promotion; track item) {-->
-                <!--                    <li class="flex items-center gap-2">-->
-                <!--                        <i class="pi pi-circle" style="font-size: 0.5rem;"></i>-->
-                <!--                        <div class="text-xs">{{ item.option }}</div>-->
-                <!--                    </li>-->
-                <!--                }</ul>-->
                 {{ renderArrayContent(exhibitor.promotion) }}
             </td>
             <td
                     [pTooltip]="renderArrayContent(exhibitor.optional)"
                     class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5 "
             >
-                <!--                <ul>@for (item of exhibitor.optional; track item) {-->
-                <!--                    <li class="flex items-center gap-2">-->
-                <!--                        <i class="pi pi-circle" style="font-size: 0.5rem;"></i>-->
-                <!--                        <div class="text-xs">{{ item.option }}</div>-->
-                <!--                    </li>-->
-                <!--                }</ul>-->
                 {{ renderArrayContent(exhibitor.optional) }}
             </td>
             <td>
-                <p-button
-                        (onClick)="copyLinkToClipboard(exhibitor.link)"
-                        fluid
-                        icon="pi pi-link"
-                        label="複製聯結"
-                        size="small"
-                        variant="outlined"
-                ></p-button>
+                @if (exhibitor.link.length > 0) {
+                    <p-button
+                            (onClick)="copyLinkToClipboard(exhibitor.link)"
+                            fluid
+                            icon="pi pi-link"
+                            label="複製聯結"
+                            size="small"
+                            variant="outlined"
+                    ></p-button>
+                } @else {
+                    <span class="grid-items-center">尚未產生連結</span>
+                }
+
             </td>
         </tr>
     </ng-template>
