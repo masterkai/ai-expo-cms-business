@@ -76,10 +76,13 @@ export const RightChangeStore = signalStore(
 
 		const setRightChangeMode = (mode: boolean) => patchState(store, updaters.setRightChangeMode(mode));
 
+		const setCurrentCompID = (compID: string | null) => patchState(store, updaters.setCurrentCompID(compID))
+
 		return {
 			loadRightChang,
 			setIsDialogVisible,
-			setRightChangeMode
+			setRightChangeMode,
+			setCurrentCompID
 		}
 	}),
 	withHooks(store => ({

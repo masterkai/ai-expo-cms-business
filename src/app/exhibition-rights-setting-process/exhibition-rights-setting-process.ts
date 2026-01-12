@@ -4,6 +4,7 @@ import { Step, StepList, StepPanel, StepPanels, Stepper } from "primeng/stepper"
 import { ExhibitionInfoMenuUi } from "../exhibition-info-menu-ui/exhibition-info-menu-ui";
 import { ExhibitionInfoPreviewUi } from "../exhibition-info-preview-ui/exhibition-info-preview-ui";
 import { MainStore } from "../tables/exhibitors/store/main.store";
+import { RightChangeStore } from "../tables/rights-change-requirements/store/right-change.store";
 
 @Component({
 	selector: 'app-exhibition-rights-setting-process',
@@ -22,11 +23,17 @@ import { MainStore } from "../tables/exhibitors/store/main.store";
 })
 export class ExhibitionRightsSettingProcess {
 	mainStore = inject(MainStore)
+	rightChangeStore = inject(RightChangeStore)
 
 	confirm() {
 		this.mainStore.updateCompanyData()
 		this.mainStore.onSaveExhibitorRights()
 		this.mainStore.onSetExhibitionLink()
 		this.mainStore.setIsDialogVisible(false);
+	}
+
+	protected confirmRightChange() {
+		this.mainStore.onSaveExhibitorRights()
+		this.rightChangeStore.setIsDialogVisible(false);
 	}
 }

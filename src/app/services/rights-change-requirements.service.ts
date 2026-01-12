@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../environments/environment";
 import { lastValueFrom } from "rxjs";
+import { Selected_Exhibition_rights } from "../tables/exhibitors/store/main.slice";
 
 /*
 權益異動申請需求
@@ -35,4 +36,5 @@ export interface RightsChangeRequirementItem {
 	createdate: string;
 	company_name: string;
 	unified_business_no: string;
+	option_items: Selected_Exhibition_rights;
 }

@@ -1,14 +1,17 @@
 @let exhibition_right = mainStore.exhibition_rights();
 @if (mainStore.isRightChangeModeEnabled()) {
     <div class="w-full flex flex-col gap-1">
-        <label>贊助權益</label>
+        <label>異動描述列表</label>
         <div class="right-change-list">
 
             @for (item of exhibition_right.sponsorship_benefits; track item.id) {
                 <div class="item">
                     <strong>{{ item.cate }}</strong>
-                    <span class="text-[14px]">異動描述：</span>
-                    <div class="text-[14px]">{{ item.comment }}</div>
+                    <div
+                            class="flex flex-col gap-1"
+                    ><span class="text-[12px]">異動描述：</span>
+                        <div class="text-[14px]">{{ item.comment }}</div>
+                    </div>
                 </div>
             }
 
@@ -18,82 +21,93 @@
 <div class="w-fit flex gap-4">
 
     <div class="min-w-md flex flex-col justify-start items-start gap-3 p-4 rounded-md bg-white shadow-sm">
-        <div class="w-full flex flex-col gap-1">
-            <label for="unsureLectureAgenda">不知講座議程</label>
-            <p-multiselect
-                    (ngModelChange)="mainStore.setSelectedExhibitionRights({
+        @if (mainStore.selected_exhibition_right().lecture.length > 0) {
+            <div class="w-full flex flex-col gap-1">
+                <label for="unsureLectureAgenda">不知講座議程</label>
+                <p-multiselect
+                        (ngModelChange)="mainStore.setSelectedExhibitionRights({
                     lecture: $event
                     })"
-                    [ngModel]="mainStore.selected_exhibition_right().lecture"
-                    [options]="mainStore.exhibition_rights().lecture"
-                    dataKey="id"
-                    fluid
-                    id="unsureLectureAgenda"
-                    optionLabel="option"
-                    placeholder="請選擇"></p-multiselect>
-        </div>
-        <div class="w-full flex flex-col gap-1">
-            <label for="Future_Stage_Agenda">未來講座議程</label>
-            <p-multiselect
-                    (ngModelChange)="mainStore.setSelectedExhibitionRights({
+                        [ngModel]="mainStore.selected_exhibition_right().lecture"
+                        [options]="mainStore.exhibition_rights().lecture"
+                        dataKey="id"
+                        fluid
+                        id="unsureLectureAgenda"
+                        optionLabel="option"
+                        placeholder="請選擇"></p-multiselect>
+            </div>
+        }
+        @if (mainStore.selected_exhibition_right().stage.length > 0) {
+            <div class="w-full flex flex-col gap-1">
+                <label for="Future_Stage_Agenda">未來講座議程</label>
+                <p-multiselect
+                        (ngModelChange)="mainStore.setSelectedExhibitionRights({
                     stage: $event
                     })"
-                    [ngModel]="mainStore.selected_exhibition_right().stage"
-                    [options]="mainStore.exhibition_rights().stage"
-                    dataKey="id"
-                    fluid
-                    id="Future_Stage_Agenda"
-                    optionLabel="option"
-                    placeholder="請選擇"></p-multiselect>
-        </div>
+                        [ngModel]="mainStore.selected_exhibition_right().stage"
+                        [options]="mainStore.exhibition_rights().stage"
+                        dataKey="id"
+                        fluid
+                        id="Future_Stage_Agenda"
+                        optionLabel="option"
+                        placeholder="請選擇"></p-multiselect>
+            </div>
+        }
+
     </div>
     <div class="min-w-md flex flex-col justify-start items-start gap-3 p-4 rounded-md bg-white shadow-sm">
 
+        @if (mainStore.selected_exhibition_right().promotion.length > 0) {
+            <div class="w-full flex flex-col gap-1">
+                <label for="Media_promotion_dropdown_menu">媒體廣宣</label>
 
-        <div class="w-full flex flex-col gap-1">
-            <label for="Media_promotion_dropdown_menu">媒體廣宣</label>
-
-            <p-multiselect
-                    (ngModelChange)="mainStore.setSelectedExhibitionRights({
+                <p-multiselect
+                        (ngModelChange)="mainStore.setSelectedExhibitionRights({
                     promotion: $event
                     })"
-                    [maxSelectedLabels]="3"
-                    [ngModel]="mainStore.selected_exhibition_right().promotion"
-                    [options]="mainStore.exhibition_rights().promotion"
-                    dataKey="id"
-                    fluid
-                    id="Media_promotion_dropdown_menu"
-                    optionLabel="option"
-                    placeholder="請選擇"></p-multiselect>
-        </div>
-        <div class="w-full flex flex-col gap-1">
-            <label for="Add_to_cart_dropdown_menu">加購項目</label>
-            <p-multiselect
-                    (ngModelChange)="mainStore.setSelectedExhibitionRights({
+                        [maxSelectedLabels]="3"
+                        [ngModel]="mainStore.selected_exhibition_right().promotion"
+                        [options]="mainStore.exhibition_rights().promotion"
+                        dataKey="id"
+                        fluid
+                        id="Media_promotion_dropdown_menu"
+                        optionLabel="option"
+                        placeholder="請選擇"></p-multiselect>
+            </div>
+        }
+        @if (mainStore.selected_exhibition_right().optional.length > 0) {
+            <div class="w-full flex flex-col gap-1">
+                <label for="Add_to_cart_dropdown_menu">加購項目</label>
+                <p-multiselect
+                        (ngModelChange)="mainStore.setSelectedExhibitionRights({
                     optional: $event
                     })"
-                    [maxSelectedLabels]="3"
-                    [ngModel]="mainStore.selected_exhibition_right().optional"
-                    [options]="mainStore.exhibition_rights().optional"
-                    dataKey="id"
-                    fluid
-                    id="Add_to_cart_dropdown_menu"
-                    optionLabel="option"
-                    placeholder="請選擇"></p-multiselect>
-        </div>
-        <div class="w-full flex flex-col gap-1">
-            <label for="selected_Exhibition_booth">展場攤位</label>
-            <p-multiselect
-                    (ngModelChange)="mainStore.setSelectedExhibitionRights({
+                        [maxSelectedLabels]="3"
+                        [ngModel]="mainStore.selected_exhibition_right().optional"
+                        [options]="mainStore.exhibition_rights().optional"
+                        dataKey="id"
+                        fluid
+                        id="Add_to_cart_dropdown_menu"
+                        optionLabel="option"
+                        placeholder="請選擇"></p-multiselect>
+            </div>
+        }
+        @if (mainStore.selected_exhibition_right().booth.length > 0) {
+            <div class="w-full flex flex-col gap-1">
+                <label for="selected_Exhibition_booth">展場攤位</label>
+                <p-multiselect
+                        (ngModelChange)="mainStore.setSelectedExhibitionRights({
                     booth: $event
                     })"
-                    [ngModel]="mainStore.selected_exhibition_right().booth"
-                    [options]="mainStore.exhibition_rights().booth"
-                    dataKey="id"
-                    fluid
-                    id="selected_Exhibition_booth"
-                    optionLabel="option"
-                    placeholder="請選擇"></p-multiselect>
-        </div>
+                        [ngModel]="mainStore.selected_exhibition_right().booth"
+                        [options]="mainStore.exhibition_rights().booth"
+                        dataKey="id"
+                        fluid
+                        id="selected_Exhibition_booth"
+                        optionLabel="option"
+                        placeholder="請選擇"></p-multiselect>
+            </div>
+        }
+
     </div>
 </div>

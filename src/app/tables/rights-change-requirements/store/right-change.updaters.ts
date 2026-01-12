@@ -8,3 +8,7 @@ export function setIsDialogVisible(visible: boolean): PartialStateUpdater<RightC
 export function setRightChangeMode(mode: boolean): PartialStateUpdater<RightChangeSlice> {
 	return _ => ({ right_change_mode: mode })
 }
+
+export function setCurrentCompID(compID: string | null): PartialStateUpdater<RightChangeSlice> {
+	return _ => ({ current_compID: compID });
+}

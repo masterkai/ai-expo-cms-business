@@ -1,7 +1,12 @@
 <p-stepper [value]="1" class="basis-[50rem]">
     <p-step-list>
-        <p-step [value]="1">參展權益設定</p-step>
-        <p-step [value]="2">專屬連結預覽列表</p-step>
+        @if (mainStore.isRightChangeModeEnabled()) {
+            <p-step [value]="1">參展權益異動設定</p-step>
+            <p-step [value]="2">權益異動預覽列表</p-step>
+        } @else {
+            <p-step [value]="1">參展權益設定</p-step>
+            <p-step [value]="2">專屬連結預覽列表</p-step>
+        }
     </p-step-list>
     <p-step-panels>
         <p-step-panel [value]="1">
@@ -14,8 +19,14 @@
                     </div>
                 </div>
                 <div class="flex pt-6 justify-end">
-                    <p-button (onClick)="activateCallback(2)" icon="pi pi-arrow-right" iconPos="right"
-                              label="前往下一步(專屬連結預覽列表)"/>
+                    @if (mainStore.isRightChangeModeEnabled()) {
+                        <p-button (onClick)="activateCallback(2)" icon="pi pi-arrow-right" iconPos="right"
+                                  label="前往下一步(權益異動預覽列表)"/>
+                    } @else {
+                        <p-button (onClick)="activateCallback(2)" icon="pi pi-arrow-right" iconPos="right"
+                                  label="前往下一步(專屬連結預覽列表)"/>
+                    }
+
                 </div>
             </ng-template>
         </p-step-panel>
@@ -30,15 +41,27 @@
                     </div>
                 </div>
                 <div class="flex pt-6 justify-between">
-                    <p-button (onClick)="activateCallback(1)" icon="pi pi-arrow-left" iconPos="right"
-                              label="回參展權益設定"/>
-                    <p-button
 
-                            (onClick)="confirm()"
-                            fluid
-                            label="確認"
-                    >
-                    </p-button>
+                    @if (mainStore.isRightChangeModeEnabled()) {
+                        <p-button (onClick)="activateCallback(1)" icon="pi pi-arrow-left" iconPos="right"
+                                  label="參展權益異動設定"/>
+                        <p-button
+
+                                (onClick)="confirmRightChange()"
+                                fluid
+                                label="確認異動"
+                        />
+                    } @else {
+                        <p-button (onClick)="activateCallback(1)" icon="pi pi-arrow-left" iconPos="right"
+                                  label="回參展權益設定"/>
+                        <p-button
+
+                                (onClick)="confirm()"
+                                fluid
+                                label="確認"
+                        />
+                    }
+
                 </div>
             </ng-template>
         </p-step-panel>

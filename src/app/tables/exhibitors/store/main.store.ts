@@ -167,16 +167,20 @@ export const MainStore = signalStore(
 		}
 
 		const onSaveExhibitorRights = () => {
-			const compID = store.current_compID();
+			const compID = store.isRightChangeModeEnabled() ? store._rightChangeStore.current_compID() : store.current_compID();
 			const items = Object.entries(store.selected_exhibition_right()).flatMap(([itemCate, arr]) =>
 				arr.map(({ id }: { id: string }) => ({
 					id: Number(id),
 					itemCate
 				}))
 			)
+			const type = store.isRightChangeModeEnabled() ? 'modify' : '';
+			const successMessage = store.isRightChangeModeEnabled() ? '展覽權益變更需求已送出。' : '展覽權益資料已更新。';
+			const errorMessage = store.isRightChangeModeEnabled() ? '送出展覽權益變更需求失敗，請稍後再試。' : '更新展覽權益資料失敗，請稍後再試。';
+
 			store._exhibitionRightsService.setRights({
 				compID: compID ?? '',
-				type: '',
+				type,
 				items
 			}).subscribe({
 				next: (response) => {
@@ -187,7 +191,7 @@ export const MainStore = signalStore(
 							store._messageService.add({
 								severity: 'success',
 								summary: '成功',
-								detail: '展覽權益資料已更新。',
+								detail: successMessage,
 								life: 3000
 							})
 						})
@@ -196,7 +200,7 @@ export const MainStore = signalStore(
 						store._messageService.add({
 							severity: 'error',
 							summary: '錯誤',
-							detail: '更新展覽權益資料失敗，請稍後再試。',
+							detail: errorMessage,
 							life: 3000
 						})
 					}

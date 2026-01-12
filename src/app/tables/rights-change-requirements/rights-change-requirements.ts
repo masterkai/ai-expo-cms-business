@@ -36,6 +36,7 @@ export class RightsChangeRequirements implements AfterViewInit {
 					// console.log('Dialog closed, resetting selections.');
 					this.rightChangeStore.setRightChangeMode(false)
 					this.mainStore.resetSelectedExhibitionRights()
+					this.rightChangeStore.setCurrentCompID(null);
 				}
 				this.rightChangeStore.setIsDialogVisible(value);
 			}
@@ -46,8 +47,11 @@ export class RightsChangeRequirements implements AfterViewInit {
 	protected handleViewDetails(item: RightsChangeRequirementItem) {
 		console.log('View details for item:', item);
 		const id = item.unified_business_no
+		const option_items = item.option_items
 		this.mainStore.getExhibitionRights({ id, type: 'modify' })
+		this.mainStore.setSelectedExhibitionRights(option_items)
 		// 在這裡添加查看詳細信息的邏輯
+		this.rightChangeStore.setCurrentCompID(item.compID);
 		this.rightChangeStore.setIsDialogVisible(true);
 		this.rightChangeStore.setRightChangeMode(true)
 	}
