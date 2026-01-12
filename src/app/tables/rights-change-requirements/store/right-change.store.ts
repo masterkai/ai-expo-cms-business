@@ -14,10 +14,10 @@ import {
 	RightsChangeRequirementItem,
 	RightsChangeRequirementsService
 } from "../../../services/rights-change-requirements.service";
-import { computed, inject } from "@angular/core";
+import { computed, inject, Injector, runInInjectionContext } from "@angular/core";
 import { injectQuery, QueryClient } from "@tanstack/angular-query-experimental";
 import { MessageService } from "primeng/api";
-import { RIGHTS_CHANGE_REQUEST_DEMAND_LIST } from "../../../const";
+import { CACHE_KEY_RIGHTS_CHANGE_REQUEST_DEMAND_LIST } from "../../../const";
 import { toObservable } from "@angular/core/rxjs-interop";
 import { withDevtools } from "@angular-architects/ngrx-toolkit";
 import * as updaters from "./right-change.updaters";
@@ -40,18 +40,19 @@ export const RightChangeStore = signalStore(
 		_queryClient: inject(QueryClient),
 		_messageService: inject(MessageService),
 		_rightsChangeRequirementsService: inject(RightsChangeRequirementsService),
+		_injector: inject(Injector),
 	})),
 
 	withMethods(store => {
 		// loadRightChang now supports an optional page parameter; it creates a per-page query and subscribes once
 		const loadRightChang = (page = '') => {
-			const _rightsQuery = injectQuery(() => ({
-				queryKey: [...RIGHTS_CHANGE_REQUEST_DEMAND_LIST, page],
+			const _rightsQuery = runInInjectionContext(store._injector, () => injectQuery(() => ({
+				queryKey: [...CACHE_KEY_RIGHTS_CHANGE_REQUEST_DEMAND_LIST, page],
 				queryFn: () => store._rightsChangeRequirementsService.getRightsRequest(page),
 				staleTime: 1000 * 60 * 5,
 				refetchOnWindowFocus: false,
 				refetchOnReconnect: false
-			}))
+			})))
 
 			// subscribe only once (take(1)) so we write to the store only on the first successful fetch for this page .pipe(take(1))
 			toObservable(_rightsQuery.data).subscribe({

@@ -1,6 +1,6 @@
 import { CompanyDataReviewSlice } from "./company-data-review.slice";
 import { PartialStateUpdater } from "@ngrx/signals";
-import { CompanyUpdatePayload } from "../../../services/company-update-review.service";
+import { CompanyUpdatePayload, HistoryReviewItem } from "../../../services/company-update-review.service";
 
 export function setIsDialogVisible(visible: boolean): PartialStateUpdater<CompanyDataReviewSlice> {
 	return _ => ({ isDialog_dataReview_Visible: visible });
@@ -25,5 +25,11 @@ export function setCurrentReviewDATA(data: CompanyUpdatePayload[]): PartialState
 export function resetCurrentReviewDATA(): PartialStateUpdater<CompanyDataReviewSlice> {
 	return _ => ({
 		current_review_data: null
+	})
+}
+
+export function setHistoryReviewDATA(data: HistoryReviewItem[]): PartialStateUpdater<CompanyDataReviewSlice> {
+	return _ => ({
+		history_review_data: data
 	})
 }

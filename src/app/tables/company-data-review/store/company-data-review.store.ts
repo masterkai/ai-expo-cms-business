@@ -13,12 +13,13 @@ import { entityConfig, setAllEntities, withEntities } from "@ngrx/signals/entiti
 import {
 	CompanyUpdatePayload,
 	CompanyUpdateReviewItem,
-	CompanyUpdateReviewService
+	CompanyUpdateReviewService,
+	HistoryReviewItem
 } from "../../../services/company-update-review.service";
 import { computed, inject } from "@angular/core";
 import { injectQuery, QueryClient } from "@tanstack/angular-query-experimental";
 import { MessageService } from "primeng/api";
-import { COMPANY_UPDATE_REVIEW_LIST, } from "../../../const";
+import { CACHE_KEY_COMPANY_HISTORY_REVIEW_LIST, CACHE_KEY_COMPANY_UPDATE_REVIEW_LIST, } from "../../../const";
 import { toObservable } from "@angular/core/rxjs-interop";
 import { withDevtools } from "@angular-architects/ngrx-toolkit";
 import * as updaters from "./company-data-review.updaters";
@@ -47,7 +48,7 @@ export const CompanyDataReviewStore = signalStore(
 		// loadRightChang now supports an optional page parameter; it creates a per-page query and subscribes once
 		const loadCompanyUpdateList = (page = '') => {
 			const _rightsQuery = injectQuery(() => ({
-				queryKey: [ ...COMPANY_UPDATE_REVIEW_LIST, page ],
+				queryKey: [...CACHE_KEY_COMPANY_UPDATE_REVIEW_LIST, page],
 				queryFn: () => store._companyUpdateReviewService.getReviewRequest(page),
 				staleTime: 1000 * 60 * 5,
 				refetchOnWindowFocus: false,
@@ -67,6 +68,34 @@ export const CompanyDataReviewStore = signalStore(
 						severity: 'error',
 						summary: '錯誤',
 						detail: '載入權益異動需求清單失敗，請稍後再試。',
+						life: 3000
+					})
+				}
+			})
+		}
+
+		const loadHistoryReviewList = (compID: string) => {
+			const _historyQuery = injectQuery(() => ({
+				queryKey: [...CACHE_KEY_COMPANY_HISTORY_REVIEW_LIST, compID],
+				queryFn: () => store._companyUpdateReviewService.getHistory(compID),
+				staleTime: 1000 * 60 * 5,
+				refetchOnWindowFocus: false,
+				refetchOnReconnect: false
+			}))
+
+			// subscribe only once (take(1)) so we write to the store only on the first successful fetch for this page .pipe(take(1))
+			toObservable(_historyQuery.data).subscribe({
+				next: (data) => {
+					if (data?.status === 'success' && data.data) {
+						patchState(store, updaters.setHistoryReviewDATA(data.data))
+					}
+				},
+				error: (error) => {
+					console.error('Error loading history review list:', error)
+					store._messageService.add({
+						severity: 'error',
+						summary: '錯誤',
+						detail: '載入歷史審核清單失敗，請稍後再試。',
 						life: 3000
 					})
 				}
@@ -103,6 +132,9 @@ export const CompanyDataReviewStore = signalStore(
 
 		}
 
+		const setHistoryReviewDATA = (data: HistoryReviewItem[]) => patchState(store, updaters.setHistoryReviewDATA(data))
+
+
 		return {
 			loadCompanyUpdateList,
 			setIsDialogVisible,
@@ -110,7 +142,9 @@ export const CompanyDataReviewStore = signalStore(
 			resetCurrentReview,
 			setCurrentReviewDATA,
 			resetCurrentReviewDATA,
-			fetchReviewDATAById
+			fetchReviewDATAById,
+			setHistoryReviewDATA,
+			loadHistoryReviewList
 		}
 	}),
 	withHooks(store => ({

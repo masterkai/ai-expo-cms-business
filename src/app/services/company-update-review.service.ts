@@ -40,6 +40,29 @@ export class CompanyUpdateReviewService {
 		const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 		return this.http.post<SetReviewResponse>(url, reviewDATA, { headers });
 	}
+
+	getHistory(compID: string) {
+		const url = `${environment.apiUrl}/getHistory`;
+		const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+		const body = new URLSearchParams();
+		body.set('compID', compID);
+		return lastValueFrom(this.http.post<GetHistoryResponse>(url, body, { headers }));
+	}
+}
+
+export interface GetHistoryResponse {
+	status: 'success' | 'error';
+	message: string;
+	page: string;
+	total: string;
+	data: HistoryReviewItem[];
+}
+
+export interface HistoryReviewItem {
+	id: string;
+	updatedBy: string;
+	columnName: string;
+	updateTime: string;
 }
 
 export interface SetReviewResponse {

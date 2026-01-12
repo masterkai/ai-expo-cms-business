@@ -9,7 +9,7 @@ import {
 	withState
 } from "@ngrx/signals";
 import { Company, Exhibition_rights, initialMainSlice, Selected_Exhibition_rights } from "./main.slice";
-import { computed, inject } from "@angular/core";
+import { computed, inject, Injector, runInInjectionContext } from "@angular/core";
 import { MessageService } from "primeng/api";
 import { ExhibitorService } from "../../../services/exhibitor.service";
 import { ExhibitionRightsService, GetRightsParam, Option } from "../../../services/exhibition-rights-service";
@@ -35,7 +35,8 @@ export const MainStore = signalStore(
 		_messageService: inject(MessageService),
 		_exhibitorService: inject(ExhibitorService),
 		_exhibitionRightsService: inject(ExhibitionRightsService),
-		_rightChangeStore: inject(RightChangeStore)
+		_rightChangeStore: inject(RightChangeStore),
+		_injector: inject(Injector)
 	})),
 	withComputed(store => {
 		const visibleCompanies = computed(() => store.companiesEntities())
@@ -48,13 +49,13 @@ export const MainStore = signalStore(
 	withMethods(store => {
 		const setExhibitionRights = (rights: Exhibition_rights) => patchState(store, updaters.setExhibitionRights(rights));
 
-		const _companyDATAQuery = injectQuery(() => ({
+		const _companyDATAQuery = runInInjectionContext(store._injector, () => injectQuery(() => ({
 			queryKey: CACHE_KEY_COMPANY_LIST,
 			queryFn: () => store._exhibitorService.getCompany(),
 			staleTime: 1000 * 60 * 5, // 5 minutes
 			refetchOnWindowFocus: false,
 			refetchOnReconnect: false
-		}))
+		})))
 
 		const updateCompanyData = () => {
 			const compID = store.current_company()?.unified_business_no

@@ -6,6 +6,11 @@
 }
 @if (data !== null) {
     <div class="container">
+        <!--        <div-->
+        <!--                (click)="toggleReviewProcessRecordDialog()"-->
+        <!--                class="modify-review-process-record">-->
+        <!--            審核歷程紀錄-->
+        <!--        </div>-->
         <p-tag [rounded]="true"
                class="mb-3"
                severity="info"
@@ -262,5 +267,23 @@
                 }
             </div>
         </div>
+        <div class="w-full flex justify-center">
+            <p-button
+                    (click)="submitReview()"
+                    [style]="{
+                width: '100%',
+                color: 'white',
+                backgroundColor: 'rgba(0,0,0,1)',
+            }"
+                    fluid
+                    label="提交審核結果"
+                    severity="primary"
+            />
+        </div>
     </div>
 }
+
+
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }" header="歷程列表">
+    <h1>歷程列表</h1>
+</p-dialog>

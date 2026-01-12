@@ -44,6 +44,7 @@ export class CompanyDataReview implements AfterViewInit {
 		this.companyDataReviewStore.setIsDialogVisible(true);
 		this.companyDataReviewStore.setCurrentReview(item);
 		const id = item?.unified_business_no;
+		const compID = item?.compID;
 		if (id) {
 			this.companyDataReviewStore.fetchReviewDATAById(id);
 		}

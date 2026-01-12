@@ -1,13 +1,38 @@
 .container {
+	
+	position: relative;
 	//border: 1px solid red;
 	width: 100%;
-	height: 480px;
+	height: 100%;
 	overflow-y: scroll;
 	
 	.title {
 		font-weight: 700;
 		font-size: 1rem;
 		margin-bottom: 16px;
+	}
+	
+	.modify-review-process-record {
+		&:hover {
+			background-color: #FFF3BF;
+			color: #7C5C00;
+		}
+		
+		position: fixed;
+		top: 50%;
+		transform: translateY(-50%);
+		right: 0;
+		z-index: 10;
+		writing-mode: vertical-lr;
+		text-orientation: mixed;
+		background-color: #FFFAE6;
+		border: 1px solid #FFE58F;
+		padding: 20px 12px;
+		border-radius: 4px;
+		font-size: 16px;
+		color: #AD8B00;
+		cursor: pointer;
+		transition: background-color 0.2s, color 0.2s;
 	}
 }
 

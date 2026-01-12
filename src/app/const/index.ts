@@ -1,7 +1,7 @@
-export const CACHE_KEY_COMPANY_LIST = [ 'company_list' ];
+export const CACHE_KEY_COMPANY_LIST = ['company_list'];
 // 權益異動申請需求清單
-export const RIGHTS_CHANGE_REQUEST_DEMAND_LIST = [ 'rights_change_request_demand_list' ];
-// 資料更新待審核清單
-export const DATA_UPDATE_PENDING_REVIEW_LIST = [ 'data_update_pending_review_list' ];
+export const CACHE_KEY_RIGHTS_CHANGE_REQUEST_DEMAND_LIST = ['rights_change_request_demand_list'];
 
-export const COMPANY_UPDATE_REVIEW_LIST = [ 'company_update_review_list' ];
+export const CACHE_KEY_COMPANY_UPDATE_REVIEW_LIST = ['company_update_review_list'];
+
+export const CACHE_KEY_COMPANY_HISTORY_REVIEW_LIST = ['company_history_review_list'];

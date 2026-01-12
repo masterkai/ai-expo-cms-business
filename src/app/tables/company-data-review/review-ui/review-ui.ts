@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CompanyDataReviewStore } from "../store/company-data-review.store";
 import { Tag } from "primeng/tag";
 import { Tooltip } from "primeng/tooltip";
@@ -7,6 +7,8 @@ import { Card } from "../../../shared/components/card/card";
 import { ProgressSpinner } from "primeng/progressspinner";
 import { FormsModule } from '@angular/forms';
 import { ReviewRadioGroup } from "./review-radio-group/review-radio-group";
+import { Dialog } from "primeng/dialog";
+import { Button } from "primeng/button";
 
 @Component({
 	selector: 'app-review-ui',
@@ -18,12 +20,15 @@ import { ReviewRadioGroup } from "./review-radio-group/review-radio-group";
 		ProgressSpinner,
 		FormsModule,
 		ReviewRadioGroup,
+		Dialog,
+		Button,
 	],
 	templateUrl: './review-ui.html',
 	styleUrl: './review-ui.scss',
 })
 export class ReviewUi {
 	companyDataReviewStore = inject(CompanyDataReviewStore)
+	protected visible = signal(false);
 
 	renderObjectValues(obj: any): string {
 		return Object.values(obj).join('-');
@@ -33,4 +38,11 @@ export class ReviewUi {
 		return obj && obj[key] ? obj[key] : defaultText;
 	}
 
+	protected toggleReviewProcessRecordDialog() {
+		this.visible.update(v => !v);
+	}
+
+	protected submitReview() {
+		
+	}
 }
