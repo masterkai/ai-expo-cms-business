@@ -1,6 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { MainStore } from "../tables/exhibitors/store/main.store";
 import { Option } from "../services/exhibition-rights-service";
+import { RightChangeStore } from "../tables/rights-change-requirements/store/right-change.store";
 
 @Component({
 	selector: 'app-exhibition-info-preview-ui',
@@ -9,6 +10,7 @@ import { Option } from "../services/exhibition-rights-service";
 	styleUrl: './exhibition-info-preview-ui.css',
 })
 export class ExhibitionInfoPreviewUi {
+	rightChangeStore = inject(RightChangeStore)
 	mainStore = inject(MainStore)
 	hasExhibitionRights = computed(() => {
 		const rights = this.mainStore.selected_exhibition_right()

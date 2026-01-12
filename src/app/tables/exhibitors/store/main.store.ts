@@ -30,12 +30,6 @@ const companyConfig = entityConfig({
 export const MainStore = signalStore(
 	withEntities(companyConfig),
 	withState(initialMainSlice),
-	withComputed(store => {
-		const visibleCompanies = computed(() => store.companiesEntities())
-		return {
-			visibleCompanies
-		}
-	}),
 	withProps(_ => ({
 		_queryClient: inject(QueryClient),
 		_messageService: inject(MessageService),
@@ -43,6 +37,14 @@ export const MainStore = signalStore(
 		_exhibitionRightsService: inject(ExhibitionRightsService),
 		_rightChangeStore: inject(RightChangeStore)
 	})),
+	withComputed(store => {
+		const visibleCompanies = computed(() => store.companiesEntities())
+		const isRightChangeModeEnabled = computed(() => store._rightChangeStore.right_change_mode())
+		return {
+			visibleCompanies,
+			isRightChangeModeEnabled
+		}
+	}),
 	withMethods(store => {
 		const setExhibitionRights = (rights: Exhibition_rights) => patchState(store, updaters.setExhibitionRights(rights));
 
@@ -140,8 +142,8 @@ export const MainStore = signalStore(
 			store._exhibitionRightsService.getRights({ id: data.id, type: data.type }).subscribe({
 				next: (response) => {
 					if (response.status === 'success' && response.data) {
-						const data = {
-							sponsor_benefits: response.data.rights,
+						const data: Exhibition_rights = {
+							sponsorship_benefits: response.data.rights,
 							lecture: response.data.lecture,
 							optional: response.data.optional,
 							promotion: response.data.promotion,

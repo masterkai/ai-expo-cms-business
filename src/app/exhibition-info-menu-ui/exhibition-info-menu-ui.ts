@@ -10,7 +10,7 @@ import { MainStore } from "../tables/exhibitors/store/main.store";
 		MultiSelectModule
 	],
 	templateUrl: './exhibition-info-menu-ui.html',
-	styleUrl: './exhibition-info-menu-ui.css',
+	styleUrl: './exhibition-info-menu-ui.scss',
 })
 export class ExhibitionInfoMenuUi {
 	mainStore = inject(MainStore)

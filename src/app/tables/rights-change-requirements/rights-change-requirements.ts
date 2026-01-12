@@ -3,6 +3,11 @@ import { TableModule } from "primeng/table";
 import { Button } from "primeng/button";
 import { RightChangeStore } from "./store/right-change.store";
 import { CommonDialog } from "../../shared/components/common-dialog/common-dialog";
+import { RightsChangeRequirementItem } from "../../services/rights-change-requirements.service";
+import { MainStore } from "../exhibitors/store/main.store";
+import {
+	ExhibitionRightsSettingProcess
+} from "../../exhibition-rights-setting-process/exhibition-rights-setting-process";
 
 @Component({
 	selector: 'app-rights-change-requirements',
@@ -10,13 +15,14 @@ import { CommonDialog } from "../../shared/components/common-dialog/common-dialo
 		TableModule,
 		Button,
 		CommonDialog,
+		ExhibitionRightsSettingProcess,
 	],
 	templateUrl: './rights-change-requirements.html',
 	styleUrl: './rights-change-requirements.css',
 })
 export class RightsChangeRequirements implements AfterViewInit {
 	rightChangeStore = inject(RightChangeStore)
-
+	mainStore = inject(MainStore)
 	dialog = viewChild(CommonDialog)
 
 	ngAfterViewInit() {
@@ -29,6 +35,7 @@ export class RightsChangeRequirements implements AfterViewInit {
 				if (!value) {
 					// console.log('Dialog closed, resetting selections.');
 					this.rightChangeStore.setRightChangeMode(false)
+					this.mainStore.resetSelectedExhibitionRights()
 				}
 				this.rightChangeStore.setIsDialogVisible(value);
 			}
@@ -36,8 +43,10 @@ export class RightsChangeRequirements implements AfterViewInit {
 	}
 
 
-	protected handleViewDetails(item: any) {
+	protected handleViewDetails(item: RightsChangeRequirementItem) {
 		console.log('View details for item:', item);
+		const id = item.unified_business_no
+		this.mainStore.getExhibitionRights({ id, type: 'modify' })
 		// 在這裡添加查看詳細信息的邏輯
 		this.rightChangeStore.setIsDialogVisible(true);
 		this.rightChangeStore.setRightChangeMode(true)

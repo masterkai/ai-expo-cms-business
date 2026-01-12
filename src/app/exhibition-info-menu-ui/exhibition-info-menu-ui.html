@@ -1,8 +1,22 @@
-<div class="w-fit flex gap-4">
-    <!--    <div class="w-full flex flex-col gap-1">-->
-    <!--       <label for="Future_Stage_Agenda">贊助權益</label> -->
+@let exhibition_right = mainStore.exhibition_rights();
+@if (mainStore.isRightChangeModeEnabled()) {
+    <div class="w-full flex flex-col gap-1">
+        <label>贊助權益</label>
+        <div class="right-change-list">
 
-    <!--    </div>-->
+            @for (item of exhibition_right.sponsorship_benefits; track item.id) {
+                <div class="item">
+                    <strong>{{ item.cate }}</strong>
+                    <span class="text-[14px]">異動描述：</span>
+                    <div class="text-[14px]">{{ item.comment }}</div>
+                </div>
+            }
+
+        </div>
+    </div>
+}
+<div class="w-fit flex gap-4">
+
     <div class="min-w-md flex flex-col justify-start items-start gap-3 p-4 rounded-md bg-white shadow-sm">
         <div class="w-full flex flex-col gap-1">
             <label for="unsureLectureAgenda">不知講座議程</label>

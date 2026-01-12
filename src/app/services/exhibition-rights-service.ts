@@ -20,7 +20,7 @@ export class ExhibitionRightsService {
 	參展權益API
 	getRights
 	參數：
-	id: 參展ID
+	id: 公司統編
 	type: ''(預設:空值是參展權益填寫頁) or 'modify' (修改權益使用)
 
 	回傳資料：
