@@ -253,7 +253,7 @@
                    value="講者資訊"/>
             <div class="speaker-info-wrapper">
                 @for (speaker of data[0].speaker_information; track speaker.id) {
-                    <div class="flex flex-col items-center gap-2 mb-5">
+                    <div class="flex flex-col items-center gap-2 gap-2">
                         <app-card [speaker_information]="speaker"/>
                         <app-review-radio-group
                                 [compID]="companyDataReviewStore.current_review()!.compID"

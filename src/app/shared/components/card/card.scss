@@ -1,9 +1,8 @@
 .card {
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: repeat(6, 1fr);
-	grid-column-gap: 0;
-	grid-row-gap: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 12px;
 	background: #fff;
 	border-radius: 12px;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);

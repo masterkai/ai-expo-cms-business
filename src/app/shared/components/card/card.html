@@ -10,14 +10,20 @@
             </div>
         </div>
         <div class="speaker-profile">
-            <h3>{{ speaker_information().name }}</h3>
-            <h4>{{ speaker_information().title }}</h4>
+            <h3>{{ speaker_information().name }}/{{ speaker_information().ename }}</h3>
+            <h4>{{ speaker_information().title }}/{{ speaker_information().etitle }}</h4>
         </div>
     </div>
-    <p
-            [pTooltip]="speaker_information().biography || ''"
-            class="speaker-bio"
-    >{{ speaker_information().biography || '' }}</p>
+    <div class="flex flex-col gap-1">
+        <p
+                [pTooltip]="speaker_information().biography"
+                class="speaker-bio"
+        >{{ speaker_information().biography }}</p>
+        <p
+                [pTooltip]="speaker_information().ebiography"
+                class="speaker-bio"
+        >{{ speaker_information().ebiography }}</p>
+    </div>
     <div class="speaker-files-block">
         @if (speaker_information().speech_manuscript) {
             <app-speaker-attached-file
