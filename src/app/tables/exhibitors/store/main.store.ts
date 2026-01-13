@@ -49,6 +49,38 @@ export const MainStore = signalStore(
 	withMethods(store => {
 		const setExhibitionRights = (rights: Exhibition_rights) => patchState(store, updaters.setExhibitionRights(rights));
 
+		const onGetLink = (unino: string) => {
+			store._exhibitionRightsService.getLink(unino).subscribe({
+				next: (response) => {
+					if (response.status === 'success') {
+						store._messageService.add({
+							severity: 'success',
+							summary: '成功',
+							detail: `展覽連結取得成功：${response.message}`,
+							life: 5000
+						})
+
+					} else {
+						store._messageService.add({
+							severity: 'error',
+							summary: '錯誤',
+							detail: '取得展覽連結失敗，請稍後再試。',
+							life: 3000
+						})
+					}
+				},
+				error: (error) => {
+					console.error('Error getting exhibition link:', error);
+					store._messageService.add({
+						severity: 'error',
+						summary: '錯誤',
+						detail: '取得展覽連結時發生錯誤，請稍後再試。',
+						life: 3000
+					})
+				}
+			})
+		}
+
 		const _companyDATAQuery = runInInjectionContext(store._injector, () => injectQuery(() => ({
 			queryKey: CACHE_KEY_COMPANY_LIST,
 			queryFn: () => store._exhibitorService.getCompany(),
@@ -226,7 +258,8 @@ export const MainStore = signalStore(
 			setCurrentCompID,
 			onSaveExhibitorRights,
 			onSetExhibitionLink,
-			resetSelectedExhibitionRights: () => patchState(store, updaters.resetSelectedExhibitionRights())
+			resetSelectedExhibitionRights: () => patchState(store, updaters.resetSelectedExhibitionRights()),
+			onGetLink
 		}
 	}),
 	withHooks(store => ({

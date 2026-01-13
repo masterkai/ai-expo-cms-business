@@ -10,6 +10,7 @@ import { CommonDialog } from "../../shared/components/common-dialog/common-dialo
 import {
 	ExhibitionRightsSettingProcess
 } from "../../exhibition-rights-setting-process/exhibition-rights-setting-process";
+import { Company } from "./store/main.slice";
 
 @Component({
 	selector: 'app-exhibitors',
@@ -46,12 +47,15 @@ export class Exhibitors implements AfterViewInit {
 		})
 	}
 
-	copyLinkToClipboard(url: string) {
+	copyLinkToClipboard(exhibitor: Company) {
+		const url = exhibitor.link
 		console.log('copyLinkToClipboard', url);
 		navigator.clipboard.writeText(url)
 			.then(() => {
 				console.log("連結已複製到剪貼簿");
 				this.messageService.add({ severity: 'success', summary: '成功', detail: '連結已複製到剪貼簿' });
+			}).then(() => {
+				this.mainStore.onGetLink(exhibitor.unified_business_no)
 			})
 			.catch(err => {
 				console.error("複製失敗：", err);

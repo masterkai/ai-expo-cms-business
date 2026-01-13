@@ -17,6 +17,17 @@ export class ExhibitionRightsService {
 	}
 
 	/*
+	* unino: 公司統編
+	* */
+	getLink(unino: string) {
+		const url = `${environment.apiUrl}/getLink`;
+		const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+		const body = new URLSearchParams();
+		body.set('id', unino);
+		return this.http.post<GetLinksResponse>(url, body.toString(), { headers });
+	}
+
+	/*
 	參展權益API
 	getRights
 	參數：
@@ -80,6 +91,9 @@ export interface SetLinkResponse {
 	status: 'success' | 'error';
 	message: string;
 }
+
+// getLinks 回傳資料 same as SetLinkResponse
+export type GetLinksResponse = SetLinkResponse;
 
 export interface RightsDATA {
 	compID: string;
