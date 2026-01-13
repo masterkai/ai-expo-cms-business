@@ -85,7 +85,7 @@ export const MainStore = signalStore(
 					if (response.status === 'success') {
 
 						store._queryClient.invalidateQueries(
-							{ queryKey: [CACHE_KEY_COMPANY_LIST] }
+							{ queryKey: CACHE_KEY_COMPANY_LIST }
 						).then(
 							() => {
 								store._messageService.add({
