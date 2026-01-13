@@ -1,0 +1,28 @@
+<p-table
+        [paginator]="true"
+        [rowsPerPageOptions]="[3, 5, 10, 20]"
+        [rows]="5"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [value]="data()"
+>
+    <ng-template #header>
+        <tr>
+            <th style="width:15%">更新時間</th>
+            <th style="width:15%">set By</th>
+            <th style="width:70%">欄位名稱</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-exhibitor>
+        <tr>
+            <td>
+                <div class="text-xs">{{ exhibitor.updateTime }}</div>
+            </td>
+            <td>
+                <span
+                        class="line-clamp-1"
+                >{{ exhibitor.updatedBy }}</span>
+            </td>
+            <td>{{ exhibitor.columnName }}</td>
+        </tr>
+    </ng-template>
+</p-table>
