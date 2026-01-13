@@ -17,7 +17,7 @@ import * as updaters from "./main.updaters";
 import { withDevtools } from "@angular-architects/ngrx-toolkit";
 import { injectQuery, QueryClient } from "@tanstack/angular-query-experimental";
 import { entityConfig, setAllEntities, updateEntity, withEntities } from "@ngrx/signals/entities";
-import { CACHE_KEY_COMPANY_LIST } from "../../../const";
+import { CACHE_KEY_COMPANY_LIST, CACHE_KEY_RIGHTS_CHANGE_REQUEST_DEMAND_LIST } from "../../../const";
 import { toObservable } from "@angular/core/rxjs-interop";
 import { RightChangeStore } from "../../rights-change-requirements/store/right-change.store";
 
@@ -187,7 +187,7 @@ export const MainStore = signalStore(
 				next: (response) => {
 					if (response.status === 'success') {
 						store._queryClient.invalidateQueries({
-							queryKey: [CACHE_KEY_COMPANY_LIST]
+							queryKey: CACHE_KEY_RIGHTS_CHANGE_REQUEST_DEMAND_LIST
 						}).then(() => {
 							store._messageService.add({
 								severity: 'success',

@@ -6,11 +6,11 @@
 }
 @if (data !== null) {
     <div class="container">
-        <!--        <div-->
-        <!--                (click)="toggleReviewProcessRecordDialog()"-->
-        <!--                class="modify-review-process-record">-->
-        <!--            審核歷程紀錄-->
-        <!--        </div>-->
+        <div
+                (click)="toggleReviewProcessRecordDialog()"
+                class="modify-review-process-record">
+            審核歷程紀錄
+        </div>
         <p-tag [rounded]="true"
                class="mb-3"
                severity="info"
@@ -162,16 +162,12 @@
             <p-tag [rounded]="true"
                    severity="info"
                    value="參展權益確認"/>
-            <app-review-radio-group
-                    [compID]="companyDataReviewStore.current_review()!.compID"
-                    [path]="'confirmation_of_exhibitor_rights'"
-            />
         </div>
 
         <div class="exhibitor-rights-confirmation-section-grid">
             @if (data[0].confirmation_of_exhibitor_rights.length > 0) {
                 @for (item of data[0].confirmation_of_exhibitor_rights; track $index) {
-                    <div class="div{{ $index + 1 }}">
+                    <div class="rights-confirmation-item">
                         <div class="title">{{ item.Cate }}</div>
                         <div class="value">
                             {{ item.title }}
@@ -284,6 +280,16 @@
 }
 
 
-<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }" header="歷程列表">
-    <h1>歷程列表</h1>
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '90%' }" header="審核歷程列表">
+    @if (historyQuery.isSuccess()) {
+        <app-review-list [data]="historyQuery.data().data"/>
+    } @else if (historyQuery.isLoading()) {
+        <div class="no-data-message">
+            <p-progress-spinner ariaLabel="loading"/>
+        </div>
+    } @else {
+        <div class="no-data-message">
+            歷程資料載入失敗，請稍後再試。
+        </div>
+    }
 </p-dialog>

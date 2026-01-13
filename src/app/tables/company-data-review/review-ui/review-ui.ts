@@ -9,6 +9,11 @@ import { FormsModule } from '@angular/forms';
 import { ReviewRadioGroup } from "./review-radio-group/review-radio-group";
 import { Dialog } from "primeng/dialog";
 import { Button } from "primeng/button";
+import { injectQuery } from "@tanstack/angular-query-experimental";
+import { CACHE_KEY_COMPANY_HISTORY_REVIEW_LIST } from "../../../const";
+import { CompanyUpdateReviewService } from "../../../services/company-update-review.service";
+import { toObservable } from "@angular/core/rxjs-interop";
+import { ReviewList } from "./review-list/review-list";
 
 @Component({
 	selector: 'app-review-ui',
@@ -22,6 +27,7 @@ import { Button } from "primeng/button";
 		ReviewRadioGroup,
 		Dialog,
 		Button,
+		ReviewList,
 	],
 	templateUrl: './review-ui.html',
 	styleUrl: './review-ui.scss',
@@ -29,6 +35,27 @@ import { Button } from "primeng/button";
 export class ReviewUi {
 	companyDataReviewStore = inject(CompanyDataReviewStore)
 	protected visible = signal(false);
+	protected compID = signal<string>('');
+	private _reviewService = inject(CompanyUpdateReviewService)
+
+	historyQuery = injectQuery(() => ({
+		queryKey: [...CACHE_KEY_COMPANY_HISTORY_REVIEW_LIST, this.compID()],
+		queryFn: () => this._reviewService.getHistory(this.compID()),
+		staleTime: 1000 * 60 * 5,
+		refetchOnWindowFocus: false,
+		refetchOnReconnect: false
+	}))
+
+	constructor() {
+		toObservable(this.companyDataReviewStore.current_review).subscribe({
+			next: (review) => {
+				if (review) {
+					this.compID.set(review.compID);
+					this.historyQuery.refetch();
+				}
+			}
+		})
+	}
 
 	renderObjectValues(obj: any): string {
 		return Object.values(obj).join('-');

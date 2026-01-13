@@ -4,6 +4,8 @@ import { FormsModule } from "@angular/forms";
 import { toObservable } from "@angular/core/rxjs-interop";
 import { CompanyReviewAction, CompanyUpdateReviewService } from "../../../../services/company-update-review.service";
 import { MessageService } from "primeng/api";
+import { QueryClient } from "@tanstack/angular-query-experimental";
+import { CACHE_KEY_COMPANY_HISTORY_REVIEW_LIST } from "../../../../const";
 
 @Component({
 	selector: 'app-review-radio-group',
@@ -20,6 +22,7 @@ export class ReviewRadioGroup {
 	review = signal<ReviewOption>('Reject');
 	messageService = inject(MessageService)
 	reviewService = inject(CompanyUpdateReviewService)
+	queryClient = inject(QueryClient)
 
 	constructor() {
 		toObservable(this.review).subscribe({
@@ -27,11 +30,11 @@ export class ReviewRadioGroup {
 				console.log('Review option changed to:', value);
 				const data: CompanyReviewAction = {
 					compID: this.compID(),
-					reviews: [ {
+					reviews: [{
 						path: this.path(),
 						result: value,
 						comment: ''
-					} ]
+					}]
 				}
 				this.reviewService.setReview(data).subscribe({
 					next: (res) => {
@@ -40,6 +43,9 @@ export class ReviewRadioGroup {
 								severity: 'success',
 								summary: 'Success',
 								detail: `Review for ${this.path()} set to ${value}.${res.message ? ' ' + res.message : ''}`
+							});
+							this.queryClient.invalidateQueries({
+								queryKey: CACHE_KEY_COMPANY_HISTORY_REVIEW_LIST
 							});
 						} else {
 							this.messageService.add({
