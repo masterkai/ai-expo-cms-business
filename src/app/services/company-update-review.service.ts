@@ -50,6 +50,14 @@ export class CompanyUpdateReviewService {
 		return lastValueFrom(this.http.post<GetHistoryResponse>(url, body, { headers }));
 	}
 
+	getHistoryDownload(cate: 'review') {
+		const url = `${environment.apiUrl}/getHistory-download.php`;
+		const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+		const body = new URLSearchParams();
+		body.set('cate', cate);
+		return this.http.post<HistoryDownloadResponse>(url, body, { headers });
+	}
+
 	setSend(compID: string) {
 		const url = `${environment.apiUrl}/setSend`;
 		const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
@@ -59,6 +67,14 @@ export class CompanyUpdateReviewService {
 			status: 'success' | 'error';
 			message: string;
 		}>(url, body, { headers });
+	}
+}
+
+export interface HistoryDownloadResponse {
+	status: 'success' | 'error';
+	message: string;
+	data: {
+		download_url: string;
 	}
 }
 
