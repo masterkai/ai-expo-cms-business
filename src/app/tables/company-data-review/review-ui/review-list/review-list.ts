@@ -4,6 +4,7 @@ import { CompanyUpdateReviewService, HistoryReviewItem } from "../../../../servi
 import { HttpClient } from "@angular/common/http";
 import { Button } from "primeng/button";
 import { FileDownload } from "../../../../services/file-download";
+import { CompanyDataReviewStore } from "../../store/company-data-review.store";
 
 @Component({
 	selector: 'app-review-list',
@@ -17,11 +18,16 @@ import { FileDownload } from "../../../../services/file-download";
 export class ReviewList {
 	data = input.required<HistoryReviewItem[]>();
 	modifyProcessService = inject(CompanyUpdateReviewService)
+	reviewStore = inject(CompanyDataReviewStore)
 	http = inject(HttpClient)
 	downloader = inject(FileDownload)
 
 	exportCSV_Review() {
-		this.modifyProcessService.getHistoryDownload('review').subscribe({
+		this.modifyProcessService.getHistoryDownload({
+			cate: 'review',
+			empno: this.reviewStore.empno() || '',
+			departid: this.reviewStore.departid() || ''
+		}).subscribe({
 			next: (response) => {
 				if (response.status === 'success' && response.data?.download_url) {
 					const url = response.data.download_url;

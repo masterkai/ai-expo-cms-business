@@ -11,6 +11,8 @@ import {
 	ExhibitionRightsSettingProcess
 } from "../../exhibition-rights-setting-process/exhibition-rights-setting-process";
 import { Company } from "./store/main.slice";
+import { FileDownload } from "../../services/file-download";
+import { CompanyUpdateReviewService } from "../../services/company-update-review.service";
 
 @Component({
 	selector: 'app-exhibitors',
@@ -27,8 +29,10 @@ import { Company } from "./store/main.slice";
 })
 export class Exhibitors implements AfterViewInit {
 	messageService = inject(MessageService)
+	modifyProcessService = inject(CompanyUpdateReviewService)
 	mainStore = inject(MainStore);
 	dialog = viewChild(CommonDialog)
+	downloader = inject(FileDownload)
 
 	ngAfterViewInit() {
 		this.dialog()?.visible$.subscribe({
@@ -67,7 +71,28 @@ export class Exhibitors implements AfterViewInit {
 		return items.map(i => i.option).join(', ')
 	}
 
-	protected exportExcel() {
-		console.log('exportExcel');
+	protected exportCompanyCSV() {
+		this.modifyProcessService.getHistoryDownload({
+			cate: 'company',
+			empno: this.mainStore.empno() || '',
+			departid: this.mainStore.departid() || ''
+		}).subscribe({
+			next: (response) => {
+				if (response.status === 'success' && response.data?.download_url) {
+					const url = response.data.download_url;
+					const filename = 'history_review.csv';
+					this.downloader.downloadCsv(url, filename).subscribe({
+						next: () => {
+							console.log('下載完成');
+						},
+						error: (err) => {
+							alert(err.message || '下載失敗');
+						}
+					});
+				}
+			}
+		})
+
+
 	}
 }
