@@ -45,7 +45,8 @@ export const MainStore = signalStore(
 		const isRightChangeModeEnabled = computed(() => store._rightChangeStore.right_change_mode())
 		return {
 			visibleCompanies,
-			isRightChangeModeEnabled
+			isRightChangeModeEnabled,
+			sponsorships
 		}
 	}),
 	withMethods(store => {

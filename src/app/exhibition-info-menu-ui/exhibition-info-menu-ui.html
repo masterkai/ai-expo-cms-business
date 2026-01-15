@@ -22,6 +22,12 @@
 
     <div class="min-w-md flex flex-col justify-start items-start gap-3 p-4 rounded-md bg-white shadow-sm">
         <div class="w-full flex flex-col gap-1">
+            <label for="Media_promotion_dropdown_menu">贊助權益</label>
+            <div class="border border-solid border-gray-300 rounded-md p-2 w-full min-h-[42px]">
+                {{ mainStore.sponsorships() }}
+            </div>
+        </div>
+        <div class="w-full flex flex-col gap-1">
             <label for="unsureLectureAgenda">不知講座議程</label>
             <p-multiselect
                     (ngModelChange)="mainStore.setSelectedExhibitionRights({
@@ -52,6 +58,7 @@
 
     </div>
     <div class="min-w-md flex flex-col justify-start items-start gap-3 p-4 rounded-md bg-white shadow-sm">
+
 
         <div class="w-full flex flex-col gap-1">
             <label for="Media_promotion_dropdown_menu">媒體廣宣</label>
