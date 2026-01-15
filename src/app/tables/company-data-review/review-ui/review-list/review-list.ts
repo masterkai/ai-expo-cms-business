@@ -5,6 +5,7 @@ import { HttpClient } from "@angular/common/http";
 import { Button } from "primeng/button";
 import { FileDownload } from "../../../../services/file-download";
 import { CompanyDataReviewStore } from "../../store/company-data-review.store";
+import { MessageService } from "primeng/api";
 
 @Component({
 	selector: 'app-review-list',
@@ -18,6 +19,7 @@ import { CompanyDataReviewStore } from "../../store/company-data-review.store";
 export class ReviewList {
 	data = input.required<HistoryReviewItem[]>();
 	modifyProcessService = inject(CompanyUpdateReviewService)
+	messageService = inject(MessageService)
 	reviewStore = inject(CompanyDataReviewStore)
 	http = inject(HttpClient)
 	downloader = inject(FileDownload)
@@ -34,10 +36,20 @@ export class ReviewList {
 					const filename = 'history_review.csv';
 					this.downloader.downloadCsv(url, filename).subscribe({
 						next: () => {
-							console.log('下載完成');
+							this.messageService.add({
+								severity: 'success',
+								summary: '下載成功',
+								detail: '歷史審核記錄已下載完成',
+								life: 3000
+							});
 						},
 						error: (err) => {
-							alert(err.message || '下載失敗');
+							this.messageService.add({
+								severity: 'error',
+								summary: '下載失敗',
+								detail: `歷史審核記錄下載失敗。${err.message ? ' ' + err.message : ''}`,
+								life: 5000
+							});
 						}
 					});
 				}

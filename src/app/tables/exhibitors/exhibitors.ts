@@ -83,10 +83,18 @@ export class Exhibitors implements AfterViewInit {
 					const filename = 'history_review.csv';
 					this.downloader.downloadCsv(url, filename).subscribe({
 						next: () => {
-							console.log('下載完成');
+							this.messageService.add({
+								severity: 'success',
+								summary: '下載完成',
+								detail: '公司資料下載完成'
+							});
 						},
 						error: (err) => {
-							alert(err.message || '下載失敗');
+							this.messageService.add({
+								severity: 'error',
+								summary: '下載失敗',
+								detail: `公司資料下載失敗。${err.message ? ' ' + err.message : ''}`
+							});
 						}
 					});
 				}
