@@ -80,7 +80,7 @@ export class Exhibitors implements AfterViewInit {
 			next: (response) => {
 				if (response.status === 'success' && response.data?.download_url) {
 					const url = response.data.download_url;
-					const filename = 'history_review.csv';
+					const filename = '參展商列表.csv';
 					this.downloader.downloadCsv(url, filename).subscribe({
 						next: () => {
 							this.messageService.add({
