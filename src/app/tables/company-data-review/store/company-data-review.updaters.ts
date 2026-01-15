@@ -33,3 +33,11 @@ export function setHistoryReviewDATA(data: HistoryReviewItem[]): PartialStateUpd
 		history_review_data: data
 	})
 }
+
+export function setEmpno(empno: string): PartialStateUpdater<CompanyDataReviewSlice> {
+	return _ => ({ empno });
+}
+
+export function setDepartID(departid: string): PartialStateUpdater<CompanyDataReviewSlice> {
+	return _ => ({ departid });
+}

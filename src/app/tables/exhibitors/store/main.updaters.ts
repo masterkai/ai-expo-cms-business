@@ -37,3 +37,11 @@ export function resetSelectedExhibitionRights(): PartialStateUpdater<MainSlice> 
 export function setCurrentCompID(compID: string | null): PartialStateUpdater<MainSlice> {
 	return _ => ({ current_compID: compID });
 }
+
+export function setEmpno(empno: string): PartialStateUpdater<MainSlice> {
+	return _ => ({ empno });
+}
+
+export function setDepartID(departid: string): PartialStateUpdater<MainSlice> {
+	return _ => ({ departid });
+}

@@ -5,6 +5,8 @@ import {
 } from '../../../services/company-update-review.service';
 
 export interface CompanyDataReviewSlice {
+	empno: string;
+	departid: string;
 	history_review_data: HistoryReviewItem[] | null;
 	isDialog_dataReview_Visible: boolean;
 	current_review: CompanyUpdateReviewItem | null;
@@ -12,6 +14,8 @@ export interface CompanyDataReviewSlice {
 }
 
 export const initialCompanyDataReviewSlice: CompanyDataReviewSlice = {
+	empno: '',
+	departid: '',
 	history_review_data: null,
 	isDialog_dataReview_Visible: false,
 	current_review: null,

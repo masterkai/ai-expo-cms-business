@@ -58,6 +58,8 @@ export const RightChangeStore = signalStore(
 			toObservable(_rightsQuery.data).subscribe({
 				next: (data) => {
 					if (data?.status === 'success' && data.data) {
+						setEmpno(data.empno)
+						setDepartID(data.departid)
 						patchState(store, setAllEntities(data.data, rightChangeConfig))
 					}
 				},
@@ -75,6 +77,10 @@ export const RightChangeStore = signalStore(
 
 		const setIsDialogVisible = (isVisible: boolean) => patchState(store, updaters.setIsDialogVisible(isVisible));
 
+		const setEmpno = (empno: string) => patchState(store, updaters.setEmpno(empno));
+
+		const setDepartID = (departID: string) => patchState(store, updaters.setDepartID(departID));
+
 		const setRightChangeMode = (mode: boolean) => patchState(store, updaters.setRightChangeMode(mode));
 
 		const setCurrentCompID = (compID: string | null) => patchState(store, updaters.setCurrentCompID(compID))
@@ -83,7 +89,9 @@ export const RightChangeStore = signalStore(
 			loadRightChang,
 			setIsDialogVisible,
 			setRightChangeMode,
-			setCurrentCompID
+			setCurrentCompID,
+			setEmpno,
+			setDepartID
 		}
 	}),
 	withHooks(store => ({

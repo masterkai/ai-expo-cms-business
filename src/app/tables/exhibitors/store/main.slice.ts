@@ -4,6 +4,8 @@ export interface MainSlice {
 	current_company: Company | null;
 	current_compID: string | null;
 	isDialog_createLink_Visible: boolean;
+	empno: string;
+	departid: string;
 	exhibition_rights: Exhibition_rights;
 	selected_exhibition_right: Selected_Exhibition_rights;
 }
@@ -40,6 +42,8 @@ export const initialMainSlice: MainSlice = {
 	current_company: null,
 	current_compID: null,
 	isDialog_createLink_Visible: false,
+	empno: '',
+	departid: '',
 	exhibition_rights: {
 		sponsorship_benefits: [],
 		lecture: [],

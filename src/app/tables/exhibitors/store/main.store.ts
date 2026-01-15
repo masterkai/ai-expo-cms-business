@@ -84,6 +84,10 @@ export const MainStore = signalStore(
 			})
 		}
 
+		const setEmpno = (empno: string) => patchState(store, updaters.setEmpno(empno));
+
+		const setDepartID = (departID: string) => patchState(store, updaters.setDepartID(departID));
+
 		const _companyDATAQuery = runInInjectionContext(store._injector, () => injectQuery(() => ({
 			queryKey: CACHE_KEY_COMPANY_LIST,
 			queryFn: () => store._exhibitorService.getCompany(),
@@ -156,6 +160,8 @@ export const MainStore = signalStore(
 			toObservable(_companyDATAQuery.data).subscribe({
 				next: (data) => {
 					if (data?.status === 'success' && data.data) {
+						setEmpno(data.empno)
+						setDepartID(data.departid)
 						const companies = data.data
 						patchState(store, setAllEntities(companies, companyConfig))
 					}
@@ -262,7 +268,9 @@ export const MainStore = signalStore(
 			onSaveExhibitorRights,
 			onSetExhibitionLink,
 			resetSelectedExhibitionRights: () => patchState(store, updaters.resetSelectedExhibitionRights()),
-			onGetLink
+			onGetLink,
+			setEmpno,
+			setDepartID
 		}
 	}),
 	withHooks(store => ({

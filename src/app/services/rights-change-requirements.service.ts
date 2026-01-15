@@ -27,6 +27,8 @@ export interface GetRightsRequestRes {
 	message: string;
 	page: string;
 	total: string;
+	empno: string;
+	departid: string;
 	data: RightsChangeRequirementItem[];
 }
 

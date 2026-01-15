@@ -59,6 +59,8 @@ export const CompanyDataReviewStore = signalStore(
 			toObservable(_rightsQuery.data).subscribe({
 				next: (data) => {
 					if (data?.status === 'success' && data.data) {
+						setEmpno(data.empno)
+						setDepartID(data.departid)
 						patchState(store, setAllEntities(data.data, companyReviewDATAConfig))
 					}
 				},
@@ -141,6 +143,10 @@ export const CompanyDataReviewStore = signalStore(
 
 		const setHistoryReviewDATA = (data: HistoryReviewItem[]) => patchState(store, updaters.setHistoryReviewDATA(data))
 
+		const setEmpno = (empno: string) => patchState(store, updaters.setEmpno(empno))
+
+		const setDepartID = (departID: string) => patchState(store, updaters.setDepartID(departID))
+
 
 		return {
 			loadCompanyUpdateList,
@@ -151,7 +157,9 @@ export const CompanyDataReviewStore = signalStore(
 			resetCurrentReviewDATA,
 			fetchReviewDATAById,
 			setHistoryReviewDATA,
-			onSentReview
+			onSentReview,
+			setEmpno,
+			setDepartID
 		}
 	}),
 	withHooks(store => ({

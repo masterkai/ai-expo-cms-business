@@ -131,6 +131,8 @@ export interface GetReviewRequestResponse {
 	message: string;
 	page: string;
 	total: string;
+	empno: string;
+	departid: string;
 	data: CompanyUpdateReviewItem[];
 }
 

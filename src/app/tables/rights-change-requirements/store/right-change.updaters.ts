@@ -12,3 +12,11 @@ export function setRightChangeMode(mode: boolean): PartialStateUpdater<RightChan
 export function setCurrentCompID(compID: string | null): PartialStateUpdater<RightChangeSlice> {
 	return _ => ({ current_compID: compID });
 }
+
+export function setEmpno(empno: string): PartialStateUpdater<RightChangeSlice> {
+	return _ => ({ empno });
+}
+
+export function setDepartID(departid: string): PartialStateUpdater<RightChangeSlice> {
+	return _ => ({ departid });
+}
