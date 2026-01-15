@@ -20,6 +20,7 @@ import { entityConfig, setAllEntities, updateEntity, withEntities } from "@ngrx/
 import { CACHE_KEY_COMPANY_LIST, CACHE_KEY_RIGHTS_CHANGE_REQUEST_DEMAND_LIST } from "../../../const";
 import { toObservable } from "@angular/core/rxjs-interop";
 import { RightChangeStore } from "../../rights-change-requirements/store/right-change.store";
+import { getHighestSponsorship } from "./main.helpers";
 
 const companyConfig = entityConfig({
 	entity: type<Company>(),
@@ -40,6 +41,7 @@ export const MainStore = signalStore(
 	})),
 	withComputed(store => {
 		const visibleCompanies = computed(() => store.companiesEntities())
+		const sponsorships = computed(() => getHighestSponsorship(store.selected_exhibition_right()))
 		const isRightChangeModeEnabled = computed(() => store._rightChangeStore.right_change_mode())
 		return {
 			visibleCompanies,
