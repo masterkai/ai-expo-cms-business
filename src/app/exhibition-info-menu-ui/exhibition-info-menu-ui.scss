@@ -10,13 +10,32 @@
 	margin-bottom: 16px;
 	
 	.item {
-		display: flex;
-		align-items: center;
-		gap: 16px;
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		grid-template-rows: repeat(2, 1fr);
+		grid-column-gap: 12px;
+		grid-row-gap: 12px;
 		background-color: #ffffff;
 		padding: 12px;
 		border-radius: 4px;
 		font-size: 14px;
 		color: #333333;
+		
+		.cate {
+			grid-area: 1 / 1 / 2 / 2;
+			font-weight: 600;
+		}
+		
+		.title {
+			grid-area: 1 / 2 / 2 / 7;
+		}
+		
+		.desc {
+			grid-area: 2 / 1 / 3 / 2;
+		}
+		
+		.comment {
+			grid-area: 2 / 2 / 3 / 7;
+		}
 	}
 }
