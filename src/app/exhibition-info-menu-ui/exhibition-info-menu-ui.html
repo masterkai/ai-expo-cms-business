@@ -95,17 +95,26 @@
         </div>
         <div class="w-full flex flex-col gap-1">
             <label for="selected_Exhibition_booth">展場攤位</label>
-            <p-multiselect
-                    (ngModelChange)="mainStore.setSelectedExhibitionRights({
+            <div class="flex items-center">
+                <p-multiselect
+                        (ngModelChange)="mainStore.setSelectedExhibitionRights({
                     booth: $event
                     })"
-                    [ngModel]="mainStore.selected_exhibition_right().booth"
-                    [options]="mainStore.exhibition_rights().booth"
-                    dataKey="id"
-                    fluid
-                    id="selected_Exhibition_booth"
-                    optionLabel="option"
-                    placeholder="請選擇"></p-multiselect>
+                        [ngModel]="mainStore.selected_exhibition_right().booth"
+                        [options]="mainStore.exhibition_rights().booth"
+                        dataKey="id"
+                        fluid
+                        id="selected_Exhibition_booth"
+                        optionLabel="option"
+                        placeholder="請選擇"></p-multiselect>
+                <p-select [(ngModel)]="selectedBoothStyles" [options]="boothStyles" class="w-7.5 md:w-56"
+                          optionLabel="name" placeholder="選一個樣式"/>
+                <p-inputnumber
+                        [(ngModel)]="gridNum"
+                        [max]="100"
+                        [min]="0" inputId="integeronly" mode="decimal"
+                ></p-inputnumber>
+            </div>
         </div>
 
     </div>
