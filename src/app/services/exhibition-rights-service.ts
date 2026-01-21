@@ -78,6 +78,8 @@ export interface SetRightsParam {
 	items: {
 		id: number;
 		itemCate: string;
+		style: string;
+		grid: string;
 	} [];
 }
 
