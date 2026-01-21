@@ -45,3 +45,11 @@ export function setEmpno(empno: string): PartialStateUpdater<MainSlice> {
 export function setDepartID(departid: string): PartialStateUpdater<MainSlice> {
 	return _ => ({ departid });
 }
+
+export function setBoothStyle(boothStyle: string): PartialStateUpdater<MainSlice> {
+	return _ => ({ booth_style: boothStyle });
+}
+
+export function setGridNumber(gridNumber: string): PartialStateUpdater<MainSlice> {
+	return _ => ({ grid_num: gridNumber });
+}

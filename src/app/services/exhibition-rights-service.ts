@@ -75,12 +75,14 @@ export interface GetRightsParam {
 export interface SetRightsParam {
 	compID: string;
 	type: '' | 'modify';
-	items: {
-		id: number;
-		itemCate: string;
-		style: string;
-		grid: string;
-	} [];
+	items: RightItem [];
+}
+
+export interface RightItem {
+	id: number;
+	itemCate: string;
+	style: string;
+	grid: string;
 }
 
 export interface GetRightsResponse {

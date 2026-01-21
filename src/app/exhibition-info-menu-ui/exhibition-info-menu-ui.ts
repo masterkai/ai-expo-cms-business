@@ -4,6 +4,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { MainStore } from "../tables/exhibitors/store/main.store";
 import { Select } from "primeng/select";
 import { InputNumber } from "primeng/inputnumber";
+import { toObservable } from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: 'app-exhibition-info-menu-ui',
@@ -18,7 +19,7 @@ import { InputNumber } from "primeng/inputnumber";
 })
 export class ExhibitionInfoMenuUi {
 	mainStore = inject(MainStore)
-	gridNum = signal(0);
+	gridNum = signal(1);
 	// 攤位樣式(設計，標準，素地，新創)
 	boothStyles = [
 		{ name: '設計', code: 'design' },
@@ -26,11 +27,32 @@ export class ExhibitionInfoMenuUi {
 		{ name: '素地', code: 'raw' },
 		{ name: '新創', code: 'startup' }
 	]
-	selectedBoothStyles = signal<string[]>([]);
+	selectedBoothStyles = signal<BoothStyles>({
+		name: '',
+		code: ''
+	});
+
+	constructor() {
+		toObservable(this.selectedBoothStyles).subscribe({
+			next: (selectedBoothStyles) => {
+				console.log('selectedBoothStyles changed:', selectedBoothStyles);
+			}
+		})
+	}
 
 	onGridNumChange(value: number) {
 		this.gridNum.set(value);
+		this.mainStore.setGridNumber(value + '')
 	}
 
 
+	protected onBoothStyleChange($event: BoothStyles) {
+		this.selectedBoothStyles.set($event);
+		this.mainStore.setBoothStyle($event.name)
+	}
+}
+
+interface BoothStyles {
+	name: string;
+	code: string;
 }

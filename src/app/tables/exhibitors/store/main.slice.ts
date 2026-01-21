@@ -6,6 +6,8 @@ export interface MainSlice {
 	isDialog_createLink_Visible: boolean;
 	empno: string;
 	departid: string;
+	booth_style: string;
+	grid_num: string;
 	exhibition_rights: Exhibition_rights;
 	selected_exhibition_right: Selected_Exhibition_rights;
 }
@@ -44,6 +46,8 @@ export const initialMainSlice: MainSlice = {
 	isDialog_createLink_Visible: false,
 	empno: '',
 	departid: '',
+	booth_style: '',
+	grid_num: '',
 	exhibition_rights: {
 		sponsorship_benefits: [],
 		lecture: [],

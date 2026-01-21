@@ -12,7 +12,12 @@ import { Company, Exhibition_rights, initialMainSlice, Selected_Exhibition_right
 import { computed, inject, Injector, runInInjectionContext } from "@angular/core";
 import { MessageService } from "primeng/api";
 import { ExhibitorService } from "../../../services/exhibitor.service";
-import { ExhibitionRightsService, GetRightsParam, Option } from "../../../services/exhibition-rights-service";
+import {
+	ExhibitionRightsService,
+	GetRightsParam,
+	Option,
+	RightItem
+} from "../../../services/exhibition-rights-service";
 import * as updaters from "./main.updaters";
 import { withDevtools } from "@angular-architects/ngrx-toolkit";
 import { injectQuery, QueryClient } from "@tanstack/angular-query-experimental";
@@ -210,10 +215,12 @@ export const MainStore = signalStore(
 
 		const onSaveExhibitorRights = () => {
 			const compID = store.isRightChangeModeEnabled() ? store._rightChangeStore.current_compID() : store.current_compID();
-			const items = Object.entries(store.selected_exhibition_right()).flatMap(([itemCate, arr]) =>
+			const items: RightItem[] = Object.entries(store.selected_exhibition_right()).flatMap(([itemCate, arr]) =>
 				arr.map(({ id }: { id: string }) => ({
 					id: Number(id),
-					itemCate
+					itemCate,
+					style: itemCate === 'booth' ? store.booth_style() : '',
+					grid: itemCate === 'booth' ? store.grid_num() : ''
 				}))
 			)
 			const type = store.isRightChangeModeEnabled() ? 'modify' : '';
@@ -250,6 +257,10 @@ export const MainStore = signalStore(
 			})
 		}
 
+		const setBoothStyle = (style: string) => patchState(store, updaters.setBoothStyle(style));
+
+		const setGridNumber = (gridNumber: string) => patchState(store, updaters.setGridNumber(gridNumber));
+
 		const setSelectedExhibitionRights = (partialSelectedRights: Partial<Selected_Exhibition_rights>) => patchState(store, updaters.setSelectedExhibitionRights(partialSelectedRights));
 
 		const setIsDialogVisible = (visible: boolean) => patchState(store, updaters.setIsDialogVisible(visible));
@@ -270,7 +281,9 @@ export const MainStore = signalStore(
 			resetSelectedExhibitionRights: () => patchState(store, updaters.resetSelectedExhibitionRights()),
 			onGetLink,
 			setEmpno,
-			setDepartID
+			setDepartID,
+			setBoothStyle,
+			setGridNumber
 		}
 	}),
 	withHooks(store => ({

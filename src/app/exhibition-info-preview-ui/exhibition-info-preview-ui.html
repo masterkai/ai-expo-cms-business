@@ -52,7 +52,8 @@
     @if (selected_exhibition_right.booth) {
         <div class="item">
             <strong>展場攤位:</strong>
-            <span class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.booth) }}</span>
+            <span class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.booth) }}
+                | (樣式：{{ mainStore.booth_style() }}) | (格數：{{ mainStore.grid_num() }})</span>
         </div>
     }
 </div>
