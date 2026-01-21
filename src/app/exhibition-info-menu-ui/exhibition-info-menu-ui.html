@@ -94,8 +94,8 @@
                     placeholder="請選擇"></p-multiselect>
         </div>
         <div class="w-full flex flex-col gap-1">
-            <label for="selected_Exhibition_booth">展場攤位</label>
-            <div class="flex items-center">
+            <label for="selected_Exhibition_booth">展場攤位/樣式/格數</label>
+            <div class="flex items-center gap-1">
                 <p-multiselect
                         (ngModelChange)="mainStore.setSelectedExhibitionRights({
                     booth: $event
@@ -107,13 +107,21 @@
                         id="selected_Exhibition_booth"
                         optionLabel="option"
                         placeholder="請選擇"></p-multiselect>
-                <p-select [(ngModel)]="selectedBoothStyles" [options]="boothStyles" class="w-7.5 md:w-56"
-                          optionLabel="name" placeholder="選一個樣式"/>
-                <p-inputnumber
-                        [(ngModel)]="gridNum"
-                        [max]="100"
-                        [min]="0" inputId="integeronly" mode="decimal"
-                ></p-inputnumber>
+                <div class="basis-2">
+                    <p-select [(ngModel)]="selectedBoothStyles" [options]="boothStyles" class="w-7.5 md:w-56"
+                              fluid
+                              optionLabel="name"
+                              placeholder="選一個樣式"
+                    />
+                </div>
+                <div class="w-25">
+                    <p-inputnumber
+                            [(ngModel)]="gridNum"
+                            [min]="1"
+                            fluid
+                            inputId="integeronly" mode="decimal"
+                    ></p-inputnumber>
+                </div>
             </div>
         </div>
 
