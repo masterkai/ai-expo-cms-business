@@ -8,7 +8,7 @@ import {
 	withProps,
 	withState
 } from "@ngrx/signals";
-import { Company, Exhibition_rights, initialMainSlice, Selected_Exhibition_rights } from "./main.slice";
+import { BoothStyles, Company, Exhibition_rights, initialMainSlice, Selected_Exhibition_rights } from "./main.slice";
 import { computed, inject, Injector, runInInjectionContext } from "@angular/core";
 import { MessageService } from "primeng/api";
 import { ExhibitorService } from "../../../services/exhibitor.service";
@@ -42,7 +42,14 @@ export const MainStore = signalStore(
 		_exhibitorService: inject(ExhibitorService),
 		_exhibitionRightsService: inject(ExhibitionRightsService),
 		_rightChangeStore: inject(RightChangeStore),
-		_injector: inject(Injector)
+		_injector: inject(Injector),
+		// 攤位樣式(設計，標準，素地，新創)
+		boothStyles: [
+			{ name: '設計', code: 'design' },
+			{ name: '標準', code: 'standard' },
+			{ name: '素地', code: 'raw' },
+			{ name: '新創', code: 'startup' }
+		] as BoothStyles[]
 	})),
 	withComputed(store => {
 		const visibleCompanies = computed(() => store.companiesEntities())
@@ -270,7 +277,7 @@ export const MainStore = signalStore(
 		const getBoothSpec = (compID: string) => {
 			return store._exhibitionRightsService.getBoothSpec(compID).subscribe({
 				next: (response) => {
-					if (response.status === 'success' && response.data) {
+					if (response.status === 'success' && response.data.length !== 0) {
 						setBoothStyle(response.data[0].style)
 						setGridNumber(response.data[0].grid)
 					}

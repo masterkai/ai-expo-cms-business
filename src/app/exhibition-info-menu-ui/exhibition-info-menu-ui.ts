@@ -21,13 +21,7 @@ import { toObservable } from "@angular/core/rxjs-interop";
 export class ExhibitionInfoMenuUi {
 	mainStore = inject(MainStore)
 	gridNum = 1;
-	// 攤位樣式(設計，標準，素地，新創)
-	boothStyles: BoothStyles[] = [
-		{ name: '設計', code: 'design' },
-		{ name: '標準', code: 'standard' },
-		{ name: '素地', code: 'raw' },
-		{ name: '新創', code: 'startup' }
-	]
+
 	selectedBoothStyles: BoothStyles | null = null;
 
 	constructor() {

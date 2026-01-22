@@ -112,8 +112,8 @@
                 <div class="basis-2">
                     <p-select
                             (onChange)="onBoothStyleChange($event)"
-                            [(ngModel)]="selectedBoothStyles"
-                            [options]="boothStyles" class="w-7.5 md:w-56"
+                            [(ngModel)]="mainStore.selectedBoothStyles"
+                            [options]="mainStore.boothStyles" class="w-7.5 md:w-56"
                             fluid
                             optionLabel="name"
                             placeholder="選一個樣式"
