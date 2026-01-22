@@ -121,9 +121,10 @@
                 </div>
                 <div class="w-25">
                     <p-inputnumber
+                            (ngModelChange)="mainStore.setGridNumUI($event)"
                             (onInput)="onGridNumChange($event)"
-                            [(ngModel)]="gridNum"
                             [min]="1"
+                            [ngModel]="mainStore.settled_girdNum()"
                             fluid
                             inputId="integeronly" mode="decimal"
                     ></p-inputnumber>

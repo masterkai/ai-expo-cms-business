@@ -57,3 +57,7 @@ export function setGridNumber(gridNumber: string): PartialStateUpdater<MainSlice
 export function setSelectedBoothStyle(style: BoothStyles | null): PartialStateUpdater<MainSlice> {
 	return _ => ({ selectedBoothStyle: style });
 }
+
+export function setGridNumUI(v: number | null): PartialStateUpdater<MainSlice> {
+	return _ => ({ settled_girdNum: v });
+}

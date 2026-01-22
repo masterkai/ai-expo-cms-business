@@ -288,6 +288,8 @@ export const MainStore = signalStore(
 
 		const setSelectedBoothStyle = (style: BoothStyles | null) => patchState(store, updaters.setSelectedBoothStyle(style));
 
+		const setGridNumUI = (v: number | null) => patchState(store, updaters.setGridNumUI(v));
+
 		return {
 			setSelectedBoothStyle,
 			setExhibitionRights,
@@ -306,7 +308,8 @@ export const MainStore = signalStore(
 			setEmpno,
 			setDepartID,
 			setBoothStyle,
-			setGridNumber
+			setGridNumber,
+			setGridNumUI
 		}
 	}),
 	withHooks(store => ({
@@ -315,6 +318,8 @@ export const MainStore = signalStore(
 				// 👇 The effect is re-executed on state change.
 				const state = getState(store);
 				const booth_style = state.booth_style;
+				const grid_num = state.grid_num;
+				// when booth_style changes, update selectedBoothStyle accordingly
 				if (booth_style !== '') {
 					const matchedStyle = store.boothStyles.find(bs => bs.name === booth_style);
 					if (matchedStyle) {
@@ -328,7 +333,21 @@ export const MainStore = signalStore(
 						}
 					);
 				}
-				console.log('counter state', state);
+				// when grid_num changes, update gridNumUI accordingly
+				if (grid_num !== '') {
+					const gridNumber = parseInt(grid_num, 10);
+					if (!isNaN(gridNumber)) {
+						Promise.resolve().then(() => {
+							store.setGridNumUI(gridNumber);
+						});
+					}
+				} else {
+					Promise.resolve().then(() => {
+							store.setGridNumUI(null);
+						}
+					);
+				}
+				// console.log('counter state', state);
 			});
 			store.loadCompanies()
 

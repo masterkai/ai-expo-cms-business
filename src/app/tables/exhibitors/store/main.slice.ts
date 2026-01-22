@@ -5,6 +5,7 @@ export interface MainSlice {
 	current_compID: string | null;
 	isDialog_createLink_Visible: boolean;
 	selectedBoothStyle: BoothStyles | null;
+	settled_girdNum: number | null;
 	empno: string;
 	departid: string;
 	booth_style: string;
@@ -47,6 +48,7 @@ export interface Exhibitor {
 }
 
 export const initialMainSlice: MainSlice = {
+	settled_girdNum: null,
 	selectedBoothStyle: null,
 	current_company: null,
 	current_compID: null,
