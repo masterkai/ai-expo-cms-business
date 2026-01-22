@@ -13,6 +13,7 @@ import {
 import { Company } from "./store/main.slice";
 import { FileDownload } from "../../services/file-download";
 import { CompanyUpdateReviewService } from "../../services/company-update-review.service";
+import { toObservable } from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: 'app-exhibitors',
@@ -34,6 +35,17 @@ export class Exhibitors implements AfterViewInit {
 	mainStore = inject(MainStore);
 	dialog = viewChild(CommonDialog)
 	downloader = inject(FileDownload)
+
+	constructor() {
+		toObservable(this.mainStore.current_compID).subscribe({
+			next: (compID) => {
+				console.log('current_compID changed:', compID);
+				if (compID !== '' && compID !== null) {
+					this.mainStore.getBoothSpec(compID)
+				}
+			}
+		})
+	}
 
 	ngAfterViewInit() {
 		this.dialog()?.visible$.subscribe({
@@ -104,6 +116,17 @@ export class Exhibitors implements AfterViewInit {
 			}
 		})
 
+
+	}
+
+	protected onClickExhibitorItem(exhibitor: Company) {
+		this.mainStore.getExhibitionRights({ id: exhibitor.unified_business_no, type: '' });
+		this.mainStore.setCurrentCompany(exhibitor)
+		this.mainStore.setIsDialogVisible(true);
+		// const compID = this.mainStore.current_compID()
+		// if (compID !== '' && compID !== null) {
+		// 	this.mainStore.getBoothSpec(compID)
+		// }
 
 	}
 }

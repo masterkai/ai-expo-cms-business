@@ -1,5 +1,3 @@
-@let selected_exhibition_right = mainStore.selected_exhibition_right();
-
 @if (!hasExhibitionRights()) {
     <div class="no-data-message">
         尚未選擇任何參展權益設定項目
@@ -14,45 +12,35 @@
         </div>
     }
 
-    @if (selected_exhibition_right.lecture) {
+    @if (mainStore.selected_exhibition_right().lecture) {
         <div class="item">
             <strong>不知講座議程:</strong>
-            <span class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.lecture) }}</span>
+            <span class="text-[14px]">{{ renderArrayContent(mainStore.selected_exhibition_right().lecture) }}</span>
         </div>
     }
-    @if (selected_exhibition_right.stage) {
+    @if (mainStore.selected_exhibition_right().stage) {
         <div class="item">
             <strong>未來講座議程:</strong>
-            <span class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.stage) }}</span>
+            <span class="text-[14px]">{{ renderArrayContent(mainStore.selected_exhibition_right().stage) }}</span>
         </div>
     }
-    @if (selected_exhibition_right.promotion && selected_exhibition_right.promotion.length > 0) {
+    @if (mainStore.selected_exhibition_right().promotion && mainStore.selected_exhibition_right().promotion.length > 0) {
         <div class="item">
             <strong>媒體廣宣:</strong>
 
-            <div class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.promotion) }}</div>
-            <!--            <ul>-->
-            <!--                @for (item of selected_exhibition_right.promotion; track item.value) {-->
-            <!--                    <li>{{ item.value }}</li>-->
-            <!--                }-->
-            <!--            </ul>-->
+            <div class="text-[14px]">{{ renderArrayContent(mainStore.selected_exhibition_right().promotion) }}</div>
         </div>
     }
-    @if (selected_exhibition_right.optional && selected_exhibition_right.optional.length > 0) {
+    @if (mainStore.selected_exhibition_right().optional && mainStore.selected_exhibition_right().optional.length > 0) {
         <div class="item">
             <strong>加購項目:</strong>
-            <div class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.optional) }}</div>
-            <!--            <ul>-->
-            <!--                @for (item of selected_exhibition_right.optional; track item.value) {-->
-            <!--                    <li>{{ item.value }}</li>-->
-            <!--                }-->
-            <!--            </ul>-->
+            <div class="text-[14px]">{{ renderArrayContent(mainStore.selected_exhibition_right().optional) }}</div>
         </div>
     }
-    @if (selected_exhibition_right.booth) {
+    @if (mainStore.selected_exhibition_right().booth) {
         <div class="item">
             <strong>展場攤位:</strong>
-            <span class="text-[14px]">{{ renderArrayContent(selected_exhibition_right.booth) }}
+            <span class="text-[14px]">{{ renderArrayContent(mainStore.selected_exhibition_right().booth) }}
                 | (樣式：{{ mainStore.booth_style() }}) | (格數：{{ mainStore.grid_num() }})</span>
         </div>
     }

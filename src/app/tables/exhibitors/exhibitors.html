@@ -32,10 +32,7 @@
                 <div class="text-xs">{{ exhibitor.createdate | date: 'yyyy/MM/dd HH:mm:ss' }}</div>
             </td>
             <td
-                    (click)="
-                    mainStore.getExhibitionRights({id:exhibitor.unified_business_no, type:''});
-                    mainStore.setIsDialogVisible(true);
-                    mainStore.setCurrentCompany(exhibitor)"
+                    (click)="onClickExhibitorItem(exhibitor)"
                     class="hover:text-blue-600 cursor-pointer"
             >
                 <span

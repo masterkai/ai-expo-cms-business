@@ -60,6 +60,24 @@ export class ExhibitionRightsService {
 
 		return this.http.post<SetRightsResponse>(url, data, { headers });
 	}
+
+	/*
+	* 取得攤位規格
+	* compID: 公司ID
+	* */
+	getBoothSpec(compID: string) {
+		const url = `${environment.apiUrl}/getBoothSpec`;
+		const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+		const body = new URLSearchParams();
+		body.set('compID', compID);
+		return this.http.post<GetBoothSpecResponse>(url, body.toString(), { headers });
+	}
+}
+
+export interface GetBoothSpecResponse {
+	status: 'success' | 'error';
+	message: string;
+	data: Option[];
 }
 
 export interface SetRightsResponse {

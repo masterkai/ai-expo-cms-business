@@ -267,10 +267,22 @@ export const MainStore = signalStore(
 
 		const setCurrentCompany = (company: Company | null) => patchState(store, updaters.setCurrentCompany(company));
 
+		const getBoothSpec = (compID: string) => {
+			return store._exhibitionRightsService.getBoothSpec(compID).subscribe({
+				next: (response) => {
+					if (response.status === 'success' && response.data) {
+						setBoothStyle(response.data[0].style)
+						setGridNumber(response.data[0].grid)
+					}
+				}
+			})
+		}
+
 		return {
 			setExhibitionRights,
 			setSelectedExhibitionRights,
 			getExhibitionRights,
+			getBoothSpec,
 			setIsDialogVisible,
 			loadCompanies,
 			setCurrentCompany,
