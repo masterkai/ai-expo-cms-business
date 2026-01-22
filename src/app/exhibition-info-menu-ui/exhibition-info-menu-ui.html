@@ -110,8 +110,9 @@
                         placeholder="請選擇"></p-multiselect>
                 <div class="basis-2">
                     <p-select
+                            (ngModelChange)="mainStore.setSelectedBoothStyle($event)"
                             (onChange)="onBoothStyleChange($event)"
-                            [(ngModel)]="mainStore.selectedBoothStyles"
+                            [ngModel]="mainStore.selectedBoothStyle"
                             [options]="mainStore.boothStyles" class="w-7.5 md:w-56"
                             fluid
                             optionLabel="name"

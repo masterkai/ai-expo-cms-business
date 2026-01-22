@@ -1,4 +1,5 @@
 import {
+	getState,
 	patchState,
 	signalStore,
 	type,
@@ -9,7 +10,7 @@ import {
 	withState
 } from "@ngrx/signals";
 import { BoothStyles, Company, Exhibition_rights, initialMainSlice, Selected_Exhibition_rights } from "./main.slice";
-import { computed, inject, Injector, runInInjectionContext } from "@angular/core";
+import { computed, effect, inject, Injector, runInInjectionContext } from "@angular/core";
 import { MessageService } from "primeng/api";
 import { ExhibitorService } from "../../../services/exhibitor.service";
 import {
@@ -285,7 +286,10 @@ export const MainStore = signalStore(
 			})
 		}
 
+		const setSelectedBoothStyle = (style: BoothStyles | null) => patchState(store, updaters.setSelectedBoothStyle(style));
+
 		return {
+			setSelectedBoothStyle,
 			setExhibitionRights,
 			setSelectedExhibitionRights,
 			getExhibitionRights,
@@ -307,6 +311,28 @@ export const MainStore = signalStore(
 	}),
 	withHooks(store => ({
 		onInit() {
+			effect(() => {
+				// 👇 The effect is re-executed on state change.
+				const state = getState(store);
+				const booth_style = state.booth_style;
+				if (booth_style !== '') {
+					const matchedStyle = store.boothStyles.find(bs => bs.name === booth_style);
+					if (matchedStyle) {
+						Promise.resolve().then(() => {
+							store.setSelectedBoothStyle(matchedStyle);
+						});
+					}
+				} else {
+					Promise.resolve().then(() => {
+							store.setSelectedBoothStyle({
+								name: '',
+								code: ''
+							});
+						}
+					);
+				}
+				console.log('counter state', state);
+			});
 			store.loadCompanies()
 
 			// when current_company changes, update selected exhibition rights from the company fields

@@ -4,7 +4,7 @@ export interface MainSlice {
 	current_company: Company | null;
 	current_compID: string | null;
 	isDialog_createLink_Visible: boolean;
-	selectedBoothStyles: BoothStyles | null;
+	selectedBoothStyle: BoothStyles | null;
 	empno: string;
 	departid: string;
 	booth_style: string;
@@ -47,7 +47,7 @@ export interface Exhibitor {
 }
 
 export const initialMainSlice: MainSlice = {
-	selectedBoothStyles: null,
+	selectedBoothStyle: null,
 	current_company: null,
 	current_compID: null,
 	isDialog_createLink_Visible: false,

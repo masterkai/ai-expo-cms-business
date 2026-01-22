@@ -123,10 +123,5 @@ export class Exhibitors implements AfterViewInit {
 		this.mainStore.getExhibitionRights({ id: exhibitor.unified_business_no, type: '' });
 		this.mainStore.setCurrentCompany(exhibitor)
 		this.mainStore.setIsDialogVisible(true);
-		// const compID = this.mainStore.current_compID()
-		// if (compID !== '' && compID !== null) {
-		// 	this.mainStore.getBoothSpec(compID)
-		// }
-
 	}
 }
