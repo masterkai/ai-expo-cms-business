@@ -16,6 +16,7 @@ import { toObservable } from "@angular/core/rxjs-interop";
 	],
 	templateUrl: './exhibition-info-menu-ui.html',
 	styleUrl: './exhibition-info-menu-ui.scss',
+	standalone: true
 })
 export class ExhibitionInfoMenuUi {
 	mainStore = inject(MainStore)

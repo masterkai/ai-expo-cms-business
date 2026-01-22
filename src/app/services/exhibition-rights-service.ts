@@ -114,7 +114,8 @@ export interface RightsDATA {
 export interface Option {
 	id: string;
 	option: string;
-	selected?: boolean;
+	style: string;
+	grid: string;
 }
 
 export interface Right {
