@@ -324,10 +324,7 @@ export const MainStore = signalStore(
 					}
 				} else {
 					Promise.resolve().then(() => {
-							store.setSelectedBoothStyle({
-								name: '',
-								code: ''
-							});
+							store.setSelectedBoothStyle(null);
 						}
 					);
 				}
