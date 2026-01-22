@@ -19,6 +19,7 @@ import {
 	],
 	templateUrl: './rights-change-requirements.html',
 	styleUrl: './rights-change-requirements.css',
+	standalone: true
 })
 export class RightsChangeRequirements implements AfterViewInit {
 	rightChangeStore = inject(RightChangeStore)
@@ -48,8 +49,11 @@ export class RightsChangeRequirements implements AfterViewInit {
 		console.log('View details for item:', item);
 		const id = item.unified_business_no
 		const option_items = item.option_items
+		const booth = option_items.booth
 		this.mainStore.getExhibitionRights({ id, type: 'modify' })
 		this.mainStore.setSelectedExhibitionRights(option_items)
+		this.mainStore.setBoothStyle(booth[0].style)
+		this.mainStore.setGridNumber(booth[0].grid)
 		// 在這裡添加查看詳細信息的邏輯
 		this.rightChangeStore.setCurrentCompID(item.compID);
 		this.rightChangeStore.setIsDialogVisible(true);

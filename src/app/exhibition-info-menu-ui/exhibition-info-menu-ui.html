@@ -1,10 +1,9 @@
-@let exhibition_right = mainStore.exhibition_rights();
 @if (mainStore.isRightChangeModeEnabled()) {
     <div class="w-full flex flex-col gap-1">
         <label>異動描述列表</label>
         <div class="right-change-list">
 
-            @for (item of exhibition_right.sponsorship_benefits; track item.id) {
+            @for (item of mainStore.exhibition_rights().sponsorship_benefits; track item.id) {
                 <div class="item">
                     <div class="cate">{{ item.cate }}</div>
                     <div class="title">{{ item.title }}</div>
@@ -100,8 +99,11 @@
                         (ngModelChange)="mainStore.setSelectedExhibitionRights({
                     booth: $event
                     })"
+                        [filter]="false"
                         [ngModel]="mainStore.selected_exhibition_right().booth"
                         [options]="mainStore.exhibition_rights().booth"
+                        [selectionLimit]='1'
+                        [showToggleAll]="false"
                         dataKey="id"
                         fluid
                         id="selected_Exhibition_booth"
