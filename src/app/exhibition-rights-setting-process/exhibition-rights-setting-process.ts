@@ -20,6 +20,7 @@ import { RightChangeStore } from "../tables/rights-change-requirements/store/rig
 	],
 	templateUrl: './exhibition-rights-setting-process.html',
 	styleUrl: './exhibition-rights-setting-process.css',
+	standalone: true
 })
 export class ExhibitionRightsSettingProcess {
 	mainStore = inject(MainStore)

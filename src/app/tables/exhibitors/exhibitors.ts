@@ -26,6 +26,7 @@ import { CompanyUpdateReviewService } from "../../services/company-update-review
 	],
 	templateUrl: './exhibitors.html',
 	styleUrl: './exhibitors.css',
+	standalone: true
 })
 export class Exhibitors implements AfterViewInit {
 	messageService = inject(MessageService)
