@@ -4,12 +4,19 @@ export interface MainSlice {
 	current_company: Company | null;
 	current_compID: string | null;
 	isDialog_createLink_Visible: boolean;
+	selectedBoothStyle: BoothStyles | null;
+	settled_girdNum: number | null;
 	empno: string;
 	departid: string;
 	booth_style: string;
 	grid_num: string;
 	exhibition_rights: Exhibition_rights;
 	selected_exhibition_right: Selected_Exhibition_rights;
+}
+
+export interface BoothStyles {
+	name: string;
+	code: string;
 }
 
 export interface Exhibition_rights {
@@ -41,6 +48,8 @@ export interface Exhibitor {
 }
 
 export const initialMainSlice: MainSlice = {
+	settled_girdNum: null,
+	selectedBoothStyle: null,
 	current_company: null,
 	current_compID: null,
 	isDialog_createLink_Visible: false,
