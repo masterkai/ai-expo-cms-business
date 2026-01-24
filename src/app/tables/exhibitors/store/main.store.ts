@@ -1,4 +1,5 @@
 import {
+	getState,
 	patchState,
 	signalStore,
 	type,
@@ -8,8 +9,8 @@ import {
 	withProps,
 	withState
 } from "@ngrx/signals";
-import { Company, Exhibition_rights, initialMainSlice, Selected_Exhibition_rights } from "./main.slice";
-import { computed, inject, Injector, runInInjectionContext } from "@angular/core";
+import { BoothStyles, Company, Exhibition_rights, initialMainSlice, Selected_Exhibition_rights } from "./main.slice";
+import { computed, effect, inject, Injector, runInInjectionContext } from "@angular/core";
 import { MessageService } from "primeng/api";
 import { ExhibitorService } from "../../../services/exhibitor.service";
 import {
@@ -42,7 +43,14 @@ export const MainStore = signalStore(
 		_exhibitorService: inject(ExhibitorService),
 		_exhibitionRightsService: inject(ExhibitionRightsService),
 		_rightChangeStore: inject(RightChangeStore),
-		_injector: inject(Injector)
+		_injector: inject(Injector),
+		// 攤位樣式(設計，標準，素地，新創)
+		boothStyles: [
+			{ name: '設計', code: 'design' },
+			{ name: '標準', code: 'standard' },
+			{ name: '素地', code: 'raw' },
+			{ name: '新創', code: 'startup' }
+		] as BoothStyles[]
 	})),
 	withComputed(store => {
 		const visibleCompanies = computed(() => store.companiesEntities())
@@ -270,7 +278,7 @@ export const MainStore = signalStore(
 		const getBoothSpec = (compID: string) => {
 			return store._exhibitionRightsService.getBoothSpec(compID).subscribe({
 				next: (response) => {
-					if (response.status === 'success' && response.data) {
+					if (response.status === 'success' && response.data.length !== 0) {
 						setBoothStyle(response.data[0].style)
 						setGridNumber(response.data[0].grid)
 					}
@@ -278,7 +286,12 @@ export const MainStore = signalStore(
 			})
 		}
 
+		const setSelectedBoothStyle = (style: BoothStyles | null) => patchState(store, updaters.setSelectedBoothStyle(style));
+
+		const setGridNumUI = (v: number | null) => patchState(store, updaters.setGridNumUI(v));
+
 		return {
+			setSelectedBoothStyle,
 			setExhibitionRights,
 			setSelectedExhibitionRights,
 			getExhibitionRights,
@@ -295,11 +308,47 @@ export const MainStore = signalStore(
 			setEmpno,
 			setDepartID,
 			setBoothStyle,
-			setGridNumber
+			setGridNumber,
+			setGridNumUI
 		}
 	}),
 	withHooks(store => ({
 		onInit() {
+			effect(() => {
+				// 👇 The effect is re-executed on state change.
+				const state = getState(store);
+				const booth_style = state.booth_style;
+				const grid_num = state.grid_num;
+				// when booth_style changes, update selectedBoothStyle accordingly
+				if (booth_style !== '') {
+					const matchedStyle = store.boothStyles.find(bs => bs.name === booth_style);
+					if (matchedStyle) {
+						Promise.resolve().then(() => {
+							store.setSelectedBoothStyle(matchedStyle);
+						});
+					}
+				} else {
+					Promise.resolve().then(() => {
+							store.setSelectedBoothStyle(null);
+						}
+					);
+				}
+				// when grid_num changes, update gridNumUI accordingly
+				if (grid_num !== '') {
+					const gridNumber = parseInt(grid_num, 10);
+					if (!isNaN(gridNumber)) {
+						Promise.resolve().then(() => {
+							store.setGridNumUI(gridNumber);
+						});
+					}
+				} else {
+					Promise.resolve().then(() => {
+							store.setGridNumUI(null);
+						}
+					);
+				}
+				// console.log('counter state', state);
+			});
 			store.loadCompanies()
 
 			// when current_company changes, update selected exhibition rights from the company fields

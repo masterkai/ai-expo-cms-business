@@ -1,5 +1,5 @@
 import { PartialStateUpdater } from "@ngrx/signals";
-import { Exhibition_rights, MainSlice, Selected_Exhibition_rights } from "./main.slice";
+import { BoothStyles, Exhibition_rights, MainSlice, Selected_Exhibition_rights } from "./main.slice";
 
 export function setExhibitionRights(rights: Exhibition_rights): PartialStateUpdater<MainSlice> {
 	return _ => ({ exhibition_rights: rights });
@@ -52,4 +52,12 @@ export function setBoothStyle(boothStyle: string): PartialStateUpdater<MainSlice
 
 export function setGridNumber(gridNumber: string): PartialStateUpdater<MainSlice> {
 	return _ => ({ grid_num: gridNumber });
+}
+
+export function setSelectedBoothStyle(style: BoothStyles | null): PartialStateUpdater<MainSlice> {
+	return _ => ({ selectedBoothStyle: style });
+}
+
+export function setGridNumUI(v: number | null): PartialStateUpdater<MainSlice> {
+	return _ => ({ settled_girdNum: v });
 }

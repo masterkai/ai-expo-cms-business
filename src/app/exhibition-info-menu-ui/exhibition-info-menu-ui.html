@@ -110,9 +110,10 @@
                         placeholder="請選擇"></p-multiselect>
                 <div class="basis-2">
                     <p-select
+                            (ngModelChange)="mainStore.setSelectedBoothStyle($event)"
                             (onChange)="onBoothStyleChange($event)"
-                            [(ngModel)]="selectedBoothStyles"
-                            [options]="boothStyles" class="w-7.5 md:w-56"
+                            [ngModel]="mainStore.selectedBoothStyle()"
+                            [options]="mainStore.boothStyles" class="w-7.5 md:w-56"
                             fluid
                             optionLabel="name"
                             placeholder="選一個樣式"
@@ -120,9 +121,10 @@
                 </div>
                 <div class="w-25">
                     <p-inputnumber
+                            (ngModelChange)="mainStore.setGridNumUI($event)"
                             (onInput)="onGridNumChange($event)"
-                            [(ngModel)]="gridNum"
                             [min]="1"
+                            [ngModel]="mainStore.settled_girdNum()"
                             fluid
                             inputId="integeronly" mode="decimal"
                     ></p-inputnumber>
