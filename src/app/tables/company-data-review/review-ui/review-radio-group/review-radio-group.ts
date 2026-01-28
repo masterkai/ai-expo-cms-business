@@ -31,7 +31,7 @@ export class ReviewRadioGroup {
 		toObservable(this.review).subscribe({
 			next: (value) => {
 				console.log('Review option changed to:', value);
-				const suppressNotifications = isFirstEmit && value === 'Reject';
+				const suppressNotifications = isFirstEmit && value === 'Approve';
 				isFirstEmit = false;
 
 				const data: CompanyReviewAction = {
