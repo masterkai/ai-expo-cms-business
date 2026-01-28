@@ -8,6 +8,7 @@ import { RightChangeStore } from "../tables/rights-change-requirements/store/rig
 	imports: [],
 	templateUrl: './exhibition-info-preview-ui.html',
 	styleUrl: './exhibition-info-preview-ui.css',
+	standalone: true
 })
 export class ExhibitionInfoPreviewUi {
 	rightChangeStore = inject(RightChangeStore)
