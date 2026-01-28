@@ -15,6 +15,7 @@ import { CACHE_KEY_COMPANY_HISTORY_REVIEW_LIST } from "../../../../const";
 	],
 	templateUrl: './review-radio-group.html',
 	styleUrl: './review-radio-group.css',
+	standalone: true
 })
 export class ReviewRadioGroup {
 	path = input.required<string>()
@@ -35,16 +36,15 @@ export class ReviewRadioGroup {
 
 				const data: CompanyReviewAction = {
 					compID: this.compID(),
-					reviews: [ {
+					reviews: [{
 						path: this.path(),
 						result: value,
 						comment: ''
-					} ]
+					}]
 				}
-
-				this.reviewService.setReview(data).subscribe({
-					next: (res) => {
-						if (!suppressNotifications) {
+				if (!suppressNotifications) {
+					this.reviewService.setReview(data).subscribe({
+						next: (res) => {
 							if (res.status === 'success') {
 								this.messageService.add({
 									severity: 'success',
@@ -58,27 +58,27 @@ export class ReviewRadioGroup {
 									detail: `Failed to set review for ${this.path()}.${res.message ? ' ' + res.message : ''}`
 								});
 							}
-						}
+							if (res.status === 'success') {
+								this.queryClient.invalidateQueries({
+									queryKey: CACHE_KEY_COMPANY_HISTORY_REVIEW_LIST
+								});
+							}
 
-						if (res.status === 'success') {
-							this.queryClient.invalidateQueries({
-								queryKey: CACHE_KEY_COMPANY_HISTORY_REVIEW_LIST
-							});
+							console.log('Review set successfully:', data);
+						},
+						error: (err) => {
+							if (!suppressNotifications) {
+								this.messageService.add({
+									severity: 'error',
+									summary: 'Error',
+									detail: `Failed to set review for ${this.path()}.${err.message ? ' ' + err.message : ''}`
+								});
+							}
+							console.error('Error setting review:', err);
 						}
+					})
+				}
 
-						console.log('Review set successfully:', data);
-					},
-					error: (err) => {
-						if (!suppressNotifications) {
-							this.messageService.add({
-								severity: 'error',
-								summary: 'Error',
-								detail: `Failed to set review for ${this.path()}.${err.message ? ' ' + err.message : ''}`
-							});
-						}
-						console.error('Error setting review:', err);
-					}
-				})
 			}
 		})
 	}
