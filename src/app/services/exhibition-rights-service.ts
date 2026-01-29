@@ -93,6 +93,7 @@ export interface GetRightsParam {
 export interface SetRightsParam {
 	compID: string;
 	type: '' | 'modify';
+	rights_level: string;
 	items: RightItem [];
 }
 

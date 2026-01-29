@@ -5,10 +5,10 @@
 }
 
 <div class="preview-container">
-    @if (mainStore.sponsorships()) {
+    @if (mainStore.computed_sponsor_ships()) {
         <div class="item">
             <strong>贊助權益:</strong>
-            <span class="text-[14px]">{{ mainStore.sponsorships() }}</span>
+            <span class="text-[14px]">{{ mainStore.computed_sponsor_ships() }}</span>
         </div>
     }
 

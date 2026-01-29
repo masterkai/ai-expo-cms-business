@@ -67,12 +67,12 @@ export const MainStore = signalStore(
 	})),
 	withComputed(store => {
 		const visibleCompanies = computed(() => store.companiesEntities())
-		const sponsorships = computed(() => getHighestSponsorship(store.selected_exhibition_right()))
+		const computed_sponsor_ships = computed(() => getHighestSponsorship(store.selected_exhibition_right()))
 		const isRightChangeModeEnabled = computed(() => store._rightChangeStore.right_change_mode())
 		return {
 			visibleCompanies,
 			isRightChangeModeEnabled,
-			sponsorships
+			computed_sponsor_ships
 		}
 	}),
 	withMethods(store => {
@@ -249,9 +249,10 @@ export const MainStore = signalStore(
 			const type = store.isRightChangeModeEnabled() ? 'modify' : '';
 			const successMessage = store.isRightChangeModeEnabled() ? '展覽權益變更需求已送出。' : '展覽權益資料已更新。';
 			const errorMessage = store.isRightChangeModeEnabled() ? '送出展覽權益變更需求失敗，請稍後再試。' : '更新展覽權益資料失敗，請稍後再試。';
-
+			const rights_level = store.selectedSponsorShips() !== null ? store.selectedSponsorShips()!.name : store.computed_sponsor_ships() ?? '';
 			store._exhibitionRightsService.setRights({
 				compID: compID ?? '',
+				rights_level,
 				type,
 				items
 			}).subscribe({
