@@ -1,5 +1,5 @@
 import { PartialStateUpdater } from "@ngrx/signals";
-import { BoothStyles, Exhibition_rights, MainSlice, Selected_Exhibition_rights } from "./main.slice";
+import { BoothStyles, Exhibition_rights, GenericOption, MainSlice, Selected_Exhibition_rights } from "./main.slice";
 
 export function setExhibitionRights(rights: Exhibition_rights): PartialStateUpdater<MainSlice> {
 	return _ => ({ exhibition_rights: rights });
@@ -16,6 +16,10 @@ export function setSelectedExhibitionRights(partialSelectedRights: Partial<Selec
 
 export function setIsDialogVisible(visible: boolean): PartialStateUpdater<MainSlice> {
 	return _ => ({ isDialog_createLink_Visible: visible });
+}
+
+export function setSelectedSponsorShips(option: GenericOption | null): PartialStateUpdater<MainSlice> {
+	return _ => ({ selectedSponsorShips: option });
 }
 
 export function setCurrentCompany(company: MainSlice["current_company"]): PartialStateUpdater<MainSlice> {

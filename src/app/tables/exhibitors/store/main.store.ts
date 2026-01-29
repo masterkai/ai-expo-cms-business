@@ -9,7 +9,14 @@ import {
 	withProps,
 	withState
 } from "@ngrx/signals";
-import { BoothStyles, Company, Exhibition_rights, initialMainSlice, Selected_Exhibition_rights } from "./main.slice";
+import {
+	BoothStyles,
+	Company,
+	Exhibition_rights,
+	GenericOption,
+	initialMainSlice,
+	Selected_Exhibition_rights
+} from "./main.slice";
 import { computed, effect, inject, Injector, runInInjectionContext } from "@angular/core";
 import { MessageService } from "primeng/api";
 import { ExhibitorService } from "../../../services/exhibitor.service";
@@ -50,7 +57,13 @@ export const MainStore = signalStore(
 			{ name: '標準', code: 'standard' },
 			{ name: '素地', code: 'raw' },
 			{ name: '新創', code: 'startup' }
-		] as BoothStyles[]
+		] as BoothStyles[],
+		sponsorShips: [
+			{ name: '鑽石贊助', code: 'diamond' },
+			{ name: '白金贊助', code: 'platinum' },
+			{ name: '黃金贊助', code: 'gold' },
+			{ name: '銀級贊助', code: 'silver' },
+		]
 	})),
 	withComputed(store => {
 		const visibleCompanies = computed(() => store.companiesEntities())
@@ -96,6 +109,8 @@ export const MainStore = signalStore(
 				}
 			})
 		}
+
+		const setSelectedSponsorShips = (option: GenericOption | null) => patchState(store, updaters.setSelectedSponsorShips(option));
 
 		const setEmpno = (empno: string) => patchState(store, updaters.setEmpno(empno));
 
@@ -309,7 +324,8 @@ export const MainStore = signalStore(
 			setDepartID,
 			setBoothStyle,
 			setGridNumber,
-			setGridNumUI
+			setGridNumUI,
+			setSelectedSponsorShips
 		}
 	}),
 	withHooks(store => ({

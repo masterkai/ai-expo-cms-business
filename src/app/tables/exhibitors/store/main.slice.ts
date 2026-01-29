@@ -2,6 +2,7 @@ import { Option, Right } from '../../../services/exhibition-rights-service'
 
 export interface MainSlice {
 	current_company: Company | null;
+	selectedSponsorShips: GenericOption | null;
 	current_compID: string | null;
 	isDialog_createLink_Visible: boolean;
 	selectedBoothStyle: BoothStyles | null;
@@ -48,6 +49,7 @@ export interface Exhibitor {
 }
 
 export const initialMainSlice: MainSlice = {
+	selectedSponsorShips: null,
 	settled_girdNum: null,
 	selectedBoothStyle: null,
 	current_company: null,
@@ -73,3 +75,8 @@ export const initialMainSlice: MainSlice = {
 		stage: [],
 	},
 };
+
+export interface GenericOption {
+	name: string;
+	code: string
+}
