@@ -30,6 +30,7 @@ import { toObservable } from "@angular/core/rxjs-interop";
 	standalone: true
 })
 export class Exhibitors implements AfterViewInit {
+	rightSettingProcess = viewChild(ExhibitionRightsSettingProcess)
 	messageService = inject(MessageService)
 	modifyProcessService = inject(CompanyUpdateReviewService)
 	mainStore = inject(MainStore);
@@ -55,6 +56,7 @@ export class Exhibitors implements AfterViewInit {
 				// and reset selected exhibition rights
 				// and current company ID in the store
 				if (!value) {
+					this.rightSettingProcess()!.stepper.value.set(1)
 					this.mainStore.setCurrentCompany(null)
 					this.mainStore.resetSelectedExhibitionRights()
 					this.mainStore.setCurrentCompID(null)

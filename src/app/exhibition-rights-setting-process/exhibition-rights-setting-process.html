@@ -1,4 +1,8 @@
-<p-stepper [value]="1" class="basis-[50rem]">
+<p-stepper
+    #stepper
+    [value]="1"
+    class="basis-[50rem]"
+>
     <p-step-list>
         @if (mainStore.isRightChangeModeEnabled()) {
             <p-step [value]="1">參展權益異動設定</p-step>
@@ -23,8 +27,13 @@
                         <p-button (onClick)="activateCallback(2)" icon="pi pi-arrow-right" iconPos="right"
                                   label="前往下一步(權益異動預覽列表)"/>
                     } @else {
-                        <p-button (onClick)="activateCallback(2)" icon="pi pi-arrow-right" iconPos="right"
-                                  label="前往下一步(專屬連結預覽列表)"/>
+                        <p-button
+                                (onClick)="activateCallback(2);
+                                mainStore.onSaveExhibitorRights()"
+                                icon="pi pi-arrow-right"
+                                iconPos="right"
+                                label="前往下一步(專屬連結預覽列表)"
+                        />
                     }
 
                 </div>

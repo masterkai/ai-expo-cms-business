@@ -110,10 +110,10 @@ export const MainStore = signalStore(
 		})))
 
 		const updateCompanyData = () => {
-			const compID = store.current_company()?.unified_business_no
+			const companyID = store.current_company()?.unified_business_no
 			const selected_exhibition_right = store.selected_exhibition_right()
 			patchState(store, updateEntity({
-					id: compID ?? '',
+					id: companyID ?? '',
 					changes: {
 						...selected_exhibition_right
 					}

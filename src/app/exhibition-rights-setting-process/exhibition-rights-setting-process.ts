@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { Button } from "primeng/button";
-import { Step, StepList, StepPanel, StepPanels, Stepper } from "primeng/stepper";
+import { Step, StepList, StepPanel, StepPanels, Stepper as S } from "primeng/stepper";
 import { ExhibitionInfoMenuUi } from "../exhibition-info-menu-ui/exhibition-info-menu-ui";
 import { ExhibitionInfoPreviewUi } from "../exhibition-info-preview-ui/exhibition-info-preview-ui";
 import { MainStore } from "../tables/exhibitors/store/main.store";
@@ -10,7 +10,7 @@ import { RightChangeStore } from "../tables/rights-change-requirements/store/rig
 	selector: 'app-exhibition-rights-setting-process',
 	imports: [
 		Button,
-		Stepper,
+		S,
 		StepList,
 		Step,
 		StepPanels,
@@ -23,12 +23,13 @@ import { RightChangeStore } from "../tables/rights-change-requirements/store/rig
 	standalone: true
 })
 export class ExhibitionRightsSettingProcess {
+	@ViewChild('stepper') stepper!: S;
 	mainStore = inject(MainStore)
 	rightChangeStore = inject(RightChangeStore)
 
 	confirm() {
 		this.mainStore.updateCompanyData()
-		this.mainStore.onSaveExhibitorRights()
+		// this.mainStore.onSaveExhibitorRights()
 		this.mainStore.onSetExhibitionLink()
 		this.mainStore.setIsDialogVisible(false);
 	}
