@@ -60,6 +60,7 @@ export class Exhibitors implements AfterViewInit {
 					this.mainStore.setCurrentCompany(null)
 					this.mainStore.resetSelectedExhibitionRights()
 					this.mainStore.setCurrentCompID(null)
+					this.mainStore.setSelectedSponsorShips(null)
 					this.mainStore.setBoothStyle('')
 					this.mainStore.setGridNumber('')
 				}
