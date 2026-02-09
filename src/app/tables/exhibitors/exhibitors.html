@@ -29,8 +29,8 @@
       </td>
       <td (click)="onClickExhibitorItem(exhibitor)" class="hover:text-blue-600 cursor-pointer">
         <span [pTooltip]="exhibitor.company_name" class="line-clamp-1">{{
-          exhibitor.company_name
-        }}</span>
+            exhibitor.company_name
+          }}</span>
       </td>
       <td>{{ exhibitor.unified_business_no }}</td>
       <td
@@ -100,10 +100,10 @@
 >
   @switch (displayMode()) {
     @case ('edit') {
-      <app-exhibition-rights-setting-process />
+      <app-exhibition-rights-setting-process/>
     }
     @case ('review') {
-      <h1>review</h1>
+      <app-preview-ui/>
     }
   }
 </app-common-dialog>

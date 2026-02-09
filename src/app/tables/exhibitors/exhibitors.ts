@@ -1,21 +1,24 @@
-import { AfterViewInit, Component, inject, signal, viewChild } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { DatePipe } from '@angular/common';
-import { Button } from 'primeng/button';
-import { MainStore } from './store/main.store';
-import { MessageService } from 'primeng/api';
-import { Tooltip } from 'primeng/tooltip';
-import { Option } from '../../services/exhibition-rights-service';
-import { CommonDialog } from '../../shared/components/common-dialog/common-dialog';
-import { ExhibitionRightsSettingProcess } from '../../exhibition-rights-setting-process/exhibition-rights-setting-process';
-import { Company } from './store/main.slice';
-import { FileDownload } from '../../services/file-download';
-import { CompanyUpdateReviewService } from '../../services/company-update-review.service';
-import { toObservable } from '@angular/core/rxjs-interop';
+import {AfterViewInit, Component, inject, signal, viewChild} from '@angular/core';
+import {TableModule} from 'primeng/table';
+import {DatePipe} from '@angular/common';
+import {Button} from 'primeng/button';
+import {MainStore} from './store/main.store';
+import {MessageService} from 'primeng/api';
+import {Tooltip} from 'primeng/tooltip';
+import {Option} from '../../services/exhibition-rights-service';
+import {CommonDialog} from '../../shared/components/common-dialog/common-dialog';
+import {
+  ExhibitionRightsSettingProcess
+} from '../../exhibition-rights-setting-process/exhibition-rights-setting-process';
+import {Company} from './store/main.slice';
+import {FileDownload} from '../../services/file-download';
+import {CompanyUpdateReviewService} from '../../services/company-update-review.service';
+import {toObservable} from '@angular/core/rxjs-interop';
+import {PreviewUi} from './preview-ui/preview-ui';
 
 @Component({
   selector: 'app-exhibitors',
-  imports: [TableModule, DatePipe, Button, Tooltip, CommonDialog, ExhibitionRightsSettingProcess],
+  imports: [TableModule, DatePipe, Button, Tooltip, CommonDialog, ExhibitionRightsSettingProcess, PreviewUi],
   templateUrl: './exhibitors.html',
   styleUrl: './exhibitors.css',
   standalone: true,
@@ -82,7 +85,7 @@ export class Exhibitors implements AfterViewInit {
       })
       .catch((err) => {
         console.error('複製失敗：', err);
-        this.messageService.add({ severity: 'error', summary: '失敗', detail: '連結複製失敗' });
+        this.messageService.add({severity: 'error', summary: '失敗', detail: '連結複製失敗'});
       });
   }
 
@@ -125,7 +128,7 @@ export class Exhibitors implements AfterViewInit {
 
   protected onClickExhibitorItem(exhibitor: Company) {
     this.displayMode.set('edit');
-    this.mainStore.getExhibitionRights({ id: exhibitor.unified_business_no, type: '' });
+    this.mainStore.getExhibitionRights({id: exhibitor.unified_business_no, type: ''});
     this.mainStore.setCurrentCompany(exhibitor);
     this.mainStore.setIsDialogVisible(true);
   }

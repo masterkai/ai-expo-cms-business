@@ -17,30 +17,19 @@ import {
   initialMainSlice,
   Selected_Exhibition_rights,
 } from './main.slice';
-import { computed, effect, inject, Injector, runInInjectionContext } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { ExhibitorService } from '../../../services/exhibitor.service';
-import {
-  ExhibitionRightsService,
-  GetRightsParam,
-  Option,
-  RightItem,
-} from '../../../services/exhibition-rights-service';
+import {computed, effect, inject, Injector, runInInjectionContext} from '@angular/core';
+import {MessageService} from 'primeng/api';
+import {ExhibitorService} from '../../../services/exhibitor.service';
+import {ExhibitionRightsService, GetRightsParam, Option, RightItem,} from '../../../services/exhibition-rights-service';
 import * as updaters from './main.updaters';
-import { withDevtools } from '@angular-architects/ngrx-toolkit';
-import { injectQuery, QueryClient } from '@tanstack/angular-query-experimental';
-import { entityConfig, setAllEntities, updateEntity, withEntities } from '@ngrx/signals/entities';
-import {
-  CACHE_KEY_COMPANY_LIST,
-  CACHE_KEY_RIGHTS_CHANGE_REQUEST_DEMAND_LIST,
-} from '../../../const';
-import { toObservable } from '@angular/core/rxjs-interop';
-import { RightChangeStore } from '../../rights-change-requirements/store/right-change.store';
-import { getHighestSponsorship } from './main.helpers';
-import {
-  CompanyUpdatePayload,
-  CompanyUpdateReviewService,
-} from '../../../services/company-update-review.service';
+import {withDevtools} from '@angular-architects/ngrx-toolkit';
+import {injectQuery, QueryClient} from '@tanstack/angular-query-experimental';
+import {entityConfig, setAllEntities, updateEntity, withEntities} from '@ngrx/signals/entities';
+import {CACHE_KEY_COMPANY_LIST, CACHE_KEY_RIGHTS_CHANGE_REQUEST_DEMAND_LIST,} from '../../../const';
+import {toObservable} from '@angular/core/rxjs-interop';
+import {RightChangeStore} from '../../rights-change-requirements/store/right-change.store';
+import {getHighestSponsorship} from './main.helpers';
+import {CompanyUpdatePayload, CompanyUpdateReviewService,} from '../../../services/company-update-review.service';
 
 const companyConfig = entityConfig({
   entity: type<Company>(),
@@ -61,16 +50,16 @@ export const MainStore = signalStore(
     _injector: inject(Injector),
     // 攤位樣式(設計，標準，素地，新創)
     boothStyles: [
-      { name: '設計', code: 'design' },
-      { name: '標準', code: 'standard' },
-      { name: '素地', code: 'raw' },
-      { name: '新創', code: 'startup' },
+      {name: '設計', code: 'design'},
+      {name: '標準', code: 'standard'},
+      {name: '素地', code: 'raw'},
+      {name: '新創', code: 'startup'},
     ] as BoothStyles[],
     sponsorShips: [
-      { name: '鑽石贊助', code: 'diamond' },
-      { name: '白金贊助', code: 'platinum' },
-      { name: '黃金贊助', code: 'gold' },
-      { name: '銀級贊助', code: 'silver' },
+      {name: '鑽石贊助', code: 'diamond'},
+      {name: '白金贊助', code: 'platinum'},
+      {name: '黃金贊助', code: 'gold'},
+      {name: '銀級贊助', code: 'silver'},
     ],
   })),
   withComputed((store) => {
@@ -168,7 +157,7 @@ export const MainStore = signalStore(
       store._exhibitionRightsService.setLink(compID).subscribe({
         next: (response) => {
           if (response.status === 'success') {
-            store._queryClient.invalidateQueries({ queryKey: CACHE_KEY_COMPANY_LIST }).then(() => {
+            store._queryClient.invalidateQueries({queryKey: CACHE_KEY_COMPANY_LIST}).then(() => {
               store._messageService.add({
                 severity: 'success',
                 summary: '成功',
@@ -223,7 +212,7 @@ export const MainStore = signalStore(
       patchState(store, updaters.setCurrentCompID(compID));
 
     const getExhibitionRights = (data: GetRightsParam) => {
-      store._exhibitionRightsService.getRights({ id: data.id, type: data.type }).subscribe({
+      store._exhibitionRightsService.getRights({id: data.id, type: data.type}).subscribe({
         next: (response) => {
           if (response.status === 'success' && response.data) {
             const data: Exhibition_rights = {
@@ -256,7 +245,7 @@ export const MainStore = signalStore(
         : store.current_compID();
       const items: RightItem[] = Object.entries(store.selected_exhibition_right()).flatMap(
         ([itemCate, arr]) =>
-          arr.map(({ id }: { id: string }) => ({
+          arr.map(({id}: { id: string }) => ({
             id: Number(id),
             itemCate,
             style: itemCate === 'booth' ? store.booth_style() : '',
@@ -352,6 +341,15 @@ export const MainStore = signalStore(
         next: (response) => {
           if (response.status === 'success' && response.data) {
             patchState(store, updaters.setCurrentReviewDATA(response.data));
+          } else {
+            setIsDialogVisible(false)
+            store._messageService.add({
+              severity: 'error',
+              summary: '錯誤',
+              detail: '載入審核資料失敗，請稍後再試。',
+              life: 3000,
+            });
+
           }
         },
         error: (error) => {
