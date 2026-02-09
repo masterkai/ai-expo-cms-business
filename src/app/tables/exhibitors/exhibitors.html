@@ -76,16 +76,31 @@
               size="small"
               variant="outlined"
             ></p-button>
+            <p-button
+              (onClick)="onReviewItem(exhibitor)"
+              fluid
+              label="預覽"
+              size="small"
+              variant="outlined"
+            ></p-button>
           } @else {
-            <span class="grid-items-center">尚未產生連結</span>
+            <!--<span class="grid-items-center">尚未產生連結</span>-->
+            <p-button
+              [disabled]="true"
+              fluid
+              label="尚未產生聯結"
+              size="small"
+              variant="outlined"
+            ></p-button>
+            <p-button
+              [disabled]="true"
+              fluid
+              label="預覽"
+              size="small"
+              variant="outlined"
+            ></p-button>
           }
-          <p-button
-            (onClick)="onReviewItem(exhibitor)"
-            fluid
-            label="預覽"
-            size="small"
-            variant="outlined"
-          ></p-button>
+
         </div>
       </td>
     </tr>
