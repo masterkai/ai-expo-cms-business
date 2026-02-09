@@ -98,5 +98,12 @@
   [visible]="mainStore.isDialog_createLink_Visible()"
   [width]="'90%'"
 >
-  <app-exhibition-rights-setting-process />
+  @switch (displayMode()) {
+    @case ('edit') {
+      <app-exhibition-rights-setting-process />
+    }
+    @case ('review') {
+      <h1>review</h1>
+    }
+  }
 </app-common-dialog>

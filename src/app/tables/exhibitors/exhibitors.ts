@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, viewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, signal, viewChild } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { DatePipe } from '@angular/common';
 import { Button } from 'primeng/button';
@@ -27,11 +27,12 @@ export class Exhibitors implements AfterViewInit {
   mainStore = inject(MainStore);
   dialog = viewChild(CommonDialog);
   downloader = inject(FileDownload);
+  displayMode = signal<DisplayMode>('edit');
 
   constructor() {
     toObservable(this.mainStore.current_compID).subscribe({
       next: (compID) => {
-        console.log('current_compID changed:', compID);
+        // console.log('current_compID changed:', compID);
         if (compID !== '' && compID !== null) {
           this.mainStore.getBoothSpec(compID);
         }
@@ -42,14 +43,17 @@ export class Exhibitors implements AfterViewInit {
   ngAfterViewInit() {
     this.dialog()?.visible$.subscribe({
       next: (value) => {
-        console.log('Dialog visible changed:', value);
+        // console.log('Dialog visible changed:', value);
         // if dialog is closed, clear current company selection
         // and reset selected exhibition rights
         // and current company ID in the store
         if (!value) {
-          this.rightSettingProcess()!.stepper.value.set(1);
+          if (this.rightSettingProcess()) {
+            this.rightSettingProcess()!.stepper.value.set(1);
+          }
           this.mainStore.setCurrentCompany(null);
           this.mainStore.resetSelectedExhibitionRights();
+          this.mainStore.resetCurrentReviewDATA();
           this.mainStore.setCurrentCompID(null);
           this.mainStore.setSelectedSponsorShips(null);
           this.mainStore.setBoothStyle('');
@@ -120,6 +124,7 @@ export class Exhibitors implements AfterViewInit {
   }
 
   protected onClickExhibitorItem(exhibitor: Company) {
+    this.displayMode.set('edit');
     this.mainStore.getExhibitionRights({ id: exhibitor.unified_business_no, type: '' });
     this.mainStore.setCurrentCompany(exhibitor);
     this.mainStore.setIsDialogVisible(true);
@@ -127,6 +132,11 @@ export class Exhibitors implements AfterViewInit {
 
   protected onReviewItem(exhibitor: Company) {
     const uninum = exhibitor.unified_business_no;
-    console.log('unino', uninum);
+    this.mainStore.fetchReviewDATAById(uninum);
+    // console.log('unino', uninum);
+    this.displayMode.set('review');
+    this.mainStore.setIsDialogVisible(true);
   }
 }
+
+export type DisplayMode = 'edit' | 'review';
