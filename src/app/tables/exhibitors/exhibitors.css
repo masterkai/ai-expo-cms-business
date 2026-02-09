@@ -2,4 +2,9 @@
     display: grid;
     place-items: center;
     font-size: 12px;
+    padding: 0.5rem 0.85rem;
+    background-color: rgb(236, 236, 236);
+    border-radius: 0.25rem;
+    /* unclickable */
+    pointer-events: none;
 }

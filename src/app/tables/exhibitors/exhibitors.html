@@ -1,92 +1,102 @@
 <div class="w-full flex items-center flex-start mb-1 gap-[16px]">
-    <p-button
-            (click)="exportCompanyCSV()"
-            label="匯出參展商CSV"
-            size="small"
-    ></p-button>
+  <p-button (click)="exportCompanyCSV()" label="匯出參展商CSV" size="small"></p-button>
 </div>
 <p-table
-        [paginator]="true"
-        [rowsPerPageOptions]="[3, 5, 10, 20]"
-        [rows]="5"
-        [tableStyle]="{ 'min-width': '50rem' }"
-        [value]="mainStore.visibleCompanies()"
+  [paginator]="true"
+  [rowsPerPageOptions]="[3, 5, 10, 20]"
+  [rows]="5"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  [value]="mainStore.visibleCompanies()"
 >
-    <ng-template #header>
-        <tr>
-            <th style="width:12.5%">建立時間</th>
-            <th style="width:16.5%">公司名稱</th>
-            <th style="width:8.5%">統編</th>
-            <th style="width:12.5%">議程場次</th>
-            <th style="width:12.5%">展場攤位</th>
-            <th style="width:12.5%">媒體廣宣</th>
-            <th style="width:12.5%">加購項目</th>
-            <th style="width:12.5%">
-                <div class="w-full flex justify-center">專屬連結</div>
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-exhibitor>
-        <tr>
-            <td>
-                <div class="text-xs">{{ exhibitor.createdate | date: 'yyyy/MM/dd HH:mm:ss' }}</div>
-            </td>
-            <td
-                    (click)="onClickExhibitorItem(exhibitor)"
-                    class="hover:text-blue-600 cursor-pointer"
-            >
-                <span
-                        [pTooltip]="exhibitor.company_name"
-                        class="line-clamp-1"
-                >{{ exhibitor.company_name }}</span>
-            </td>
-            <td>{{ exhibitor.unified_business_no }}</td>
-            <td
-                    [pTooltip]="renderArrayContent(exhibitor.lecture) && renderArrayContent(exhibitor.stage) ? renderArrayContent(exhibitor.lecture) + '; ' + renderArrayContent(exhibitor.stage) : (renderArrayContent(exhibitor.lecture) || renderArrayContent(exhibitor.stage))"
-                    class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5"
-            >{{ renderArrayContent(exhibitor.lecture) && renderArrayContent(exhibitor.stage) ? renderArrayContent(exhibitor.lecture) + '; ' + renderArrayContent(exhibitor.stage) : (renderArrayContent(exhibitor.lecture) || renderArrayContent(exhibitor.stage)) }}
-            </td>
-            <td
-                    [pTooltip]="renderArrayContent(exhibitor.booth)"
-                    class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5"
-            >{{ renderArrayContent(exhibitor.booth) }}
-            </td>
-            <td
-                    [pTooltip]="renderArrayContent(exhibitor.promotion)"
-                    class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5"
-            >
-                {{ renderArrayContent(exhibitor.promotion) }}
-            </td>
-            <td
-                    [pTooltip]="renderArrayContent(exhibitor.optional)"
-                    class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5 "
-            >
-                {{ renderArrayContent(exhibitor.optional) }}
-            </td>
-            <td>
-                @if (exhibitor.link.length > 0) {
-                    <p-button
-                            (onClick)="copyLinkToClipboard(exhibitor)"
-                            fluid
-                            icon="pi pi-link"
-                            label="複製聯結"
-                            size="small"
-                            variant="outlined"
-                    ></p-button>
-                } @else {
-                    <span class="grid-items-center">尚未產生連結</span>
-                }
-
-            </td>
-        </tr>
-    </ng-template>
+  <ng-template #header>
+    <tr>
+      <th style="width: 10%">建立時間</th>
+      <th style="width: 14%">公司名稱</th>
+      <th style="width: 8.5%">統編</th>
+      <th style="width: 12.5%">議程場次</th>
+      <th style="width: 12.5%">展場攤位</th>
+      <th style="width: 12.5%">媒體廣宣</th>
+      <th style="width: 12.5%">加購項目</th>
+      <th style="width: 17.5%">
+        <div class="w-full flex justify-center">專屬連結 / action</div>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-exhibitor>
+    <tr>
+      <td>
+        <div class="text-xs">{{ exhibitor.createdate | date: 'yyyy/MM/dd HH:mm:ss' }}</div>
+      </td>
+      <td (click)="onClickExhibitorItem(exhibitor)" class="hover:text-blue-600 cursor-pointer">
+        <span [pTooltip]="exhibitor.company_name" class="line-clamp-1">{{
+          exhibitor.company_name
+        }}</span>
+      </td>
+      <td>{{ exhibitor.unified_business_no }}</td>
+      <td
+        [pTooltip]="
+          renderArrayContent(exhibitor.lecture) && renderArrayContent(exhibitor.stage)
+            ? renderArrayContent(exhibitor.lecture) + '; ' + renderArrayContent(exhibitor.stage)
+            : renderArrayContent(exhibitor.lecture) || renderArrayContent(exhibitor.stage)
+        "
+        class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5"
+      >
+        {{
+          renderArrayContent(exhibitor.lecture) && renderArrayContent(exhibitor.stage)
+            ? renderArrayContent(exhibitor.lecture) + '; ' + renderArrayContent(exhibitor.stage)
+            : renderArrayContent(exhibitor.lecture) || renderArrayContent(exhibitor.stage)
+        }}
+      </td>
+      <td
+        [pTooltip]="renderArrayContent(exhibitor.booth)"
+        class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5"
+      >
+        {{ renderArrayContent(exhibitor.booth) }}
+      </td>
+      <td
+        [pTooltip]="renderArrayContent(exhibitor.promotion)"
+        class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5"
+      >
+        {{ renderArrayContent(exhibitor.promotion) }}
+      </td>
+      <td
+        [pTooltip]="renderArrayContent(exhibitor.optional)"
+        class="overflow-hidden text-ellipsis whitespace-nowrap max-w-37.5"
+      >
+        {{ renderArrayContent(exhibitor.optional) }}
+      </td>
+      <td>
+        <div class="w-full flex gap-1 justify-center items-center">
+          @if (exhibitor.link.length > 0) {
+            <p-button
+              (onClick)="copyLinkToClipboard(exhibitor)"
+              fluid
+              icon="pi pi-link"
+              label="複製聯結"
+              size="small"
+              variant="outlined"
+            ></p-button>
+          } @else {
+            <span class="grid-items-center">尚未產生連結</span>
+          }
+          <p-button
+            (onClick)="onReviewItem(exhibitor)"
+            fluid
+            label="預覽"
+            size="small"
+            variant="outlined"
+          ></p-button>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
 </p-table>
 
 <app-common-dialog
-        [header]="''"
-        [needTopSpace]="true"
-        [visible]="mainStore.isDialog_createLink_Visible()"
-        [width]="'90%'">
-
-    <app-exhibition-rights-setting-process/>
+  [header]="''"
+  [needTopSpace]="true"
+  [visible]="mainStore.isDialog_createLink_Visible()"
+  [width]="'90%'"
+>
+  <app-exhibition-rights-setting-process />
 </app-common-dialog>
