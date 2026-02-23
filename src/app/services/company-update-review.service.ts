@@ -214,6 +214,8 @@ export interface SpeakerInformation {
 	ebiography?: string;
 	speaker_photo?: string;
 	speech_manuscript?: string;
+	speech_topic: string;
+	espeech_topic?: string;
 	speech_highlights: { highlight: string }[];
 	speech_highlights_en: { highlight: string }[];
 	briefing?: string;

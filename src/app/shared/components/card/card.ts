@@ -3,12 +3,14 @@ import { SpeakerAttachedFile } from "../speaker-attached-file/speaker-attached-f
 import { Tooltip } from "primeng/tooltip";
 import { environment } from "../../../../environments/environment";
 import { SpeakerInformation } from "../../../services/company-update-review.service";
+import { Divider } from "primeng/divider";
 
 @Component({
 	selector: 'app-card',
 	imports: [
 		SpeakerAttachedFile,
-		Tooltip
+		Tooltip,
+		Divider
 	],
 	templateUrl: './card.html',
 	styleUrl: './card.scss'

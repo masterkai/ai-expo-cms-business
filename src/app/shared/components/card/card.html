@@ -1,45 +1,89 @@
 <div class="card">
-    <div class="speaker-block">
-        <div class="speaker-image-wrapper">
-            <div [style.background-image]="'url(' + (speaker_information().speaker_photo || '') + ')'"
-                 class="speaker-image"
-            ></div>
-            <div
-                    class="speaker-photo-file-name"
-            >{{ getSpeakerPhotoFileName(speaker_information().speaker_photo || '') }}
-            </div>
-        </div>
-        <div class="speaker-profile">
-            <h3>{{ speaker_information().name }}/{{ speaker_information().ename }}</h3>
-            <h4>{{ speaker_information().title }}/{{ speaker_information().etitle }}</h4>
-        </div>
-    </div>
-    <div class="flex flex-col gap-1">
-        <p
-                [pTooltip]="speaker_information().biography"
-                class="speaker-bio"
-        >{{ speaker_information().biography }}</p>
-        <p
-                [pTooltip]="speaker_information().ebiography"
-                class="speaker-bio"
-        >{{ speaker_information().ebiography }}</p>
-    </div>
-    <div class="speaker-files-block">
-        @if (speaker_information().speech_manuscript) {
-            <app-speaker-attached-file
-                    [data]="speaker_information().speech_manuscript || ''"
-                    alt="pdf icon"
-                    icon="pdf"
-                    title="講稿"></app-speaker-attached-file>
-        }
-        @if (speaker_information().briefing) {
-            <app-speaker-attached-file
-                    [data]="speaker_information().briefing || ''"
-                    alt="ppt icon"
-                    icon="ppt"
-                    title="簡報"></app-speaker-attached-file>
-        }
+	<div class="speaker-block">
+		<div class="speaker-image-wrapper">
+			<div [style.background-image]="'url(' + (speaker_information().speaker_photo || '') + ')'"
+			     class="speaker-image"
+			></div>
+			<div
+					class="speaker-photo-file-name"
+			>{{ getSpeakerPhotoFileName(speaker_information().speaker_photo || '') }}
+			</div>
+		</div>
+		<div class="speaker-profile">
+			<h3>{{ speaker_information().name }}/{{ speaker_information().ename }}</h3>
+			<h4>{{ speaker_information().title }}/{{ speaker_information().etitle }}</h4>
+		</div>
+	</div>
+	<div class="flex flex-col gap-1">
+		<p
+				[pTooltip]="speaker_information().biography"
+				class="speaker-bio"
+		>{{ speaker_information().biography }}</p>
+		<p
+				[pTooltip]="speaker_information().ebiography"
+				class="speaker-bio"
+		>{{ speaker_information().ebiography }}</p>
+	</div>
+	<p-divider align="left" type="solid">
+		<b>演講主題</b>
+	</p-divider>
+	<div class="flex flex-col gap-1">
+		<p
+				[pTooltip]="speaker_information().speech_topic"
+				class="speaker-bio"
+		>{{ speaker_information().speech_topic }}</p>
+		<p
+				[pTooltip]="speaker_information().espeech_topic"
+				class="speaker-bio"
+		>{{ speaker_information().espeech_topic }}</p>
+	</div>
+	<p-divider align="left" type="solid">
+		<b>演講亮點</b>
+	</p-divider>
+	<div class="flex flex-col gap-1">
+		@for (highlight of speaker_information().speech_highlights; track $index) {
+			<p
+					[pTooltip]="highlight.highlight"
+					class="flex items-center gap-2"
+			>
+				<i
+						class="pi pi-circle-fill"
+						style="font-size: .5rem"
+				></i>
+				<span class="break-all">{{ highlight.highlight }}</span>
+			</p>
+		}
+		@for (highlight of speaker_information().speech_highlights_en; track $index) {
+			<p
+					[pTooltip]="highlight.highlight"
+					class="flex items-center gap-2"
+			>
+				<i
+						class="pi pi-circle-fill"
+						style="font-size: .5rem"
+				></i>
+				<span class="break-all">{{ highlight.highlight }}</span></p>
+		}
+	</div>
+	<p-divider align="left" type="solid">
+		<b>相關檔案</b>
+	</p-divider>
+	<div class="speaker-files-block">
+		@if (speaker_information().speech_manuscript) {
+			<app-speaker-attached-file
+					[data]="speaker_information().speech_manuscript || ''"
+					alt="pdf icon"
+					icon="pdf"
+					title="講稿"></app-speaker-attached-file>
+		}
+		@if (speaker_information().briefing) {
+			<app-speaker-attached-file
+					[data]="speaker_information().briefing || ''"
+					alt="ppt icon"
+					icon="ppt"
+					title="簡報"></app-speaker-attached-file>
+		}
 
 
-    </div>
+	</div>
 </div>
