@@ -63,6 +63,7 @@ export const initialMainSlice: MainSlice = {
 	booth_style: '',
 	grid_num: '',
 	exhibition_rights: {
+		rights_level: '',
 		sponsorship_benefits: [],
 		lecture: [],
 		optional: [],

@@ -73,10 +73,19 @@ export const MainStore = signalStore(
 			getHighestSponsorship(store.selected_exhibition_right()),
 		);
 		const isRightChangeModeEnabled = computed(() => store._rightChangeStore.right_change_mode());
+		const levelDisplay = computed(() => {
+			const rights_level = store.exhibition_rights().rights_level;
+			if (rights_level !== '' && rights_level !== null && rights_level !== undefined) {
+				return rights_level
+			}
+			return store.selectedSponsorShips() !== null ? store.selectedSponsorShips()!.name : computed_sponsor_ships()
+		})
+
 		return {
 			visibleCompanies,
 			isRightChangeModeEnabled,
 			computed_sponsor_ships,
+			levelDisplay
 		};
 	}),
 	withMethods((store) => {
