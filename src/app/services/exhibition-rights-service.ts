@@ -122,6 +122,7 @@ export interface RightsDATA {
 	compID: string;
 	company_name: string;
 	unified_business_no: string;
+	rights_level: string;
 	rights: Right[];
 	lecture: Option[];
 	booth: Option[];
