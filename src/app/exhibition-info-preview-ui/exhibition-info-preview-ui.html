@@ -1,47 +1,47 @@
 @if (!hasExhibitionRights()) {
-    <div class="no-data-message">
-        尚未選擇任何參展權益設定項目
-    </div>
+	<div class="no-data-message">
+		尚未選擇任何參展權益設定項目
+	</div>
 }
 
 <div class="preview-container">
-    @if (mainStore.computed_sponsor_ships()) {
-        <div class="item">
-            <strong>贊助權益:</strong>
-            <span class="text-[14px]">{{ mainStore.computed_sponsor_ships() }}</span>
-        </div>
-    }
+	@if (mainStore.computed_sponsor_ships()) {
+		<div class="item">
+			<strong>贊助權益:</strong>
+			<span class="text-[14px]">{{ mainStore.levelDisplay() }}</span>
+		</div>
+	}
 
-    @if (mainStore.selected_exhibition_right().lecture) {
-        <div class="item">
-            <strong>不知講座議程:</strong>
-            <span class="text-[14px]">{{ renderArrayContent(mainStore.selected_exhibition_right().lecture) }}</span>
-        </div>
-    }
-    @if (mainStore.selected_exhibition_right().stage) {
-        <div class="item">
-            <strong>未來講座議程:</strong>
-            <span class="text-[14px]">{{ renderArrayContent(mainStore.selected_exhibition_right().stage) }}</span>
-        </div>
-    }
-    @if (mainStore.selected_exhibition_right().promotion && mainStore.selected_exhibition_right().promotion.length > 0) {
-        <div class="item">
-            <strong>媒體廣宣:</strong>
+	@if (mainStore.selected_exhibition_right().lecture) {
+		<div class="item">
+			<strong>不知講座議程:</strong>
+			<span class="text-[14px]">{{ renderArrayContent(mainStore.selected_exhibition_right().lecture) }}</span>
+		</div>
+	}
+	@if (mainStore.selected_exhibition_right().stage) {
+		<div class="item">
+			<strong>未來講座議程:</strong>
+			<span class="text-[14px]">{{ renderArrayContent(mainStore.selected_exhibition_right().stage) }}</span>
+		</div>
+	}
+	@if (mainStore.selected_exhibition_right().promotion && mainStore.selected_exhibition_right().promotion.length > 0) {
+		<div class="item">
+			<strong>媒體廣宣:</strong>
 
-            <div class="text-[14px]">{{ renderArrayContent(mainStore.selected_exhibition_right().promotion) }}</div>
-        </div>
-    }
-    @if (mainStore.selected_exhibition_right().optional && mainStore.selected_exhibition_right().optional.length > 0) {
-        <div class="item">
-            <strong>加購項目:</strong>
-            <div class="text-[14px]">{{ renderArrayContent(mainStore.selected_exhibition_right().optional) }}</div>
-        </div>
-    }
-    @if (mainStore.selected_exhibition_right().booth) {
-        <div class="item">
-            <strong>展場攤位:</strong>
-            <span class="text-[14px]">{{ renderArrayContent(mainStore.selected_exhibition_right().booth) }}
-                | (樣式：{{ mainStore.booth_style() }}) | (格數：{{ mainStore.grid_num() }})</span>
-        </div>
-    }
+			<div class="text-[14px]">{{ renderArrayContent(mainStore.selected_exhibition_right().promotion) }}</div>
+		</div>
+	}
+	@if (mainStore.selected_exhibition_right().optional && mainStore.selected_exhibition_right().optional.length > 0) {
+		<div class="item">
+			<strong>加購項目:</strong>
+			<div class="text-[14px]">{{ renderArrayContent(mainStore.selected_exhibition_right().optional) }}</div>
+		</div>
+	}
+	@if (mainStore.selected_exhibition_right().booth) {
+		<div class="item">
+			<strong>展場攤位:</strong>
+			<span class="text-[14px]">{{ renderArrayContent(mainStore.selected_exhibition_right().booth) }}
+				| (樣式：{{ mainStore.booth_style() }}) | (格數：{{ mainStore.grid_num() }})</span>
+		</div>
+	}
 </div>
